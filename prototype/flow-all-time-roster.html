@@ -1,0 +1,1441 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Flow All-Time Roster</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:ital,wght@0,700;0,800;0,900;1,900&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#F6F5F0;
+    --surface:#FFFFFF;
+    --surface-2:#ECEEF1;
+    --text:#16283D;
+    --text-muted:#55647A;
+    --border:#D8DCE3;
+    --accent:#1B3A5A;
+    --accent-soft:#E3E9F0;
+    --accent2:#B8923F;
+    --accent2-soft:#F5EBD6;
+    --shadow: 0 1px 2px rgba(20,35,50,0.07), 0 6px 20px rgba(20,35,50,0.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0D1826;
+      --surface:#142234;
+      --surface-2:#1B2C42;
+      --text:#EAEEF3;
+      --text-muted:#93A2B8;
+      --border:#26374C;
+      --accent:#6E9CC7;
+      --accent-soft:#1E3350;
+      --accent2:#D8B168;
+      --accent2-soft:#3A2E14;
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 28px rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0D1826;
+    --surface:#142234;
+    --surface-2:#1B2C42;
+    --text:#EAEEF3;
+    --text-muted:#93A2B8;
+    --border:#26374C;
+    --accent:#6E9CC7;
+    --accent-soft:#1E3350;
+    --accent2:#D8B168;
+    --accent2-soft:#3A2E14;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 28px rgba(0,0,0,0.4);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Archivo", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+
+  .wrap{
+    max-width:980px;
+    margin:0 auto;
+    padding:2.5rem 1.5rem 5rem;
+  }
+
+  /* ---------- tabs ---------- */
+  .tabs{
+    display:flex;
+    gap:1.75rem;
+    border-bottom:1px solid var(--border);
+    margin-bottom:1.25rem;
+  }
+  .tab-btn{
+    appearance:none;
+    border:none;
+    background:transparent;
+    color:var(--text-muted);
+    font-family:"Archivo Expanded", sans-serif;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    font-size:1.1rem;
+    padding:0.7rem 0.1rem 0.8rem;
+    margin-bottom:-1px;
+    border-bottom:2px solid transparent;
+    cursor:pointer;
+  }
+  .tab-btn:hover{color:var(--text);}
+  .tab-btn.active{color:var(--accent); border-bottom-color:var(--accent);}
+  .tab-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  #surfaceFilter{margin-bottom:1.75rem;}
+
+  /* ---------- leaders ---------- */
+  .leaders{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:2rem;
+  }
+  .leader-card{
+    background:var(--surface);
+    padding:1rem 1.15rem 1.1rem;
+  }
+  .leader-card h3{
+    font-family:"JetBrains Mono", monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.07em;
+    color:var(--text-muted);
+    margin:0 0 0.7rem;
+    font-weight:600;
+  }
+  .leader-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:0.45rem;
+  }
+  .leader-item{
+    display:flex;
+    align-items:baseline;
+    gap:0.5rem;
+  }
+  .leader-rank{
+    font-family:"JetBrains Mono", monospace;
+    font-size:0.76rem;
+    color:var(--accent2);
+    font-weight:700;
+    width:1rem;
+    flex:0 0 auto;
+  }
+  .leader-name{
+    flex:1 1 auto;
+    font-weight:600;
+    font-size:0.88rem;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    min-width:0;
+  }
+  .leader-val{
+    flex:0 0 auto;
+    font-variant-numeric:tabular-nums;
+    font-weight:700;
+    color:var(--accent);
+    font-family:"JetBrains Mono", monospace;
+    font-size:0.86rem;
+  }
+  @media (max-width: 640px){
+    .leaders{grid-template-columns:1fr;}
+  }
+
+  /* ---------- passing network ---------- */
+  .network-section{margin-bottom:2rem;}
+  .network-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:0.6rem;
+    flex-wrap:wrap;
+    margin-bottom:0.75rem;
+  }
+  .network-title{
+    font-family:"Archivo Expanded", sans-serif; font-weight:800;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    font-size:1.35rem;
+    margin:0;
+  }
+  .network-wrap{
+    display:flex;
+    gap:1.5rem;
+    align-items:stretch;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:1.25rem;
+    flex-wrap:wrap;
+  }
+  .network-chart{
+    flex:1 1 340px;
+    min-width:260px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .network-chart svg{width:100%; height:auto; display:block; max-width:620px;}
+  .net-edge{fill:none; stroke:var(--accent); transition:opacity 0.15s ease, stroke 0.15s ease;}
+  .net-edge.hi{stroke:var(--accent2);}
+  .net-node{cursor:pointer;}
+  .net-node circle{fill:var(--surface); stroke:var(--accent); stroke-width:1.6; transition:fill 0.15s ease, stroke 0.15s ease, opacity 0.15s ease;}
+  .net-node text{font-family:"JetBrains Mono", monospace; font-size:9px; fill:var(--text-muted); pointer-events:none; transition:fill 0.15s ease, opacity 0.15s ease;}
+  .net-node.dim{opacity:0.28;}
+  .net-node.active circle, .net-node.hi circle{fill:var(--accent2); stroke:var(--accent2);}
+  .net-node.active text, .net-node.hi text{fill:var(--text); font-weight:700;}
+  .net-node:hover circle{stroke:var(--accent2);}
+  .network-panel{
+    flex:0 0 210px;
+    min-width:190px;
+  }
+  .network-panel h4{
+    font-family:"JetBrains Mono", monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--text-muted);
+    margin:0 0 0.5rem;
+  }
+  .np-name{
+    font-family:"Archivo Expanded", sans-serif; font-weight:800;
+    font-weight:800;
+    text-transform:uppercase;
+    font-size:1.3rem;
+    margin:0 0 0.15rem;
+    line-height:1.05;
+  }
+  .np-sub{
+    font-size:0.76rem;
+    color:var(--text-muted);
+    font-family:"JetBrains Mono", monospace;
+    margin:0 0 0.85rem;
+  }
+  .np-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:0.4rem;
+  }
+  .np-list li{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:0.5rem;
+    font-size:0.83rem;
+  }
+  .np-partner{
+    font-weight:600;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    min-width:0;
+  }
+  .np-count{
+    font-family:"JetBrains Mono", monospace;
+    color:var(--accent);
+    font-weight:700;
+    flex:0 0 auto;
+  }
+  .network-empty{
+    color:var(--text-muted);
+    font-size:0.84rem;
+  }
+  .network-empty strong{color:var(--text);}
+
+  /* ---------- head-to-head ---------- */
+  .h2h-section{margin-bottom:2rem;}
+  .h2h-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:0.6rem;
+    flex-wrap:wrap;
+    margin-bottom:0.75rem;
+  }
+  .h2h-title{
+    font-family:"Archivo Expanded", sans-serif;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    font-size:1.35rem;
+    margin:0;
+  }
+  .h2h-record{
+    font-family:"JetBrains Mono", monospace;
+    font-size:0.82rem;
+    color:var(--text-muted);
+  }
+  .h2h-record strong{color:var(--accent); font-weight:700;}
+  .h2h-search{
+    display:block;
+    position:relative;
+    max-width:280px;
+    margin-bottom:1.25rem;
+  }
+  .h2h-search input{
+    width:100%;
+    height:2.5rem;
+    box-sizing:border-box;
+    padding:0 0.85rem 0 2.2rem;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    font-family:inherit;
+    font-size:0.88rem;
+  }
+  .h2h-search input:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  .h2h-search svg{
+    position:absolute;
+    left:0.7rem;
+    top:50%;
+    transform:translateY(-50%);
+    width:14px;
+    height:14px;
+    color:var(--text-muted);
+  }
+  .col-diff{font-variant-numeric:tabular-nums;}
+  .col-diff.pos{color:var(--accent);}
+  .col-diff.neg{color:var(--text-muted);}
+  #h2hTable td.h2h-best{font-weight:700; color:var(--text);}
+  .h2h-count{
+    margin-top:0.6rem;
+    color:var(--text-muted);
+    font-size:0.78rem;
+    font-family:"JetBrains Mono", monospace;
+  }
+
+  /* ---------- controls ---------- */
+  .controls{
+    display:flex;
+    gap:0.75rem;
+    align-items:center;
+    margin-bottom:1rem;
+    flex-wrap:wrap;
+  }
+  .search{
+    position:relative;
+    flex:1 1 200px;
+  }
+  .search input{
+    width:100%;
+    height:2.5rem;
+    box-sizing:border-box;
+    padding:0 0.85rem 0 2.2rem;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    font-family:inherit;
+    font-size:0.92rem;
+  }
+  .search input:focus{
+    outline:2px solid var(--accent);
+    outline-offset:1px;
+  }
+  .search svg{
+    position:absolute;
+    left:0.7rem;
+    top:50%;
+    transform:translateY(-50%);
+    width:15px;
+    height:15px;
+    color:var(--text-muted);
+  }
+
+  .tournament-select{
+    position:relative;
+    flex:0 0 auto;
+  }
+  .tournament-select select{
+    appearance:none;
+    height:2.5rem;
+    box-sizing:border-box;
+    padding:0 2.1rem 0 0.9rem;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    font-family:"Archivo", sans-serif;
+    font-size:0.86rem;
+    font-weight:600;
+    cursor:pointer;
+    max-width:220px;
+  }
+  .tournament-select select:focus{
+    outline:2px solid var(--accent);
+    outline-offset:1px;
+  }
+  .tournament-select::after{
+    content:"";
+    position:absolute;
+    right:0.85rem;
+    top:50%;
+    width:0.5rem;
+    height:0.5rem;
+    border-right:1.5px solid var(--text-muted);
+    border-bottom:1.5px solid var(--text-muted);
+    transform:translateY(-70%) rotate(45deg);
+    pointer-events:none;
+  }
+
+  /* ---------- table ---------- */
+  .table-shell{
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:auto;
+    background:var(--surface);
+    box-shadow:var(--shadow);
+  }
+  table{
+    border-collapse:collapse;
+    width:100%;
+    min-width:640px;
+    font-variant-numeric:tabular-nums;
+  }
+  thead th{
+    position:sticky;
+    top:0;
+    background:var(--surface-2);
+    z-index:1;
+    text-align:right;
+    font-family:"Archivo Expanded", sans-serif; font-weight:800;
+    font-size:0.82rem;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    color:var(--text-muted);
+    padding:0.65rem 0.9rem;
+    border-bottom:1px solid var(--border);
+    cursor:pointer;
+    white-space:nowrap;
+    user-select:none;
+  }
+  thead th:hover{color:var(--text);}
+  thead th:focus-visible{outline:2px solid var(--accent); outline-offset:-2px;}
+  thead th.col-rank, thead th.col-player{text-align:left;}
+  thead th .arrow{
+    display:inline-block;
+    margin-left:0.25rem;
+    opacity:0;
+    color:var(--accent);
+  }
+  thead th.sorted .arrow{opacity:1;}
+
+  tbody td{
+    padding:0.55rem 0.9rem;
+    border-bottom:1px solid var(--border);
+    text-align:right;
+    font-size:0.9rem;
+    white-space:nowrap;
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--accent-soft);}
+  td.col-rank{
+    text-align:left;
+    font-family:"JetBrains Mono", monospace;
+    color:var(--text-muted);
+    font-size:0.8rem;
+    width:2.6rem;
+  }
+  td.col-player{
+    text-align:left;
+    font-weight:600;
+    color:var(--text);
+  }
+  td.col-player .meta{
+    display:flex;
+    align-items:center;
+    gap:0.4rem;
+    margin-top:0.2rem;
+  }
+  td.col-player .seasons{
+    font-weight:500;
+    font-size:0.76rem;
+    color:var(--text-muted);
+    font-family:"Archivo", sans-serif;
+    white-space:nowrap;
+  }
+  .chev{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:13px;
+    height:13px;
+    margin-right:0.4rem;
+    color:var(--text-muted);
+    transition:transform 0.15s ease;
+    vertical-align:middle;
+    flex:0 0 auto;
+  }
+  .jersey-badge{
+    display:inline-block;
+    font-family:"JetBrains Mono", monospace;
+    font-size:0.7rem;
+    font-weight:600;
+    color:var(--text-muted);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:0.05rem 0.32rem;
+    margin-left:0.5rem;
+    vertical-align:middle;
+    white-space:nowrap;
+  }
+  tr.expanded .jersey-badge{color:var(--accent); border-color:var(--accent);}
+  .chev svg{width:100%; height:100%;}
+  tbody tr[data-player]{cursor:pointer;}
+  tr.expanded td.col-player{color:var(--accent);}
+  tr.expanded .chev{transform:rotate(90deg); color:var(--accent);}
+  tr.expanded td{background:var(--accent-soft);}
+
+  /* ---------- expanded player detail ---------- */
+  tr.expand-row td{
+    background:var(--surface-2);
+    padding:0.45rem 0.9rem 0.55rem;
+    cursor:default;
+    white-space:normal;
+    border-bottom:1px solid var(--border);
+  }
+  .expand-sub{
+    font-size:0.78rem;
+    color:var(--text-muted);
+    font-family:"Archivo", sans-serif;
+    font-weight:500;
+    margin:0 0 0.3rem;
+  }
+  .expand-chart-wrap{
+    overflow-x:auto;
+    margin-bottom:0.35rem;
+  }
+  .expand-chart-wrap svg{display:block;}
+  .expand-chart-wrap .bar-val{font-family:"JetBrains Mono", monospace;}
+  .expand-section-title{
+    font-family:"JetBrains Mono", monospace;
+    font-size:0.66rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-muted);
+    margin:0 0 0.2rem;
+  }
+  .expand-table{
+    width:100%;
+    border-collapse:collapse;
+    font-variant-numeric:tabular-nums;
+  }
+  .expand-table th{
+    text-align:right;
+    font-family:"Archivo Expanded", sans-serif;
+    font-weight:800;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    color:var(--text-muted);
+    padding:0.12rem 0.45rem;
+    border-bottom:1px solid var(--border);
+  }
+  .expand-table th:first-child{text-align:left;}
+  .expand-table td{
+    text-align:right;
+    padding:0.13rem 0.45rem;
+    border-bottom:1px solid var(--border);
+    font-size:0.82rem;
+  }
+  .expand-table td:first-child{text-align:left; font-weight:600;}
+  .expand-table tr:last-child td{border-bottom:none;}
+  .expand-table tr.all-row td{color:var(--accent); font-weight:700;}
+  .expand-table tr.active-row td{background:var(--accent-soft);}
+  td.col-total{
+    font-family:"Archivo Expanded", sans-serif; font-weight:800;
+    font-size:0.98rem;
+    color:var(--accent);
+  }
+  .bar-cell{
+    position:relative;
+  }
+  .bar-track{
+    position:absolute;
+    left:0.9rem; right:0.9rem; bottom:0.32rem;
+    height:3px;
+    background:var(--border);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    background:var(--accent);
+    border-radius:2px;
+  }
+  tr.top3 td.col-rank{color:var(--accent2); font-weight:700;}
+  tr.top3 td.col-player{color:var(--accent2);}
+
+  .empty-row td{
+    text-align:center;
+    color:var(--text-muted);
+    padding:2rem;
+    font-style:italic;
+  }
+
+  footer{
+    margin-top:2rem;
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+    color:var(--text-muted);
+    font-size:0.78rem;
+    font-family:"JetBrains Mono", monospace;
+  }
+  footer a{color:var(--accent); text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+
+  /* ---------- surface filter ---------- */
+  .surface-filter{
+    display:inline-flex;
+    gap:2px;
+    padding:3px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:9px;
+    flex:0 0 auto;
+  }
+  .surface-filter button{
+    appearance:none;
+    border:none;
+    background:transparent;
+    color:var(--text-muted);
+    font-family:"Archivo", sans-serif;
+    font-size:0.84rem;
+    font-weight:600;
+    padding:0.4rem 0.8rem;
+    border-radius:6px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:0.4rem;
+    white-space:nowrap;
+  }
+  .surface-filter button .surf-icon{
+    width:14px; height:14px;
+    flex:0 0 auto;
+    opacity:0.6;
+  }
+  #surfaceFilter{display:flex; width:100%;}
+  #surfaceFilter button{flex:1; justify-content:center;}
+  #metricToggle{height:2.5rem; box-sizing:border-box;}
+  #metricToggle button{padding-top:0; padding-bottom:0;}
+  .surface-filter button:hover{color:var(--text);}
+  .surface-filter button.active{
+    background:var(--surface);
+    color:var(--accent);
+    box-shadow:var(--shadow);
+  }
+  .surface-filter button.active .surf-icon{opacity:1;}
+  .surface-filter button:focus-visible{outline:2px solid var(--accent); outline-offset:1px;}
+</style>
+
+<div class="wrap">
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button type="button" class="tab-btn active" data-tab="players" role="tab" aria-selected="true">Players</button>
+    <button type="button" class="tab-btn" data-tab="team" role="tab" aria-selected="false">Team</button>
+  </nav>
+
+  <div class="surface-filter" id="surfaceFilter" role="tablist" aria-label="Filter by surface">
+    <button type="button" class="active" data-surface="all" role="tab" aria-selected="true"><svg class="surf-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1"/><rect x="9" y="1.5" width="5.5" height="5.5" rx="1"/><rect x="1.5" y="9" width="5.5" height="5.5" rx="1"/><rect x="9" y="9" width="5.5" height="5.5" rx="1"/></svg>All surfaces</button>
+    <button type="button" data-surface="outdoor" role="tab" aria-selected="false"><svg class="surf-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1v1.4M8 13.6V15M15 8h-1.4M2.4 8H1M12.9 3.1l-1 1M4.1 11.9l-1 1M12.9 12.9l-1-1M4.1 4.1l-1-1"/></svg>Outdoor</button>
+    <button type="button" data-surface="beach" role="tab" aria-selected="false"><svg class="surf-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="1.5" r="0.5" fill="currentColor" stroke="none"/><path d="M1.5 7.5C1.5 4 4.4 1.5 8 1.5S14.5 4 14.5 7.5"/><path d="M8 2v11"/><path d="M1 14.6q3.5-1.6 7 0t7 0"/></svg>Beach</button>
+    <button type="button" data-surface="indoor" role="tab" aria-selected="false"><svg class="surf-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8.5 8 3l6 5.5"/><path d="M3.5 7.5V14h9V7.5"/></svg>Indoor</button>
+  </div>
+
+  <div class="tab-panel" id="panelPlayers">
+
+    <section class="leaders" id="leadersSection"></section>
+
+    <div class="controls">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="searchBox" placeholder="Find a player&hellip;" autocomplete="off">
+      </label>
+      <label class="tournament-select">
+        <select id="tournamentFilter" aria-label="Filter by tournament">
+          <option value="all">All tournaments</option>
+          <optgroup label="Outdoor">
+            <option value="ppm">Puchar Polski Mixed</option>
+            <option value="mpm">Mistrzostwa Polski Mixed</option>
+            <option value="wlu">WLU* (Liga)</option>
+            <option value="plu">Południowa Liga Ultimate</option>
+          </optgroup>
+          <optgroup label="Beach">
+            <option value="beachcup">Plażowe / Beach Ultimate</option>
+          </optgroup>
+          <optgroup label="Indoor">
+            <option value="hmp">Halowe Mistrzostwa Polski</option>
+            <option value="poligon">Poligon</option>
+          </optgroup>
+        </select>
+      </label>
+      <div class="surface-filter" id="metricToggle" role="tablist" aria-label="Metric display">
+        <button type="button" class="active" data-metric="total" role="tab" aria-selected="true">Totals</button>
+        <button type="button" data-metric="perGame" role="tab" aria-selected="false">Per Game</button>
+        <button type="button" data-metric="perSeason" role="tab" aria-selected="false">Per Season</button>
+      </div>
+    </div>
+
+    <div class="table-shell">
+      <table id="rosterTable">
+        <thead>
+          <tr>
+            <th class="col-rank" data-key="rank" tabindex="0">#</th>
+            <th class="col-player" data-key="name" tabindex="0">Player<span class="arrow">&darr;</span></th>
+            <th data-key="seasons" tabindex="0">Seasons<span class="arrow">&darr;</span></th>
+            <th data-key="games" tabindex="0">Games<span class="arrow">&darr;</span></th>
+            <th data-key="assists" tabindex="0">Assists<span class="arrow">&darr;</span></th>
+            <th data-key="points" tabindex="0">Goals<span class="arrow">&darr;</span></th>
+            <th data-key="sum" tabindex="0">Total<span class="arrow">&darr;</span></th>
+          </tr>
+        </thead>
+        <tbody id="rosterBody"></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="tab-panel" id="panelTeam" hidden>
+
+    <section class="network-section">
+      <div class="network-head">
+        <h2 class="network-title">Passing network</h2>
+        <span class="h2h-record" id="networkScope"></span>
+      </div>
+      <div class="network-wrap">
+        <div class="network-chart" id="networkChart"></div>
+        <div class="network-panel" id="networkPanel"></div>
+      </div>
+    </section>
+
+    <section class="h2h-section">
+      <div class="h2h-head">
+        <h2 class="h2h-title">Head-to-head</h2>
+        <span class="h2h-record" id="h2hRecord"></span>
+      </div>
+      <label class="h2h-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="h2hSearchBox" placeholder="Find an opponent&hellip;" autocomplete="off">
+      </label>
+      <div class="table-shell">
+        <table id="h2hTable">
+          <thead>
+            <tr>
+              <th class="col-rank" data-key="rank" tabindex="0">#</th>
+              <th class="col-player" data-key="name" tabindex="0">Opponent<span class="arrow">&darr;</span></th>
+              <th data-key="games" tabindex="0">GP<span class="arrow">&darr;</span></th>
+              <th data-key="record" tabindex="0">Record<span class="arrow">&darr;</span></th>
+              <th data-key="winpct" tabindex="0">Win %<span class="arrow">&darr;</span></th>
+              <th data-key="diff" tabindex="0">Diff<span class="arrow">&darr;</span></th>
+            </tr>
+          </thead>
+          <tbody id="h2hBody"></tbody>
+        </table>
+      </div>
+      <div class="h2h-count" id="h2hCount"></div>
+    </section>
+
+  </div>
+
+  <footer>
+    <span>Source: scores.frisbee.pl &middot; team card rosters, Flow Mixed only</span>
+    <span id="rowCount"></span>
+  </footer>
+
+</div>
+
+<script>
+// each row: name, all, outdoor, beach, indoor, ppm, mpm, hmp, beachcup, wlu, plu, poligon
+// each bucket: [seasons, minY, maxY, games, assists, points, sum]
+const RAW = [
+["Bartłomiej Specjał",[12,2013,2024,200,398,223,621],[11,2013,2024,92,161,95,256],[6,2015,2023,40,76,36,112],[9,2014,2023,68,161,92,253],[0,0,0,0,0,0,0],[11,2013,2024,84,145,84,229],[8,2014,2023,64,151,89,240],[6,2015,2023,40,76,36,112],[1,2017,2017,4,6,2,8],[1,2013,2013,4,10,9,19],[1,2016,2016,4,10,3,13]],
+["Paweł Milanowicz",[12,2015,2026,169,321,179,500],[10,2015,2026,81,145,87,232],[7,2015,2026,45,63,42,105],[7,2017,2025,43,113,50,163],[1,2026,2026,2,0,0,0],[9,2015,2025,75,131,80,211],[7,2017,2025,43,113,50,163],[7,2015,2026,45,63,42,105],[1,2017,2017,4,14,7,21],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Daniel Błach",[9,2016,2024,124,191,195,386],[8,2016,2024,63,102,85,187],[5,2017,2023,32,38,50,88],[6,2016,2023,29,51,60,111],[0,0,0,0,0,0,0],[8,2016,2024,59,92,81,173],[5,2018,2023,25,50,56,106],[5,2017,2023,32,38,50,88],[1,2017,2017,4,10,4,14],[0,0,0,0,0,0,0],[1,2016,2016,4,1,4,5]],
+["Sergii Anufriiev",[13,2013,2025,213,146,178,324],[11,2013,2025,119,84,89,173],[6,2016,2025,40,23,30,53],[10,2014,2025,54,39,59,98],[0,0,0,0,0,0,0],[10,2014,2025,86,23,52,75],[10,2014,2025,54,39,59,98],[6,2016,2025,40,23,30,53],[2,2017,2024,28,49,20,69],[1,2013,2013,5,12,17,29],[0,0,0,0,0,0,0]],
+["Tomasz Zatoń",[6,2013,2018,96,147,166,313],[6,2013,2018,53,78,62,140],[0,0,0,0,0,0,0],[5,2014,2018,43,69,104,173],[0,0,0,0,0,0,0],[6,2013,2018,45,42,45,87],[4,2014,2018,39,61,101,162],[0,0,0,0,0,0,0],[1,2017,2017,4,16,8,24],[1,2013,2013,4,20,9,29],[1,2016,2016,4,8,3,11]],
+["Małgorzata Czaplińska",[11,2016,2026,162,80,205,285],[9,2016,2025,78,33,73,106],[7,2017,2026,43,18,35,53],[7,2018,2025,41,29,97,126],[0,0,0,0,0,0,0],[9,2016,2025,74,30,65,95],[7,2018,2025,41,29,97,126],[7,2017,2026,43,18,35,53],[1,2017,2017,4,3,8,11],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Dariusz Urbanik",[11,2013,2023,144,204,79,283],[9,2013,2023,56,58,17,75],[4,2015,2021,26,26,11,37],[8,2014,2022,62,120,51,171],[0,0,0,0,0,0,0],[9,2013,2023,56,58,17,75],[7,2014,2022,58,120,51,171],[4,2015,2021,26,26,11,37],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2016,2016,4,0,0,0]],
+["Michał Krotliński",[7,2019,2026,112,183,43,226],[6,2019,2025,50,75,21,96],[6,2021,2026,37,59,12,71],[5,2022,2026,25,49,10,59],[0,0,0,0,0,0,0],[6,2019,2025,46,70,19,89],[5,2022,2026,25,49,10,59],[6,2021,2026,37,59,12,71],[1,2023,2023,4,5,2,7],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Jakub Wróbel",[11,2014,2025,145,166,59,225],[11,2014,2025,86,83,27,110],[3,2015,2018,21,34,12,46],[5,2015,2019,38,49,20,69],[0,0,0,0,0,0,0],[11,2014,2025,78,65,20,85],[4,2015,2019,34,45,19,64],[3,2015,2018,21,34,12,46],[1,2017,2017,8,18,7,25],[0,0,0,0,0,0,0],[1,2016,2016,4,4,1,5]],
+["Maciej Pająk",[8,2017,2026,81,153,65,218],[6,2017,2026,38,70,25,95],[3,2018,2026,17,23,17,40],[4,2018,2023,26,60,23,83],[1,2026,2026,5,14,3,17],[5,2017,2025,33,56,22,78],[4,2018,2023,26,60,23,83],[3,2018,2026,17,23,17,40],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Rafał Furman",[5,2022,2026,106,115,68,183],[5,2022,2026,72,91,40,131],[3,2024,2026,19,10,4,14],[3,2024,2026,15,14,24,38],[1,2026,2026,5,2,4,6],[4,2022,2025,32,8,12,20],[3,2024,2026,15,14,24,38],[3,2024,2026,19,10,4,14],[2,2023,2024,35,81,24,105],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Maja Kozak",[6,2021,2026,102,35,144,179],[6,2021,2026,51,19,67,86],[4,2022,2025,26,6,25,31],[5,2022,2026,25,10,52,62],[1,2026,2026,5,0,2,2],[5,2021,2025,41,10,58,68],[5,2022,2026,25,10,52,62],[4,2022,2025,26,6,25,31],[1,2023,2023,5,9,7,16],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Aleksandra Szyrwiel",[7,2013,2019,90,32,140,172],[5,2013,2018,44,10,59,69],[1,2016,2016,7,5,8,13],[6,2014,2019,39,17,73,90],[0,0,0,0,0,0,0],[5,2013,2018,40,9,54,63],[5,2014,2019,35,17,73,90],[1,2016,2016,7,5,8,13],[1,2017,2017,4,1,5,6],[0,0,0,0,0,0,0],[1,2016,2016,4,0,0,0]],
+["Marcin Bielewski",[4,2013,2016,47,137,20,157],[4,2013,2016,33,81,13,94],[0,0,0,0,0,0,0],[3,2014,2016,14,56,7,63],[0,0,0,0,0,0,0],[4,2013,2016,28,55,8,63],[2,2014,2015,10,49,3,52],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2013,2013,5,26,5,31],[1,2016,2016,4,7,4,11]],
+["Anton Gatsko",[4,2023,2026,85,33,115,148],[4,2023,2026,56,23,78,101],[3,2024,2026,19,4,21,25],[2,2025,2026,10,6,16,22],[1,2026,2026,3,1,2,3],[2,2024,2025,18,1,8,9],[2,2025,2026,10,6,16,22],[3,2024,2026,19,4,21,25],[2,2023,2024,35,21,68,89],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Natalia Nędzi",[8,2017,2026,97,77,68,145],[7,2017,2026,49,30,29,59],[4,2021,2026,23,25,10,35],[5,2019,2026,25,22,29,51],[1,2026,2026,5,2,1,3],[6,2017,2025,44,28,28,56],[5,2019,2026,25,22,29,51],[4,2021,2026,23,25,10,35],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Andrzej Zaród",[5,2021,2026,52,89,50,139],[5,2021,2026,25,46,20,66],[3,2021,2026,17,22,4,26],[2,2022,2026,10,21,26,47],[1,2026,2026,5,10,6,16],[4,2021,2024,20,36,14,50],[2,2022,2026,10,21,26,47],[3,2021,2026,17,22,4,26],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Anna Jeziorska",[4,2021,2024,81,21,115,136],[4,2021,2024,56,16,80,96],[4,2021,2024,25,5,35,40],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[4,2021,2024,35,3,34,37],[0,0,0,0,0,0,0],[4,2021,2024,25,5,35,40],[2,2023,2024,21,13,46,59],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Zuzanna Brzezińska",[5,2017,2023,53,41,90,131],[4,2017,2023,31,25,42,67],[2,2021,2023,12,6,20,26],[2,2020,2023,10,10,28,38],[0,0,0,0,0,0,0],[4,2017,2023,31,25,42,67],[2,2020,2023,10,10,28,38],[2,2021,2023,12,6,20,26],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Mateusz Skorupa",[4,2022,2025,84,92,37,129],[4,2022,2025,49,68,26,94],[3,2022,2024,20,10,4,14],[3,2023,2025,15,14,7,21],[0,0,0,0,0,0,0],[4,2022,2025,31,13,18,31],[3,2023,2025,15,14,7,21],[3,2022,2024,20,10,4,14],[1,2023,2023,18,55,8,63],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Maciej Zięba",[4,2022,2026,57,75,35,110],[4,2022,2026,28,28,21,49],[3,2022,2025,19,16,7,23],[2,2023,2026,10,31,7,38],[1,2026,2026,5,4,1,5],[3,2022,2025,23,24,20,44],[2,2023,2026,10,31,7,38],[3,2022,2025,19,16,7,23],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Katarzyna Widźgowska",[5,2021,2026,88,45,62,107],[5,2021,2026,50,27,38,65],[4,2021,2026,23,2,16,18],[3,2023,2026,15,16,8,24],[1,2026,2026,3,0,6,6],[4,2021,2025,29,8,17,25],[3,2023,2026,15,16,8,24],[4,2021,2026,23,2,16,18],[1,2023,2023,18,19,15,34],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Magdalena Faliszewska",[4,2013,2016,63,13,76,89],[4,2013,2016,38,8,47,55],[1,2015,2015,8,3,8,11],[2,2014,2015,17,2,21,23],[0,0,0,0,0,0,0],[4,2013,2016,29,2,9,11],[2,2014,2015,17,2,21,23],[1,2015,2015,8,3,8,11],[0,0,0,0,0,0,0],[1,2013,2013,9,6,38,44],[0,0,0,0,0,0,0]],
+["Katarzyna Dobranowska",[6,2013,2019,74,14,70,84],[5,2013,2019,38,5,21,26],[1,2015,2015,8,2,12,14],[3,2014,2017,28,7,37,44],[0,0,0,0,0,0,0],[5,2013,2019,38,5,21,26],[3,2014,2017,28,7,37,44],[1,2015,2015,8,2,12,14],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Michał Dul",[3,2014,2016,41,32,52,84],[3,2014,2016,23,11,20,31],[1,2015,2015,8,12,5,17],[1,2015,2015,10,9,27,36],[0,0,0,0,0,0,0],[3,2014,2016,23,11,20,31],[1,2015,2015,10,9,27,36],[1,2015,2015,8,12,5,17],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Aleksandra Czerwonko",[5,2022,2026,83,60,20,80],[5,2022,2026,37,22,6,28],[4,2022,2026,26,13,1,14],[4,2022,2025,20,25,13,38],[1,2026,2026,5,2,0,2],[4,2022,2025,32,20,6,26],[4,2022,2025,20,25,13,38],[4,2022,2026,26,13,1,14],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Jan Kubis",[5,2022,2026,68,35,40,75],[5,2022,2026,50,25,22,47],[2,2022,2023,13,2,8,10],[1,2026,2026,5,8,10,18],[1,2026,2026,5,0,0,0],[4,2022,2025,27,2,13,15],[1,2026,2026,5,8,10,18],[2,2022,2023,13,2,8,10],[2,2023,2024,18,23,9,32],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Piotr Maga",[4,2014,2017,63,23,48,71],[4,2014,2017,25,9,18,27],[3,2015,2017,22,7,17,24],[2,2016,2017,16,7,13,20],[0,0,0,0,0,0,0],[3,2014,2016,17,2,10,12],[1,2017,2017,12,5,7,12],[3,2015,2017,22,7,17,24],[1,2017,2017,8,7,8,15],[0,0,0,0,0,0,0],[1,2016,2016,4,2,6,8]],
+["Aleksandra Milanowicz",[5,2019,2025,37,15,51,66],[5,2019,2025,26,8,38,46],[2,2024,2025,11,7,13,20],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[5,2019,2025,26,8,38,46],[0,0,0,0,0,0,0],[2,2024,2025,11,7,13,20],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Tomasz Staszkiewicz",[3,2013,2015,29,29,33,62],[3,2013,2015,15,9,14,23],[1,2015,2015,8,10,7,17],[1,2015,2015,6,10,12,22],[0,0,0,0,0,0,0],[2,2014,2015,10,1,9,10],[1,2015,2015,6,10,12,22],[1,2015,2015,8,10,7,17],[0,0,0,0,0,0,0],[1,2013,2013,5,8,5,13],[0,0,0,0,0,0,0]],
+["Monika Sadowska",[3,2013,2015,45,32,29,61],[3,2013,2015,26,19,20,39],[1,2015,2015,8,3,6,9],[1,2014,2014,11,10,3,13],[0,0,0,0,0,0,0],[3,2013,2015,22,9,9,18],[1,2014,2014,11,10,3,13],[1,2015,2015,8,3,6,9],[0,0,0,0,0,0,0],[1,2013,2013,4,10,11,21],[0,0,0,0,0,0,0]],
+["Maciej Chodukiewicz",[2,2023,2024,46,23,37,60],[2,2023,2024,39,22,35,57],[1,2024,2024,7,1,2,3],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,4,1,2,3],[0,0,0,0,0,0,0],[1,2024,2024,7,1,2,3],[2,2023,2024,35,21,33,54],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Małgorzata Szagdaj",[5,2015,2019,75,15,44,59],[4,2015,2018,37,6,13,19],[3,2016,2018,21,4,19,23],[3,2016,2019,17,5,12,17],[0,0,0,0,0,0,0],[4,2015,2018,37,6,13,19],[2,2017,2019,13,5,12,17],[3,2016,2018,21,4,19,23],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2016,2016,4,0,0,0]],
+["Geoff Schwartz",[5,2013,2021,39,45,13,58],[5,2013,2021,27,28,8,36],[2,2017,2021,12,17,5,22],[1,2014,2014,0,0,0,0],[0,0,0,0,0,0,0],[5,2013,2021,27,28,8,36],[1,2014,2014,0,0,0,0],[2,2017,2021,12,17,5,22],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Maciej Parys",[4,2013,2016,38,27,31,58],[4,2013,2016,28,15,18,33],[0,0,0,0,0,0,0],[2,2014,2015,10,12,13,25],[0,0,0,0,0,0,0],[4,2013,2016,28,15,18,33],[2,2014,2015,10,12,13,25],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Paulina Lewandowska",[2,2014,2015,34,19,36,55],[2,2014,2015,16,5,18,23],[1,2015,2015,8,2,9,11],[1,2015,2015,10,12,9,21],[0,0,0,0,0,0,0],[2,2014,2015,16,5,18,23],[1,2015,2015,10,12,9,21],[1,2015,2015,8,2,9,11],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Barbara Kacprzak",[5,2013,2021,59,24,30,54],[4,2013,2021,29,5,8,13],[1,2015,2015,8,6,4,10],[2,2014,2018,22,13,18,31],[0,0,0,0,0,0,0],[4,2013,2021,29,5,8,13],[2,2014,2018,22,13,18,31],[1,2015,2015,8,6,4,10],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Filip Dobranowski",[2,2013,2014,23,28,26,54],[2,2013,2014,12,15,12,27],[0,0,0,0,0,0,0],[1,2014,2014,11,13,14,27],[0,0,0,0,0,0,0],[2,2013,2014,12,15,12,27],[1,2014,2014,11,13,14,27],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Arkadiusz Kaczmarek",[3,2017,2020,26,36,17,53],[2,2017,2018,15,24,12,36],[1,2018,2018,6,7,1,8],[1,2020,2020,5,5,4,9],[0,0,0,0,0,0,0],[2,2017,2018,15,24,12,36],[1,2020,2020,5,5,4,9],[1,2018,2018,6,7,1,8],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Tomasz Klin",[4,2023,2026,53,12,41,53],[3,2023,2025,30,9,15,24],[2,2024,2026,13,2,10,12],[2,2024,2025,10,1,16,17],[0,0,0,0,0,0,0],[3,2023,2025,18,2,9,11],[2,2024,2025,10,1,16,17],[2,2024,2026,13,2,10,12],[1,2024,2024,12,7,6,13],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Bartosz Pietraś",[3,2023,2025,29,10,43,53],[2,2023,2024,24,8,38,46],[0,0,0,0,0,0,0],[1,2025,2025,5,2,5,7],[0,0,0,0,0,0,0],[1,2024,2024,4,1,5,6],[1,2025,2025,5,2,5,7],[0,0,0,0,0,0,0],[2,2023,2024,20,7,33,40],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Katarzyna Frencek",[3,2022,2024,25,11,39,50],[3,2022,2024,19,11,36,47],[1,2022,2022,6,0,3,3],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2022,2022,7,0,1,1],[0,0,0,0,0,0,0],[1,2022,2022,6,0,3,3],[2,2023,2024,12,11,35,46],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Marcel Byndas",[4,2017,2020,44,35,12,47],[3,2017,2019,26,21,7,28],[2,2017,2018,13,12,2,14],[1,2020,2020,5,2,3,5],[0,0,0,0,0,0,0],[3,2017,2019,26,21,7,28],[1,2020,2020,5,2,3,5],[2,2017,2018,13,12,2,14],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Piotr Wyciechowski",[4,2022,2025,50,38,9,47],[4,2022,2025,30,33,4,37],[2,2023,2024,14,2,1,3],[2,2024,2025,6,3,4,7],[0,0,0,0,0,0,0],[4,2022,2025,21,2,2,4],[2,2024,2025,6,3,4,7],[2,2023,2024,14,2,1,3],[1,2023,2023,9,31,2,33],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Łukasz Dobranowski",[3,2013,2015,27,32,11,43],[3,2013,2015,16,23,9,32],[0,0,0,0,0,0,0],[1,2014,2014,11,9,2,11],[0,0,0,0,0,0,0],[3,2013,2015,16,23,9,32],[1,2014,2014,11,9,2,11],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Julia Bujar",[2,2015,2016,30,8,35,43],[2,2015,2016,16,1,15,16],[0,0,0,0,0,0,0],[2,2015,2016,14,7,20,27],[0,0,0,0,0,0,0],[2,2015,2016,16,1,15,16],[1,2015,2015,10,3,11,14],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2016,2016,4,4,9,13]],
+["Maryna Dudnik",[4,2016,2019,64,13,28,41],[2,2017,2018,24,7,14,21],[3,2016,2018,21,4,8,12],[3,2017,2019,19,2,6,8],[0,0,0,0,0,0,0],[2,2017,2018,16,1,5,6],[3,2017,2019,19,2,6,8],[3,2016,2018,21,4,8,12],[1,2017,2017,8,6,9,15],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Paulina Dul",[1,2016,2016,11,16,20,36],[1,2016,2016,7,9,9,18],[0,0,0,0,0,0,0],[1,2016,2016,4,7,11,18],[0,0,0,0,0,0,0],[1,2016,2016,7,9,9,18],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2016,2016,4,7,11,18]],
+["Wojciech Drzewicki",[2,2023,2024,25,25,9,34],[2,2023,2024,25,25,9,34],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[2,2023,2024,8,4,0,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[2,2023,2024,17,21,9,30],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Martyna Pochodyła",[5,2013,2020,51,6,25,31],[4,2013,2019,26,1,7,8],[1,2015,2015,8,2,4,6],[3,2014,2020,17,3,14,17],[0,0,0,0,0,0,0],[4,2013,2019,26,1,7,8],[3,2014,2020,17,3,14,17],[1,2015,2015,8,2,4,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Monika Pawlak",[3,2013,2017,33,19,12,31],[3,2013,2017,22,10,6,16],[0,0,0,0,0,0,0],[1,2017,2017,11,9,6,15],[0,0,0,0,0,0,0],[2,2016,2017,17,7,3,10],[1,2017,2017,11,9,6,15],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2013,2013,5,3,3,6],[0,0,0,0,0,0,0]],
+["Clara Christner",[2,2017,2018,9,14,15,29],[1,2017,2017,4,9,8,17],[0,0,0,0,0,0,0],[1,2018,2018,5,5,7,12],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2018,2018,5,5,7,12],[0,0,0,0,0,0,0],[1,2017,2017,4,9,8,17],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Gabriela Pisarczuk",[4,2018,2021,38,15,14,29],[3,2018,2021,20,7,9,16],[1,2018,2018,7,2,5,7],[2,2018,2020,11,6,0,6],[0,0,0,0,0,0,0],[3,2018,2021,20,7,9,16],[2,2018,2020,11,6,0,6],[1,2018,2018,7,2,5,7],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Katarzyna Palma",[3,2024,2026,31,9,20,29],[3,2024,2026,19,5,17,22],[2,2025,2026,12,4,3,7],[0,0,0,0,0,0,0],[1,2026,2026,5,1,0,1],[1,2025,2025,9,4,14,18],[0,0,0,0,0,0,0],[2,2025,2026,12,4,3,7],[1,2024,2024,5,0,3,3],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Rafał Kałużny",[2,2013,2014,17,13,15,28],[2,2013,2014,6,4,6,10],[0,0,0,0,0,0,0],[1,2014,2014,11,9,9,18],[0,0,0,0,0,0,0],[2,2013,2014,6,4,6,10],[1,2014,2014,11,9,9,18],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Krzysztof Przybyś",[5,2018,2023,54,10,18,28],[5,2018,2023,34,7,12,19],[3,2018,2022,15,1,5,6],[1,2019,2019,5,2,1,3],[0,0,0,0,0,0,0],[4,2018,2022,25,0,7,7],[1,2019,2019,5,2,1,3],[3,2018,2022,15,1,5,6],[1,2023,2023,9,7,5,12],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Grzegorz Ruszczyński",[3,2024,2026,35,7,21,28],[3,2024,2026,24,5,15,20],[1,2026,2026,6,0,2,2],[1,2026,2026,5,2,4,6],[1,2026,2026,5,0,5,5],[1,2025,2025,8,0,1,1],[1,2026,2026,5,2,4,6],[1,2026,2026,6,0,2,2],[1,2024,2024,11,5,9,14],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Bartłomiej Żyła",[1,2015,2015,10,15,12,27],[1,2015,2015,10,15,12,27],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2015,2015,10,15,12,27],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Anna Łukasik",[1,2017,2017,19,17,8,25],[0,0,0,0,0,0,0],[1,2017,2017,7,6,0,6],[1,2017,2017,12,11,8,19],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,12,11,8,19],[1,2017,2017,7,6,0,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Szymon Poznański",[1,2017,2017,12,10,14,24],[1,2017,2017,12,10,14,24],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,12,10,14,24],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Mateusz Czublun",[3,2023,2026,22,2,22,24],[2,2023,2024,17,1,14,15],[0,0,0,0,0,0,0],[1,2026,2026,5,1,8,9],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2026,2026,5,1,8,9],[0,0,0,0,0,0,0],[2,2023,2024,17,1,14,15],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Natalia Korszeń",[3,2023,2025,31,5,18,23],[2,2023,2024,24,4,14,18],[2,2024,2025,7,1,4,5],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[2,2024,2025,7,1,4,5],[2,2023,2024,24,4,14,18],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Olga Majewska",[2,2023,2024,18,3,19,22],[1,2024,2024,11,3,17,20],[1,2023,2023,7,0,2,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2023,2023,7,0,2,2],[1,2024,2024,11,3,17,20],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Karolina Ryniak",[3,2015,2017,24,3,18,21],[1,2015,2015,10,1,3,4],[2,2016,2017,14,2,15,17],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2015,2015,10,1,3,4],[0,0,0,0,0,0,0],[2,2016,2017,14,2,15,17],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Jakub Korta",[5,2017,2022,33,3,17,20],[4,2017,2022,28,3,16,19],[0,0,0,0,0,0,0],[1,2019,2019,5,0,1,1],[0,0,0,0,0,0,0],[3,2018,2022,16,0,4,4],[1,2019,2019,5,0,1,1],[0,0,0,0,0,0,0],[1,2017,2017,12,3,12,15],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Wojciech Pająk",[2,2018,2019,16,6,14,20],[2,2018,2019,16,6,14,20],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[2,2018,2019,16,6,14,20],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Gabiera Pisarczuk",[1,2017,2017,8,1,18,19],[1,2017,2017,8,1,18,19],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,8,1,18,19],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Hanna Kędziora",[3,2024,2026,37,3,16,19],[3,2024,2026,15,0,2,2],[2,2025,2026,12,0,5,5],[2,2025,2026,10,3,9,12],[1,2026,2026,5,0,1,1],[1,2025,2025,5,0,0,0],[2,2025,2026,10,3,9,12],[2,2025,2026,12,0,5,5],[1,2024,2024,5,0,1,1],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Rafał Kolos",[1,2013,2013,4,11,7,18],[1,2013,2013,4,11,7,18],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2013,2013,4,11,7,18],[0,0,0,0,0,0,0]],
+["Maciej Skorupa",[1,2017,2017,11,15,3,18],[1,2017,2017,4,9,3,12],[1,2017,2017,7,6,0,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,7,6,0,6],[1,2017,2017,4,9,3,12],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Monika Mikoś",[2,2018,2019,17,13,3,16],[2,2018,2019,12,9,0,9],[0,0,0,0,0,0,0],[1,2019,2019,5,4,3,7],[0,0,0,0,0,0,0],[2,2018,2019,12,9,0,9],[1,2019,2019,5,4,3,7],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Konrad Szwej",[1,2023,2023,7,8,8,16],[0,0,0,0,0,0,0],[1,2023,2023,7,8,8,16],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2023,2023,7,8,8,16],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Wojciech Pietrzyk",[2,2013,2014,12,7,8,15],[2,2013,2014,12,7,8,15],[0,0,0,0,0,0,0],[1,2014,2014,0,0,0,0],[0,0,0,0,0,0,0],[2,2013,2014,12,7,8,15],[1,2014,2014,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Barbara Raba",[2,2019,2021,18,2,13,15],[2,2019,2021,13,1,9,10],[1,2021,2021,5,1,4,5],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[2,2019,2021,13,1,9,10],[0,0,0,0,0,0,0],[1,2021,2021,5,1,4,5],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Petra Michálková",[1,2017,2017,13,3,11,14],[1,2017,2017,6,2,1,3],[1,2017,2017,7,1,10,11],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,6,2,1,3],[0,0,0,0,0,0,0],[1,2017,2017,7,1,10,11],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Kamil Saktura",[1,2016,2016,11,3,10,13],[0,0,0,0,0,0,0],[1,2016,2016,7,3,7,10],[1,2016,2016,4,0,3,3],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2016,2016,7,3,7,10],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2016,2016,4,0,3,3]],
+["Nela Kunowska",[3,2024,2026,35,1,11,12],[3,2024,2026,18,1,3,4],[1,2024,2024,7,0,2,2],[2,2025,2026,10,0,6,6],[1,2026,2026,5,0,2,2],[2,2024,2025,13,1,1,2],[2,2025,2026,10,0,6,6],[1,2024,2024,7,0,2,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Adrian Dziubek",[1,2015,2015,8,8,3,11],[0,0,0,0,0,0,0],[1,2015,2015,8,8,3,11],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2015,2015,8,8,3,11],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Lisa Freytag",[1,2017,2017,4,3,8,11],[1,2017,2017,4,3,8,11],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,4,3,8,11],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Maciej Kiciński",[3,2023,2026,18,3,7,10],[3,2023,2026,18,3,7,10],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2026,2026,5,0,1,1],[1,2025,2025,8,1,2,3],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2023,2023,5,2,4,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Katarzyna Kiełbińska",[2,2025,2026,15,5,5,10],[2,2025,2026,10,1,5,6],[0,0,0,0,0,0,0],[1,2026,2026,5,4,0,4],[1,2026,2026,5,1,4,5],[1,2025,2025,5,0,1,1],[1,2026,2026,5,4,0,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Anna Krawczyk",[2,2025,2026,11,3,6,9],[1,2025,2025,5,0,0,0],[1,2026,2026,6,3,6,9],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2025,2025,5,0,0,0],[0,0,0,0,0,0,0],[1,2026,2026,6,3,6,9],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Sylwia Ziętala",[1,2021,2021,8,0,8,8],[1,2021,2021,8,0,8,8],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2021,2021,8,0,8,8],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Aleksandra Łyskanowska",[1,2022,2022,5,1,7,8],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2022,2022,5,1,7,8],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2022,2022,5,1,7,8],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Ewa Szewczyk-Leśniak",[3,2022,2025,18,1,7,8],[3,2022,2025,18,1,7,8],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[3,2022,2025,18,1,7,8],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Faustyna Fikus",[2,2017,2018,9,0,7,7],[1,2017,2017,4,0,2,2],[0,0,0,0,0,0,0],[1,2018,2018,5,0,5,5],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2018,2018,5,0,5,5],[0,0,0,0,0,0,0],[1,2017,2017,4,0,2,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Marcin Harasimowicz",[1,2017,2017,16,4,3,7],[1,2017,2017,16,4,3,7],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,16,4,3,7],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Weronika Szóstak",[4,2017,2021,46,1,6,7],[3,2017,2021,23,1,4,5],[1,2018,2018,7,0,1,1],[2,2018,2019,16,0,1,1],[0,0,0,0,0,0,0],[2,2018,2021,11,0,2,2],[2,2018,2019,16,0,1,1],[1,2018,2018,7,0,1,1],[1,2017,2017,12,1,2,3],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Piotr Szauderna",[1,2019,2019,10,5,2,7],[1,2019,2019,5,1,0,1],[0,0,0,0,0,0,0],[1,2019,2019,5,4,2,6],[0,0,0,0,0,0,0],[1,2019,2019,5,1,0,1],[1,2019,2019,5,4,2,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Antonina Klin",[1,2024,2024,12,2,5,7],[1,2024,2024,12,2,5,7],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,12,2,5,7],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Elwira Piekart",[1,2014,2014,6,5,1,6],[1,2014,2014,6,5,1,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2014,2014,6,5,1,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Jakub Tomczuk",[2,2017,2018,13,1,5,6],[2,2017,2018,13,1,5,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2018,2018,5,1,2,3],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,8,0,3,3],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Jakub Golec",[1,2019,2019,5,1,5,6],[1,2019,2019,5,1,5,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2019,2019,5,1,5,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Amelia Sroka",[1,2024,2024,9,2,4,6],[1,2024,2024,9,2,4,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,9,2,4,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Anna Jasiewicz",[1,2024,2024,2,2,4,6],[1,2024,2024,2,2,4,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,2,2,4,6],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Paweł Mierzwiński",[2,2016,2017,21,1,4,5],[2,2016,2017,17,1,3,4],[0,0,0,0,0,0,0],[1,2016,2016,4,0,1,1],[0,0,0,0,0,0,0],[2,2016,2017,17,1,3,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2016,2016,4,0,1,1]],
+["Antoni Majewski",[2,2024,2026,10,1,4,5],[2,2024,2026,10,1,4,5],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2026,2026,5,1,1,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,5,0,3,3],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Kamila Bukowska",[1,2024,2024,5,1,4,5],[1,2024,2024,5,1,4,5],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,5,1,4,5],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Joanna Lewandowska",[1,2014,2014,6,0,4,4],[1,2014,2014,6,0,4,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2014,2014,6,0,4,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Magdalena Szwed",[1,2014,2014,6,0,4,4],[1,2014,2014,6,0,4,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2014,2014,6,0,4,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Błażej Majchrzak",[2,2017,2018,27,1,3,4],[1,2017,2017,4,0,0,0],[2,2017,2018,14,1,3,4],[1,2017,2017,9,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,4,0,0,0],[1,2017,2017,9,0,0,0],[2,2017,2018,14,1,3,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Izabela Kołodziejczyk",[3,2018,2024,19,0,4,4],[3,2018,2024,19,0,4,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[3,2018,2024,19,0,4,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Joanna Szpejewska",[1,2023,2023,9,2,2,4],[1,2023,2023,9,2,2,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2023,2023,5,0,2,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2023,2023,4,2,0,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Arina Bartashevich",[1,2024,2024,17,1,3,4],[1,2024,2024,17,1,3,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,17,1,3,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Franciszek Gerus",[1,2024,2024,1,1,3,4],[1,2024,2024,1,1,3,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,1,1,3,4],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Róża Korczyc",[1,2024,2024,6,3,0,3],[1,2024,2024,6,3,0,3],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,6,3,0,3],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Daria Ryczkowska",[3,2013,2016,10,2,0,2],[1,2013,2013,6,0,0,0],[0,0,0,0,0,0,0],[2,2014,2016,4,2,0,2],[0,0,0,0,0,0,0],[1,2013,2013,6,0,0,0],[1,2014,2014,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2016,2016,4,2,0,2]],
+["Alicja Stebińska",[2,2014,2015,9,0,2,2],[2,2014,2015,9,0,2,2],[0,0,0,0,0,0,0],[1,2014,2014,0,0,0,0],[0,0,0,0,0,0,0],[2,2014,2015,9,0,2,2],[1,2014,2014,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Maciej Kruczkowski",[1,2014,2014,6,0,2,2],[1,2014,2014,6,0,2,2],[0,0,0,0,0,0,0],[1,2014,2014,0,0,0,0],[0,0,0,0,0,0,0],[1,2014,2014,6,0,2,2],[1,2014,2014,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Ola Bogda",[1,2013,2013,5,0,2,2],[1,2013,2013,5,0,2,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2013,2013,5,0,2,2],[0,0,0,0,0,0,0]],
+["Agata Semenowicz",[1,2015,2015,17,0,2,2],[1,2015,2015,9,0,0,0],[1,2015,2015,8,0,2,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2015,2015,9,0,0,0],[0,0,0,0,0,0,0],[1,2015,2015,8,0,2,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Kamila Nazimek",[1,2017,2017,4,0,2,2],[1,2017,2017,4,0,2,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,4,0,2,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Mariusz Trembecki",[1,2017,2017,4,1,1,2],[1,2017,2017,4,1,1,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,4,1,1,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Monika Kowal",[1,2023,2023,7,0,2,2],[0,0,0,0,0,0,0],[1,2023,2023,7,0,2,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2023,2023,7,0,2,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Maryia Kuchynskaya",[1,2023,2023,5,1,1,2],[1,2023,2023,5,1,1,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2023,2023,5,1,1,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Katarzyna Arent",[1,2024,2024,1,1,1,2],[1,2024,2024,1,1,1,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,1,1,1,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Damian Rosiak",[1,2025,2025,5,2,0,2],[1,2025,2025,5,2,0,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2025,2025,5,2,0,2],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Joanna Wawrzynów",[1,2021,2021,6,0,1,1],[1,2021,2021,6,0,1,1],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2021,2021,6,0,1,1],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Łukasz Duda",[1,2021,2021,5,0,1,1],[1,2021,2021,5,0,1,1],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2021,2021,5,0,1,1],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Jakub Tumkielski",[1,2022,2022,4,0,1,1],[1,2022,2022,4,0,1,1],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2022,2022,4,0,1,1],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Ada Kodzik",[1,2022,2022,5,0,1,1],[1,2022,2022,5,0,1,1],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2022,2022,5,0,1,1],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Iga Durejko",[1,2023,2023,7,0,1,1],[0,0,0,0,0,0,0],[1,2023,2023,7,0,1,1],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2023,2023,7,0,1,1],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Gaoweiang Dong",[1,2025,2025,5,1,0,1],[1,2025,2025,5,1,0,1],[1,2025,2025,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2025,2025,5,1,0,1],[0,0,0,0,0,0,0],[1,2025,2025,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Małgorzata Janeczko",[1,2014,2014,0,0,0,0],[1,2014,2014,0,0,0,0],[0,0,0,0,0,0,0],[1,2014,2014,0,0,0,0],[0,0,0,0,0,0,0],[1,2014,2014,0,0,0,0],[1,2014,2014,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Szymon Łukaszewicz",[1,2017,2017,12,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,12,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,12,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Maria Uzmorskaya",[1,2017,2017,4,0,0,0],[1,2017,2017,4,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2017,2017,4,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Jakub Leśniak",[1,2022,2022,4,0,0,0],[1,2022,2022,4,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2022,2022,4,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Piotr Konopczak",[1,2022,2022,4,0,0,0],[1,2022,2022,4,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2022,2022,4,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Szymon Zięba",[1,2022,2022,4,0,0,0],[1,2022,2022,4,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2022,2022,4,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Klaudia Jamicka",[1,2023,2023,9,0,0,0],[1,2023,2023,9,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2023,2023,9,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Małgorzata Jagielska",[1,2024,2024,0,0,0,0],[1,2024,2024,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Monika Zaczkowska",[1,2024,2024,0,0,0,0],[1,2024,2024,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Nadia Stróżyńska",[1,2024,2024,4,0,0,0],[1,2024,2024,4,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2024,2024,4,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Julia Jaśkiewicz",[1,2025,2025,5,0,0,0],[1,2025,2025,5,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2025,2025,5,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Maja Górowska",[1,2025,2025,5,0,0,0],[1,2025,2025,5,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2025,2025,5,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Wiktor Sulej-Michalski",[1,2025,2025,5,0,0,0],[1,2025,2025,5,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2025,2025,5,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Karol Janiczek",[1,2026,2026,0,0,0,0],[1,2026,2026,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2026,2026,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+["Patrycja Szymańska",[1,2026,2026,2,0,0,0],[1,2026,2026,2,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[1,2026,2026,2,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]]
+];
+
+function pack(a){ return {seasons:a[0], minY:a[1], maxY:a[2], games:a[3], assists:a[4], points:a[5], sum:a[6]}; }
+const CURRENT_YEAR = 2026;
+// drop one-off appearances: a single career season only counts if that season is the current year (a newcomer),
+// otherwise it's a past guest/one-time fill-in not worth surfacing
+const DATA = RAW.map(r => ({
+  name:r[0],
+  all:pack(r[1]), outdoor:pack(r[2]), beach:pack(r[3]), indoor:pack(r[4]),
+  series:{ ppm:pack(r[5]), mpm:pack(r[6]), hmp:pack(r[7]), beachcup:pack(r[8]), wlu:pack(r[9]), plu:pack(r[10]), poligon:pack(r[11]) }
+})).filter(d => d.all.seasons > 1 || (d.all.seasons === 1 && d.all.maxY === CURRENT_YEAR));
+
+// each player's most-worn squad number, derived from roster listings across every Flow Mixed team-season page (ties broken by most recent season)
+const JERSEY = {"Bartłomiej Specjał":"19","Paweł Milanowicz":"32","Daniel Błach":"77","Sergii Anufriiev":"14","Tomasz Zatoń":"83","Małgorzata Czaplińska":"13","Dariusz Urbanik":"9","Michał Krotliński":"9","Jakub Wróbel":"58","Maciej Pająk":"42","Rafał Furman":"81","Maja Kozak":"72","Aleksandra Szyrwiel":"99","Marcin Bielewski":"10","Anton Gatsko":"10","Natalia Nędzi":"18","Andrzej Zaród":"49","Anna Jeziorska":"30","Zuzanna Brzezińska":"26","Mateusz Skorupa":"37","Maciej Zięba":"17","Katarzyna Widźgowska":"95","Magdalena Faliszewska":"78","Katarzyna Dobranowska":"22","Aleksandra Czerwonko":"5","Jan Kubis":"16","Piotr Maga":"96","Aleksandra Milanowicz":"99","Tomasz Staszkiewicz":"4","Monika Sadowska":"38","Maciej Chodukiewicz":"27","Małgorzata Szagdaj":"66","Geoff Schwartz":"3","Maciej Parys":"46","Paulina Lewandowska":"16","Barbara Kacprzak":"18","Filip Dobranowski":"91","Tomasz Klin":"11","Bartosz Pietraś":"47","Katarzyna Frencek":"73","Marcel Byndas":"12","Piotr Wyciechowski":"71","Łukasz Dobranowski":"12","Julia Bujar":"28","Maryna Dudnik":"5","Wojciech Drzewicki":"2","Martyna Pochodyła":"6","Monika Pawlak":"1","Clara Christner":"33","Gabriela Pisarczuk":"16","Katarzyna Palma":"70","Rafał Kałużny":"11","Krzysztof Przybyś":"7","Grzegorz Ruszczyński":"27","Mateusz Czublun":"86","Natalia Korszeń":"34","Olga Majewska":"13","Karolina Ryniak":"48","Jakub Korta":"97","Wojciech Pająk":"15","Hanna Kędziora":"36","Monika Mikoś":"1","Wojciech Pietrzyk":"71","Barbara Raba":"23","Nela Kunowska":"21","Maciej Kiciński":"28","Katarzyna Kiełbińska":"15","Anna Krawczyk":"34","Ewa Szewczyk-Leśniak":"4","Faustyna Fikus":"78","Weronika Szóstak":"8","Paweł Mierzwiński":"98","Antoni Majewski":"59","Błażej Majchrzak":"17","Izabela Kołodziejczyk":"95","Daria Ryczkowska":"18","Alicja Stebińska":"33","Patrycja Szymańska":"31"};
+
+// each row: opponent name, all, outdoor, beach, indoor, ppm, mpm, hmp, beachcup, wlu, plu, poligon
+// each bucket: [games, wins, losses, points-for, points-against]
+const H2H_RAW = [["4hands",[24,14,10,310,285],[14,7,7,171,177],[3,3,0,34,12],[7,4,3,105,96],[0,0,0,0,0],[9,5,4,114,104],[7,4,3,105,96],[3,3,0,34,12],[5,2,3,57,73],[0,0,0,0,0],[0,0,0,0,0]],["Warsaw Mets",[24,13,11,272,255],[12,5,7,145,156],[10,6,4,85,85],[2,2,0,42,14],[0,0,0,0,0],[8,4,4,106,102],[2,2,0,42,14],[10,6,4,85,85],[4,1,3,39,54],[0,0,0,0,0],[0,0,0,0,0]],["RJP",[22,15,7,293,262],[14,8,6,171,164],[2,2,0,22,19],[6,5,1,100,79],[0,0,0,0,0],[8,7,1,112,86],[6,5,1,100,79],[2,2,0,22,19],[6,1,5,59,78],[0,0,0,0,0],[0,0,0,0,0]],["KrakUF",[17,15,2,265,129],[8,8,0,120,52],[0,0,0,0,0],[9,7,2,145,77],[0,0,0,0,0],[6,6,0,85,33],[7,6,1,118,61],[0,0,0,0,0],[1,1,0,19,10],[1,1,0,16,9],[2,1,1,27,16]],["KWR Knury",[16,10,6,177,162],[7,3,4,75,66],[1,1,0,12,7],[8,6,2,90,89],[0,0,0,0,0],[7,3,4,75,66],[5,3,2,56,59],[1,1,0,12,7],[0,0,0,0,0],[0,0,0,0,0],[3,3,0,34,30]],["Frisbnik",[12,9,3,161,87],[4,4,0,54,16],[1,1,0,7,5],[7,4,3,100,66],[0,0,0,0,0],[3,3,0,43,13],[5,2,3,69,52],[1,1,0,7,5],[0,0,0,0,0],[1,1,0,11,3],[2,2,0,31,14]],["Grandmaster Flash",[12,5,7,126,122],[5,2,3,53,53],[5,3,2,48,39],[2,0,2,25,30],[0,0,0,0,0],[4,2,2,46,37],[2,0,2,25,30],[5,3,2,48,39],[1,0,1,7,16],[0,0,0,0,0],[0,0,0,0,0]],["Wrocław Południe",[12,11,1,161,93],[3,3,0,43,28],[5,4,1,49,42],[4,4,0,69,23],[0,0,0,0,0],[3,3,0,43,28],[2,2,0,39,14],[5,4,1,49,42],[0,0,0,0,0],[0,0,0,0,0],[2,2,0,30,9]],["mJAH",[12,9,3,161,135],[8,8,0,113,77],[1,0,1,7,11],[3,1,2,41,47],[0,0,0,0,0],[8,8,0,113,77],[3,1,2,41,47],[1,0,1,7,11],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Ultimatum",[11,9,2,118,62],[5,3,2,51,39],[6,6,0,67,23],[0,0,0,0,0],[0,0,0,0,0],[2,2,0,28,6],[0,0,0,0,0],[6,6,0,67,23],[3,1,2,23,33],[0,0,0,0,0],[0,0,0,0,0]],["Uwaga Pies",[11,11,0,194,112],[3,3,0,47,16],[0,0,0,0,0],[8,8,0,147,96],[0,0,0,0,0],[2,2,0,28,8],[8,8,0,147,96],[0,0,0,0,0],[1,1,0,19,8],[0,0,0,0,0],[0,0,0,0,0]],["muJAHedini dysku",[11,4,7,117,131],[7,2,5,69,81],[0,0,0,0,0],[4,2,2,48,50],[0,0,0,0,0],[6,2,4,61,66],[4,2,2,48,50],[0,0,0,0,0],[1,0,1,8,15],[0,0,0,0,0],[0,0,0,0,0]],["Zawierucha",[10,7,3,114,96],[5,4,1,63,50],[3,2,1,26,20],[2,1,1,25,26],[0,0,0,0,0],[4,4,0,58,34],[2,1,1,25,26],[3,2,1,26,20],[1,0,1,5,16],[0,0,0,0,0],[0,0,0,0,0]],["Sky This",[8,6,2,114,96],[6,4,2,83,68],[0,0,0,0,0],[2,2,0,31,28],[0,0,0,0,0],[3,3,0,45,26],[2,2,0,31,28],[0,0,0,0,0],[3,1,2,38,42],[0,0,0,0,0],[0,0,0,0,0]],["2obvious",[8,6,2,96,61],[5,3,2,55,38],[0,0,0,0,0],[3,3,0,41,23],[0,0,0,0,0],[3,3,0,41,18],[1,1,0,11,10],[0,0,0,0,0],[1,0,1,10,15],[1,0,1,4,5],[2,2,0,30,13]],["Kato Vice",[8,5,3,109,83],[3,2,1,41,32],[1,0,1,9,10],[4,3,1,59,41],[0,0,0,0,0],[1,1,0,12,9],[2,1,1,25,28],[1,0,1,9,10],[2,1,1,29,23],[0,0,0,0,0],[2,2,0,34,13]],["Spirit on Lemon",[8,4,4,76,79],[5,2,3,50,56],[0,0,0,0,0],[3,2,1,26,23],[0,0,0,0,0],[4,1,3,39,47],[3,2,1,26,23],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,11,9],[0,0,0,0,0]],["Savage Ultimate",[7,1,6,60,104],[3,0,3,27,45],[2,1,1,13,19],[2,0,2,20,40],[0,0,0,0,0],[3,0,3,27,45],[2,0,2,20,40],[2,1,1,13,19],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Albatros",[7,6,1,99,62],[1,1,0,15,12],[3,3,0,33,14],[3,2,1,51,36],[0,0,0,0,0],[1,1,0,15,12],[3,2,1,51,36],[3,3,0,33,14],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["BC Kosmodysk",[7,5,2,85,68],[4,3,1,47,39],[2,1,1,21,21],[1,1,0,17,8],[0,0,0,0,0],[3,3,0,39,24],[1,1,0,17,8],[2,1,1,21,21],[1,0,1,8,15],[0,0,0,0,0],[0,0,0,0,0]],["Pogoń Pyton",[5,3,2,66,50],[5,3,2,66,50],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,15,7],[0,0,0,0,0],[0,0,0,0,0],[4,2,2,51,43],[0,0,0,0,0],[0,0,0,0,0]],["#967",[5,3,2,62,51],[2,1,1,27,20],[2,2,0,19,13],[1,0,1,16,18],[0,0,0,0,0],[2,1,1,27,20],[1,0,1,16,18],[2,2,0,19,13],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Mad Hatters",[5,2,3,63,61],[4,2,2,47,44],[0,0,0,0,0],[1,0,1,16,17],[0,0,0,0,0],[1,1,0,15,8],[1,0,1,16,17],[0,0,0,0,0],[3,1,2,32,36],[0,0,0,0,0],[0,0,0,0,0]],["Szczupaki",[5,5,0,65,28],[2,2,0,30,18],[3,3,0,35,10],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[3,3,0,35,10],[2,2,0,30,18],[0,0,0,0,0],[0,0,0,0,0]],["Gunslingers",[5,5,0,62,29],[2,2,0,21,10],[0,0,0,0,0],[3,3,0,41,19],[0,0,0,0,0],[0,0,0,0,0],[2,2,0,24,13],[0,0,0,0,0],[0,0,0,0,0],[2,2,0,21,10],[1,1,0,17,6]],["042",[4,3,1,44,34],[2,1,1,20,22],[2,2,0,24,12],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[2,2,0,24,12],[2,1,1,20,22],[0,0,0,0,0],[0,0,0,0,0]],["Astro Disco",[4,4,0,45,29],[2,2,0,23,16],[2,2,0,22,13],[0,0,0,0,0],[0,0,0,0,0],[2,2,0,23,16],[0,0,0,0,0],[2,2,0,22,13],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["ATRE Indians",[3,3,0,43,21],[1,1,0,17,15],[2,2,0,26,6],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[2,2,0,26,6],[1,1,0,17,15],[0,0,0,0,0],[0,0,0,0,0]],["71 Wratislavia",[3,3,0,41,20],[1,1,0,15,3],[0,0,0,0,0],[2,2,0,26,17],[0,0,0,0,0],[1,1,0,15,3],[1,1,0,12,10],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,14,7]],["Nine Hills",[3,3,0,33,21],[3,3,0,33,21],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[2,2,0,26,16],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,7,5],[0,0,0,0,0],[0,0,0,0,0]],["Egeszsegedre",[3,3,0,34,19],[0,0,0,0,0],[3,3,0,34,19],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[3,3,0,34,19],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Krysiaki",[2,0,2,12,32],[1,0,1,7,19],[1,0,1,5,13],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,0,1,5,13],[1,0,1,7,19],[0,0,0,0,0],[0,0,0,0,0]],["Rybnickie Psy",[2,1,1,16,15],[0,0,0,0,0],[2,1,1,16,15],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[2,1,1,16,15],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Brave Beavers",[2,2,0,28,19],[2,2,0,28,19],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[2,2,0,28,19],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Flow Junior",[2,2,0,30,4],[1,1,0,15,0],[0,0,0,0,0],[1,1,0,15,4],[0,0,0,0,0],[1,1,0,15,0],[1,1,0,15,4],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Cutovice",[2,2,0,40,14],[1,1,0,15,5],[0,0,0,0,0],[1,1,0,25,9],[0,0,0,0,0],[1,1,0,15,5],[1,1,0,25,9],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Ultra Filet",[2,2,0,33,4],[1,1,0,17,3],[0,0,0,0,0],[1,1,0,16,1],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,16,1],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,17,3],[0,0,0,0,0]],["Aethers Warsaw",[1,1,0,24,10],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,24,10],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,24,10],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Saważ Ultimą",[1,0,1,19,22],[0,0,0,0,0],[0,0,0,0,0],[1,0,1,19,22],[0,0,0,0,0],[0,0,0,0,0],[1,0,1,19,22],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Koziołki Matołki",[1,0,1,6,21],[1,0,1,6,21],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,0,1,6,21],[0,0,0,0,0],[0,0,0,0,0]],["Grad Mżawka Deszcz",[1,0,1,6,9],[0,0,0,0,0],[1,0,1,6,9],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,0,1,6,9],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["NoProblemo!",[1,0,1,6,21],[1,0,1,6,21],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,0,1,6,21],[0,0,0,0,0],[0,0,0,0,0]],["Czarna Kompania",[1,1,0,11,5],[0,0,0,0,0],[1,1,0,11,5],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,11,5],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Tychy Claws",[1,1,0,17,4],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,17,4],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,17,4]],["Rainbow Banana",[1,1,0,17,7],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,17,7],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,17,7]],["Reach for the Sky",[1,1,0,12,5],[1,1,0,12,5],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,12,5],[0,0,0,0,0],[0,0,0,0,0]],["Cool Kids of Disc",[1,0,1,9,13],[1,0,1,9,13],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,0,1,9,13],[0,0,0,0,0],[0,0,0,0,0]],["Chewra Badgers",[1,0,1,7,14],[1,0,1,7,14],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,0,1,7,14],[0,0,0,0,0],[0,0,0,0,0]],["Bednarska",[1,1,0,12,11],[1,1,0,12,11],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,12,11],[0,0,0,0,0],[0,0,0,0,0]],["Ministerstwo Dziwnych Rzutów",[1,1,0,16,8],[1,1,0,16,8],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,16,8],[0,0,0,0,0],[0,0,0,0,0]],["Mixed",[1,0,1,5,9],[0,0,0,0,0],[1,0,1,5,9],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,0,1,5,9],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Seagulls",[1,1,0,13,0],[0,0,0,0,0],[1,1,0,13,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,13,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Furious Goats",[1,1,0,21,12],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,21,12],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,21,12],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Tłuste Dyski",[1,1,0,13,9],[1,1,0,13,9],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,13,9],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Kinbsirf",[1,1,0,15,2],[1,1,0,15,2],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,15,2],[0,0,0,0,0]],["Cypher",[1,1,0,15,11],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,15,11],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,15,11],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],["Freezebeatz",[1,1,0,15,2],[1,1,0,15,2],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,15,2],[0,0,0,0,0]],["Cool Flights",[1,1,0,15,1],[1,1,0,15,1],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[1,1,0,15,1],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]];
+const SERIES_META = {
+  ppm: {label:'Puchar Polski Mixed', surface:'outdoor'},
+  mpm: {label:'Mistrzostwa Polski Mixed', surface:'outdoor'},
+  wlu: {label:'WLU* (Liga)', surface:'outdoor'},
+  plu: {label:'Południowa Liga Ultimate', surface:'outdoor'},
+  beachcup: {label:'Plażowe / Beach Ultimate', surface:'beach'},
+  hmp: {label:'Halowe Mistrzostwa Polski', surface:'indoor'},
+  poligon: {label:'Poligon', surface:'indoor'}
+};
+
+// per-year "Suma" totals, 2013..2026, broken down by scope: all, each surface, and each tournament series
+// powers the expand-row chart so it matches whatever surface/tournament filter is currently active
+const YEARLY_YEARS = [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+const YEARLY_BY_SCOPE = {"Aleksandra Szyrwiel":{"all":{"2013":3,"2014":16,"2015":18,"2016":19,"2017":39,"2018":58,"2019":19},"outdoor":{"2013":3,"2014":7,"2016":6,"2017":22,"2018":31},"mpm":{"2013":3,"2014":7,"2016":6,"2017":16,"2018":31},"indoor":{"2014":9,"2015":18,"2017":17,"2018":27,"2019":19},"hmp":{"2014":9,"2015":18,"2017":17,"2018":27,"2019":19},"beach":{"2016":13},"beachcup":{"2016":13},"poligon":{},"wlu":{"2017":6}},"Barbara Kacprzak":{"all":{"2013":6,"2014":8,"2015":13,"2018":26,"2021":1},"outdoor":{"2013":6,"2014":3,"2015":3,"2021":1},"mpm":{"2013":6,"2014":3,"2015":3,"2021":1},"indoor":{"2014":5,"2018":26},"hmp":{"2014":5,"2018":26},"beach":{"2015":10},"beachcup":{"2015":10}},"Bartłomiej Specjał":{"all":{"2013":31,"2014":33,"2015":81,"2016":27,"2017":119,"2018":93,"2019":25,"2020":20,"2021":32,"2022":83,"2023":63,"2024":14},"outdoor":{"2013":31,"2014":10,"2015":24,"2016":14,"2017":39,"2018":29,"2019":7,"2021":25,"2022":35,"2023":28,"2024":14},"mpm":{"2013":12,"2014":10,"2015":24,"2016":14,"2017":31,"2018":29,"2019":7,"2021":25,"2022":35,"2023":28,"2024":14},"indoor":{"2014":23,"2015":34,"2016":13,"2017":59,"2018":46,"2019":18,"2020":20,"2022":28,"2023":12},"hmp":{"2014":23,"2015":34,"2017":59,"2018":46,"2019":18,"2020":20,"2022":28,"2023":12},"plu":{"2013":19},"beach":{"2015":23,"2017":21,"2018":18,"2021":7,"2022":20,"2023":23},"beachcup":{"2015":23,"2017":21,"2018":18,"2021":7,"2022":20,"2023":23},"poligon":{"2016":13},"wlu":{"2017":8}},"Daria Ryczkowska":{"all":{"2016":2},"outdoor":{},"mpm":{},"indoor":{"2016":2},"hmp":{},"poligon":{"2016":2}},"Dariusz Urbanik":{"all":{"2013":4,"2014":32,"2015":69,"2017":39,"2018":54,"2019":23,"2020":10,"2021":23,"2022":29},"outdoor":{"2013":4,"2014":8,"2015":13,"2018":11,"2019":12,"2021":19,"2022":8},"mpm":{"2013":4,"2014":8,"2015":13,"2018":11,"2019":12,"2021":19,"2022":8},"indoor":{"2014":24,"2015":34,"2017":39,"2018":32,"2019":11,"2020":10,"2022":21},"hmp":{"2014":24,"2015":34,"2017":39,"2018":32,"2019":11,"2020":10,"2022":21},"beach":{"2015":22,"2018":11,"2021":4},"beachcup":{"2015":22,"2018":11,"2021":4},"poligon":{}},"Filip Dobranowski":{"all":{"2013":17,"2014":37},"outdoor":{"2013":17,"2014":10},"mpm":{"2013":17,"2014":10},"indoor":{"2014":27},"hmp":{"2014":27}},"Geoff Schwartz":{"all":{"2013":14,"2017":22,"2018":14,"2021":8},"outdoor":{"2013":14,"2017":5,"2018":14,"2021":3},"mpm":{"2013":14,"2017":5,"2018":14,"2021":3},"indoor":{},"hmp":{},"beach":{"2017":17,"2021":5},"beachcup":{"2017":17,"2021":5}},"Katarzyna Dobranowska":{"all":{"2013":1,"2014":12,"2015":35,"2017":16,"2018":15,"2019":5},"outdoor":{"2013":1,"2014":1,"2015":4,"2018":15,"2019":5},"mpm":{"2013":1,"2014":1,"2015":4,"2018":15,"2019":5},"indoor":{"2014":11,"2015":17,"2017":16},"hmp":{"2014":11,"2015":17,"2017":16},"beach":{"2015":14},"beachcup":{"2015":14}},"Łukasz Dobranowski":{"all":{"2013":6,"2014":11,"2015":26},"outdoor":{"2013":6,"2015":26},"mpm":{"2013":6,"2015":26},"indoor":{"2014":11},"hmp":{"2014":11}},"Maciej Parys":{"all":{"2013":6,"2014":10,"2015":32,"2016":10},"outdoor":{"2013":6,"2014":10,"2015":7,"2016":10},"mpm":{"2013":6,"2014":10,"2015":7,"2016":10},"indoor":{"2015":25},"hmp":{"2015":25}},"Magdalena Faliszewska":{"all":{"2013":48,"2014":18,"2015":21,"2016":2},"outdoor":{"2013":48,"2015":5,"2016":2},"mpm":{"2013":4,"2015":5,"2016":2},"indoor":{"2014":18,"2015":5},"hmp":{"2014":18,"2015":5},"plu":{"2013":44},"beach":{"2015":11},"beachcup":{"2015":11}},"Marcin Bielewski":{"all":{"2013":50,"2014":22,"2015":64,"2016":21},"outdoor":{"2013":50,"2014":22,"2015":12,"2016":10},"mpm":{"2013":19,"2014":22,"2015":12,"2016":10},"indoor":{"2015":52,"2016":11},"hmp":{"2015":52},"plu":{"2013":31},"poligon":{"2016":11}},"Martyna Pochodyła":{"all":{"2013":3,"2014":8,"2015":14,"2019":1,"2020":5},"outdoor":{"2013":3,"2014":2,"2015":2,"2019":1},"mpm":{"2013":3,"2014":2,"2015":2,"2019":1},"indoor":{"2014":6,"2015":6,"2020":5},"hmp":{"2014":6,"2015":6,"2020":5},"beach":{"2015":6},"beachcup":{"2015":6}},"Monika Sadowska":{"all":{"2013":24,"2014":14,"2015":23},"outdoor":{"2013":24,"2014":1,"2015":14},"mpm":{"2013":3,"2014":1,"2015":14},"indoor":{"2014":13},"hmp":{"2014":13},"plu":{"2013":21},"beach":{"2015":9},"beachcup":{"2015":9}},"Rafał Kałużny":{"all":{"2013":10,"2014":18},"outdoor":{"2013":10},"mpm":{"2013":10},"indoor":{"2014":18},"hmp":{"2014":18}},"Tomasz Zatoń":{"all":{"2013":47,"2014":48,"2015":56,"2016":26,"2017":66,"2018":70},"outdoor":{"2013":47,"2014":13,"2015":7,"2016":15,"2017":39,"2018":19},"mpm":{"2013":18,"2014":13,"2015":7,"2016":15,"2017":15,"2018":19},"indoor":{"2014":35,"2015":49,"2016":11,"2017":27,"2018":51},"hmp":{"2014":35,"2015":49,"2017":27,"2018":51},"plu":{"2013":29},"poligon":{"2016":11},"wlu":{"2017":24}},"Wojciech Pietrzyk":{"all":{"2013":12,"2014":3},"outdoor":{"2013":12,"2014":3},"mpm":{"2013":12,"2014":3},"indoor":{},"hmp":{}},"Alicja Stebińska":{"all":{"2015":2},"indoor":{},"hmp":{},"outdoor":{"2015":2},"mpm":{"2015":2}},"Maciej Kruczkowski":{"all":{"2014":2},"indoor":{},"hmp":{},"outdoor":{"2014":2},"mpm":{"2014":2}},"Małgorzata Janeczko":{"all":{},"indoor":{},"hmp":{},"outdoor":{},"mpm":{}},"Rafał Kolos":{"all":{"2013":18},"outdoor":{"2013":18},"plu":{"2013":18}},"Monika Pawlak":{"all":{"2013":6,"2016":4,"2017":21},"outdoor":{"2013":6,"2016":4,"2017":6},"plu":{"2013":6},"mpm":{"2016":4,"2017":6},"indoor":{"2017":15},"hmp":{"2017":15}},"Ola Bogda":{"all":{"2013":2},"outdoor":{"2013":2},"plu":{"2013":2}},"Tomasz Staszkiewicz":{"all":{"2013":13,"2014":10,"2015":39},"outdoor":{"2013":13,"2014":10},"plu":{"2013":13},"mpm":{"2014":10},"indoor":{"2015":22},"hmp":{"2015":22},"beach":{"2015":17},"beachcup":{"2015":17}},"Elwira Piekart":{"all":{"2014":6},"outdoor":{"2014":6},"mpm":{"2014":6}},"Jakub Wróbel":{"all":{"2014":7,"2015":40,"2016":50,"2017":59,"2018":31,"2019":15,"2021":6,"2022":9,"2023":4,"2024":4},"outdoor":{"2014":7,"2015":20,"2016":20,"2017":30,"2018":6,"2019":4,"2021":6,"2022":9,"2023":4,"2024":4},"mpm":{"2014":7,"2015":20,"2016":20,"2017":5,"2018":6,"2019":4,"2021":6,"2022":9,"2023":4,"2024":4},"indoor":{"2015":9,"2016":5,"2017":29,"2018":15,"2019":11},"hmp":{"2015":9,"2017":29,"2018":15,"2019":11},"beach":{"2015":11,"2016":25,"2018":10},"beachcup":{"2015":11,"2016":25,"2018":10},"poligon":{"2016":5},"wlu":{"2017":25}},"Joanna Lewandowska":{"all":{"2014":4},"outdoor":{"2014":4},"mpm":{"2014":4}},"Magdalena Szwed":{"all":{"2014":4},"outdoor":{"2014":4},"mpm":{"2014":4}},"Michał Dul":{"all":{"2014":7,"2015":64,"2016":13},"outdoor":{"2014":7,"2015":11,"2016":13},"mpm":{"2014":7,"2015":11,"2016":13},"indoor":{"2015":36},"hmp":{"2015":36},"beach":{"2015":17},"beachcup":{"2015":17}},"Piotr Maga":{"all":{"2015":18,"2016":20,"2017":33},"outdoor":{"2015":9,"2016":3,"2017":15},"mpm":{"2015":9,"2016":3},"beach":{"2015":9,"2016":9,"2017":6},"beachcup":{"2015":9,"2016":9,"2017":6},"indoor":{"2016":8,"2017":12},"poligon":{"2016":8},"hmp":{"2017":12},"wlu":{"2017":15}},"Paulina Lewandowska":{"all":{"2014":3,"2015":52},"outdoor":{"2014":3,"2015":20},"mpm":{"2014":3,"2015":20},"indoor":{"2015":21},"hmp":{"2015":21},"beach":{"2015":11},"beachcup":{"2015":11}},"Julia Bujar":{"all":{"2015":23,"2016":20},"indoor":{"2015":14,"2016":13},"hmp":{"2015":14},"outdoor":{"2015":9,"2016":7},"mpm":{"2015":9,"2016":7},"poligon":{"2016":13}},"Adrian Dziubek":{"all":{"2015":11},"beach":{"2015":11},"beachcup":{"2015":11}},"Agata Semenowicz":{"all":{"2015":2},"beach":{"2015":2},"beachcup":{"2015":2},"outdoor":{},"mpm":{}},"Paweł Milanowicz":{"all":{"2015":50,"2016":24,"2017":55,"2018":61,"2019":34,"2020":26,"2021":32,"2022":63,"2023":14,"2024":59,"2025":72,"2026":10},"beach":{"2015":26,"2016":24,"2021":6,"2022":9,"2024":9,"2025":21,"2026":10},"beachcup":{"2015":26,"2016":24,"2021":6,"2022":9,"2024":9,"2025":21,"2026":10},"outdoor":{"2015":24,"2017":47,"2018":25,"2019":13,"2021":26,"2022":30,"2023":14,"2024":26,"2025":27},"mpm":{"2015":24,"2017":26,"2018":25,"2019":13,"2021":26,"2022":30,"2023":14,"2024":26,"2025":27},"indoor":{"2017":8,"2018":36,"2019":21,"2020":26,"2022":24,"2024":24,"2025":24},"hmp":{"2017":8,"2018":36,"2019":21,"2020":26,"2022":24,"2024":24,"2025":24},"wlu":{"2017":21},"ppm":{}},"Bartłomiej Żyła":{"all":{"2015":27},"outdoor":{"2015":27},"mpm":{"2015":27}},"Karolina Ryniak":{"all":{"2015":4,"2016":6,"2017":11},"outdoor":{"2015":4},"mpm":{"2015":4},"beach":{"2016":6,"2017":11},"beachcup":{"2016":6,"2017":11}},"Małgorzata Szagdaj":{"all":{"2015":2,"2016":12,"2017":34,"2018":11},"outdoor":{"2015":2,"2016":4,"2017":8,"2018":5},"mpm":{"2015":2,"2016":4,"2017":8,"2018":5},"beach":{"2016":8,"2017":9,"2018":6},"beachcup":{"2016":8,"2017":9,"2018":6},"indoor":{"2017":17},"poligon":{},"hmp":{"2017":17}},"Kamil Saktura":{"all":{"2016":13},"beach":{"2016":10},"beachcup":{"2016":10},"indoor":{"2016":3},"poligon":{"2016":3}},"Maryna Dudnik":{"all":{"2016":6,"2017":31,"2018":4},"beach":{"2016":6,"2017":3,"2018":3},"beachcup":{"2016":6,"2017":3,"2018":3},"indoor":{"2017":8},"hmp":{"2017":8},"outdoor":{"2017":20,"2018":1},"mpm":{"2017":5,"2018":1},"wlu":{"2017":15}},"Daniel Błach":{"all":{"2016":16,"2017":46,"2018":54,"2019":35,"2020":19,"2021":61,"2022":76,"2023":61,"2024":18},"indoor":{"2016":5,"2018":16,"2019":20,"2020":19,"2022":19,"2023":32},"poligon":{"2016":5},"outdoor":{"2016":11,"2017":26,"2018":24,"2019":15,"2021":43,"2022":38,"2023":12,"2024":18},"mpm":{"2016":11,"2017":12,"2018":24,"2019":15,"2021":43,"2022":38,"2023":12,"2024":18},"beach":{"2017":20,"2018":14,"2021":18,"2022":19,"2023":17},"beachcup":{"2017":20,"2018":14,"2021":18,"2022":19,"2023":17},"wlu":{"2017":14},"hmp":{"2018":16,"2019":20,"2020":19,"2022":19,"2023":32}},"Paulina Dul":{"all":{"2016":36},"indoor":{"2016":18},"poligon":{"2016":18},"outdoor":{"2016":18},"mpm":{"2016":18}},"Paweł Mierzwiński":{"all":{"2016":3,"2017":2},"indoor":{"2016":1},"poligon":{"2016":1},"outdoor":{"2016":2,"2017":2},"mpm":{"2016":2,"2017":2}},"Małgorzata Czaplińska":{"all":{"2016":2,"2017":35,"2018":68,"2019":21,"2020":14,"2021":18,"2022":41,"2023":24,"2024":32,"2025":26,"2026":4},"outdoor":{"2016":2,"2017":29,"2018":23,"2019":6,"2021":11,"2022":16,"2023":9,"2024":6,"2025":4},"mpm":{"2016":2,"2017":18,"2018":23,"2019":6,"2021":11,"2022":16,"2023":9,"2024":6,"2025":4},"beach":{"2017":6,"2018":16,"2021":7,"2022":10,"2024":5,"2025":5,"2026":4},"beachcup":{"2017":6,"2018":16,"2021":7,"2022":10,"2024":5,"2025":5,"2026":4},"wlu":{"2017":11},"indoor":{"2018":29,"2019":15,"2020":14,"2022":15,"2023":15,"2024":21,"2025":17},"hmp":{"2018":29,"2019":15,"2020":14,"2022":15,"2023":15,"2024":21,"2025":17}},"Anna Łukasik":{"all":{"2017":25},"indoor":{"2017":19},"hmp":{"2017":19},"beach":{"2017":6},"beachcup":{"2017":6}},"Błażej Majchrzak":{"all":{"2017":2,"2018":2},"indoor":{},"hmp":{},"beach":{"2017":2,"2018":2},"beachcup":{"2017":2,"2018":2},"outdoor":{},"mpm":{}},"Sergii Anufriiev":{"all":{"2013":29,"2014":4,"2015":17,"2016":21,"2017":107,"2018":25,"2020":10,"2021":9,"2022":6,"2023":21,"2024":52,"2025":23},"indoor":{"2015":7,"2017":33,"2018":13,"2020":10,"2022":2,"2023":12,"2024":15,"2025":6},"hmp":{"2015":7,"2017":33,"2018":13,"2020":10,"2022":2,"2023":12,"2024":15,"2025":6},"outdoor":{"2013":29,"2014":4,"2015":10,"2016":4,"2017":64,"2018":5,"2021":9,"2022":1,"2023":9,"2024":30,"2025":8},"plu":{"2013":29},"mpm":{"2014":4,"2015":10,"2016":4,"2017":17,"2018":5,"2021":9,"2022":1,"2023":9,"2024":8,"2025":8},"beach":{"2016":17,"2017":10,"2018":7,"2022":3,"2024":7,"2025":9},"beachcup":{"2016":17,"2017":10,"2018":7,"2022":3,"2024":7,"2025":9},"wlu":{"2017":47,"2024":22}},"Szymon Łukaszewicz":{"all":{},"indoor":{},"hmp":{}},"Maciej Skorupa":{"all":{"2017":18},"beach":{"2017":6},"beachcup":{"2017":6},"outdoor":{"2017":12},"wlu":{"2017":12}},"Marcel Byndas":{"all":{"2017":14,"2018":24,"2019":4,"2020":5},"beach":{"2017":7,"2018":7},"beachcup":{"2017":7,"2018":7},"outdoor":{"2017":7,"2018":17,"2019":4},"mpm":{"2017":7,"2018":17,"2019":4},"indoor":{"2020":5},"hmp":{"2020":5}},"Petra Michálková":{"all":{"2017":14},"beach":{"2017":11},"beachcup":{"2017":11},"outdoor":{"2017":3},"mpm":{"2017":3}},"Arkadiusz Kaczmarek":{"all":{"2017":27,"2018":17,"2020":9},"outdoor":{"2017":27,"2018":9},"mpm":{"2017":27,"2018":9},"beach":{"2018":8},"beachcup":{"2018":8},"indoor":{"2020":9},"hmp":{"2020":9}},"Natalia Nędzi":{"all":{"2017":6,"2018":2,"2019":11,"2020":8,"2021":16,"2022":36,"2025":39,"2026":27},"outdoor":{"2017":6,"2018":2,"2019":8,"2021":8,"2022":11,"2025":21,"2026":3},"mpm":{"2017":6,"2018":2,"2019":8,"2021":8,"2022":11,"2025":21},"indoor":{"2019":3,"2020":8,"2022":15,"2025":10,"2026":15},"hmp":{"2019":3,"2020":8,"2022":15,"2025":10,"2026":15},"beach":{"2021":8,"2022":10,"2025":8,"2026":9},"beachcup":{"2021":8,"2022":10,"2025":8,"2026":9},"ppm":{"2026":3}},"Zuzanna Brzezińska":{"all":{"2017":17,"2019":9,"2020":12,"2021":22,"2023":71},"outdoor":{"2017":17,"2019":9,"2021":9,"2023":32},"mpm":{"2017":17,"2019":9,"2021":9,"2023":32},"indoor":{"2020":12,"2023":26},"hmp":{"2020":12,"2023":26},"beach":{"2021":13,"2023":13},"beachcup":{"2021":13,"2023":13}},"Maciej Pająk":{"all":{"2017":15,"2018":54,"2019":27,"2020":17,"2021":38,"2023":21,"2025":14,"2026":32},"outdoor":{"2017":15,"2018":17,"2019":11,"2021":21,"2025":14,"2026":17},"mpm":{"2017":15,"2018":17,"2019":11,"2021":21,"2025":14},"indoor":{"2018":29,"2019":16,"2020":17,"2023":21},"hmp":{"2018":29,"2019":16,"2020":17,"2023":21},"beach":{"2018":8,"2021":17,"2026":15},"beachcup":{"2018":8,"2021":17,"2026":15},"ppm":{"2026":17}},"Clara Christner":{"all":{"2017":17,"2018":12},"outdoor":{"2017":17},"wlu":{"2017":17},"indoor":{"2018":12},"hmp":{"2018":12}},"Faustyna Fikus":{"all":{"2017":2,"2018":5},"outdoor":{"2017":2},"wlu":{"2017":2},"indoor":{"2018":5},"hmp":{"2018":5}},"Gabiera Pisarczuk":{"all":{"2017":19},"outdoor":{"2017":19},"wlu":{"2017":19}},"Jakub Korta":{"all":{"2017":15,"2018":1,"2019":1,"2021":2,"2022":1},"outdoor":{"2017":15,"2018":1,"2021":2,"2022":1},"wlu":{"2017":15},"mpm":{"2018":1,"2021":2,"2022":1},"indoor":{"2019":1},"hmp":{"2019":1}},"Jakub Tomczuk":{"all":{"2017":3,"2018":3},"outdoor":{"2017":3,"2018":3},"wlu":{"2017":3},"mpm":{"2018":3}},"Kamila Nazimek":{"all":{"2017":2},"outdoor":{"2017":2},"wlu":{"2017":2}},"Lisa Freytag":{"all":{"2017":11},"outdoor":{"2017":11},"wlu":{"2017":11}},"Marcin Harasimowicz":{"all":{"2017":7},"outdoor":{"2017":7},"wlu":{"2017":7}},"Maria Uzmorskaya":{"all":{},"outdoor":{},"wlu":{}},"Mariusz Trembecki":{"all":{"2017":2},"outdoor":{"2017":2},"wlu":{"2017":2}},"Szymon Poznański":{"all":{"2017":24},"outdoor":{"2017":24},"wlu":{"2017":24}},"Weronika Szóstak":{"all":{"2017":3,"2018":3,"2019":1},"outdoor":{"2017":3,"2018":2},"wlu":{"2017":3},"indoor":{"2019":1},"hmp":{"2019":1},"beach":{"2018":1},"beachcup":{"2018":1},"mpm":{"2018":2}},"Gabriela Pisarczuk":{"all":{"2018":22,"2019":4,"2020":2,"2021":1},"indoor":{"2018":4,"2020":2},"hmp":{"2018":4,"2020":2},"beach":{"2018":7},"beachcup":{"2018":7},"outdoor":{"2018":11,"2019":4,"2021":1},"mpm":{"2018":11,"2019":4,"2021":1}},"Krzysztof Przybyś":{"all":{"2018":3,"2019":5,"2021":4,"2022":4,"2023":12},"beach":{"2018":2,"2021":1,"2022":3},"beachcup":{"2018":2,"2021":1,"2022":3},"outdoor":{"2018":1,"2019":2,"2021":3,"2022":1,"2023":12},"mpm":{"2018":1,"2019":2,"2021":3,"2022":1},"indoor":{"2019":3},"hmp":{"2019":3},"wlu":{"2023":12}},"Izabela Kołodziejczyk":{"all":{"2018":2,"2019":2},"outdoor":{"2018":2,"2019":2},"mpm":{"2018":2,"2019":2}},"Monika Mikoś":{"all":{"2018":3,"2019":13},"outdoor":{"2018":3,"2019":6},"mpm":{"2018":3,"2019":6},"indoor":{"2019":7},"hmp":{"2019":7}},"Wojciech Pająk":{"all":{"2018":7,"2019":13},"outdoor":{"2018":7,"2019":13},"mpm":{"2018":7,"2019":13}},"Piotr Szauderna":{"all":{"2019":7},"indoor":{"2019":6},"hmp":{"2019":6},"outdoor":{"2019":1},"mpm":{"2019":1}},"Aleksandra Milanowicz":{"all":{"2019":11,"2023":6,"2024":14,"2025":35},"outdoor":{"2019":11,"2023":6,"2024":14,"2025":15},"mpm":{"2019":11,"2023":6,"2024":14,"2025":15},"beach":{"2025":20},"beachcup":{"2025":20}},"Barbara Raba":{"all":{"2019":3,"2021":12},"outdoor":{"2019":3,"2021":7},"mpm":{"2019":3,"2021":7},"beach":{"2021":5},"beachcup":{"2021":5}},"Jakub Golec":{"all":{"2019":6},"outdoor":{"2019":6},"mpm":{"2019":6}},"Michał Krotliński":{"all":{"2019":7,"2021":11,"2022":20,"2023":36,"2024":44,"2025":88,"2026":20},"outdoor":{"2019":7,"2021":6,"2022":7,"2023":15,"2024":22,"2025":39},"mpm":{"2019":7,"2021":6,"2022":7,"2023":8,"2024":22,"2025":39},"beach":{"2021":5,"2022":3,"2023":11,"2024":21,"2025":22,"2026":9},"beachcup":{"2021":5,"2022":3,"2023":11,"2024":21,"2025":22,"2026":9},"indoor":{"2022":10,"2023":10,"2024":1,"2025":27,"2026":11},"hmp":{"2022":10,"2023":10,"2024":1,"2025":27,"2026":11},"wlu":{"2023":7}},"Anna Jeziorska":{"all":{"2021":16,"2022":11,"2023":76,"2024":33},"outdoor":{"2021":4,"2022":3,"2023":68,"2024":21},"mpm":{"2021":4,"2022":3,"2023":10,"2024":20},"beach":{"2021":12,"2022":8,"2023":8,"2024":12},"beachcup":{"2021":12,"2022":8,"2023":8,"2024":12},"wlu":{"2023":58,"2024":1}},"Joanna Wawrzynów":{"all":{"2021":1},"outdoor":{"2021":1},"mpm":{"2021":1}},"Katarzyna Widźgowska":{"all":{"2021":7,"2023":51,"2024":20,"2025":12,"2026":17},"outdoor":{"2021":4,"2023":43,"2024":6,"2025":6,"2026":6},"mpm":{"2021":4,"2023":9,"2024":6,"2025":6},"beach":{"2021":3,"2023":5,"2025":6,"2026":4},"beachcup":{"2021":3,"2023":5,"2025":6,"2026":4},"indoor":{"2023":3,"2024":14,"2026":7},"hmp":{"2023":3,"2024":14,"2026":7},"wlu":{"2023":34},"ppm":{"2026":6}},"Maja Kozak":{"all":{"2021":5,"2022":17,"2023":47,"2024":47,"2025":49,"2026":14},"outdoor":{"2021":5,"2022":9,"2023":27,"2024":21,"2025":22,"2026":2},"mpm":{"2021":5,"2022":9,"2023":11,"2024":21,"2025":22},"indoor":{"2022":6,"2023":11,"2024":18,"2025":15,"2026":12},"hmp":{"2022":6,"2023":11,"2024":18,"2025":15,"2026":12},"beach":{"2022":2,"2023":9,"2024":8,"2025":12},"beachcup":{"2022":2,"2023":9,"2024":8,"2025":12},"wlu":{"2023":16},"ppm":{"2026":2}},"Sylwia Ziętala":{"all":{"2021":8},"outdoor":{"2021":8},"mpm":{"2021":8}},"Andrzej Zaród":{"all":{"2021":6,"2022":42,"2023":26,"2024":10,"2026":55},"outdoor":{"2021":3,"2022":11,"2023":26,"2024":10,"2026":16},"mpm":{"2021":3,"2022":11,"2023":26,"2024":10},"beach":{"2021":3,"2022":5,"2026":18},"beachcup":{"2021":3,"2022":5,"2026":18},"indoor":{"2022":26,"2026":21},"hmp":{"2022":26,"2026":21},"ppm":{"2026":16}},"Łukasz Duda":{"all":{"2021":1},"outdoor":{"2021":1},"mpm":{"2021":1}},"Aleksandra Czerwonko":{"all":{"2022":21,"2023":13,"2024":31,"2025":11,"2026":4},"indoor":{"2022":6,"2023":6,"2024":16,"2025":10},"hmp":{"2022":6,"2023":6,"2024":16,"2025":10},"outdoor":{"2022":8,"2023":5,"2024":12,"2025":1,"2026":2},"mpm":{"2022":8,"2023":5,"2024":12,"2025":1},"beach":{"2022":7,"2023":2,"2024":3,"2026":2},"beachcup":{"2022":7,"2023":2,"2024":3,"2026":2},"ppm":{"2026":2}},"Aleksandra Łyskanowska":{"all":{"2022":8},"indoor":{"2022":8},"hmp":{"2022":8}},"Ewa Szewczyk-Leśniak":{"all":{"2022":5,"2024":3},"outdoor":{"2022":5,"2024":3},"mpm":{"2022":5,"2024":3}},"Jakub Leśniak":{"all":{},"outdoor":{},"mpm":{}},"Jakub Tumkielski":{"all":{"2022":1},"outdoor":{"2022":1},"mpm":{"2022":1}},"Jan Kubis":{"all":{"2022":7,"2023":42,"2024":7,"2025":1,"2026":18},"outdoor":{"2022":4,"2023":35,"2024":7,"2025":1},"mpm":{"2022":4,"2023":3,"2024":7,"2025":1},"beach":{"2022":3,"2023":7},"beachcup":{"2022":3,"2023":7},"wlu":{"2023":32},"indoor":{"2026":18},"hmp":{"2026":18},"ppm":{}},"Katarzyna Frencek":{"all":{"2022":4,"2023":38,"2024":8},"outdoor":{"2022":1,"2023":38,"2024":8},"mpm":{"2022":1},"beach":{"2022":3},"beachcup":{"2022":3},"wlu":{"2023":38,"2024":8}},"Maciej Zięba":{"all":{"2022":23,"2023":57,"2025":10,"2026":20},"outdoor":{"2022":15,"2023":26,"2025":3,"2026":5},"mpm":{"2022":15,"2023":26,"2025":3},"beach":{"2022":8,"2023":8,"2025":7},"beachcup":{"2022":8,"2023":8,"2025":7},"indoor":{"2023":23,"2026":15},"hmp":{"2023":23,"2026":15},"ppm":{"2026":5}},"Mateusz Skorupa":{"all":{"2022":6,"2023":83,"2024":18,"2025":22},"outdoor":{"2022":4,"2023":70,"2024":6,"2025":14},"mpm":{"2022":4,"2023":7,"2024":6,"2025":14},"beach":{"2022":2,"2023":6,"2024":6},"beachcup":{"2022":2,"2023":6,"2024":6},"indoor":{"2023":7,"2024":6,"2025":8},"hmp":{"2023":7,"2024":6,"2025":8},"wlu":{"2023":63}},"Piotr Konopczak":{"all":{},"outdoor":{},"mpm":{}},"Piotr Wyciechowski":{"all":{"2023":37,"2024":9,"2025":1},"outdoor":{"2023":36,"2025":1},"mpm":{"2023":3,"2025":1},"beach":{"2023":1,"2024":2},"beachcup":{"2023":1,"2024":2},"wlu":{"2023":33},"indoor":{"2024":7},"hmp":{"2024":7}},"Szymon Zięba":{"all":{},"outdoor":{},"mpm":{}},"Ada Kodzik":{"all":{"2022":1},"outdoor":{"2022":1},"mpm":{"2022":1}},"Rafał Furman":{"all":{"2022":1,"2023":54,"2024":82,"2025":29,"2026":17},"outdoor":{"2022":1,"2023":54,"2024":66,"2025":4,"2026":6},"mpm":{"2022":1,"2023":5,"2024":10,"2025":4},"wlu":{"2023":49,"2024":56},"indoor":{"2024":11,"2025":20,"2026":7},"hmp":{"2024":11,"2025":20,"2026":7},"beach":{"2024":5,"2025":5,"2026":4},"beachcup":{"2024":5,"2025":5,"2026":4},"ppm":{"2026":6}},"Tomasz Klin":{"all":{"2024":29,"2025":13,"2026":11},"outdoor":{"2024":17,"2025":7},"mpm":{"2024":4,"2025":7},"indoor":{"2024":11,"2025":6},"hmp":{"2024":11,"2025":6},"beach":{"2024":1,"2026":11},"beachcup":{"2024":1,"2026":11},"wlu":{"2024":13}},"Wojciech Drzewicki":{"all":{"2023":5,"2024":29},"outdoor":{"2023":5,"2024":29},"mpm":{"2024":4},"wlu":{"2023":5,"2024":25}},"Iga Durejko":{"all":{"2023":1},"beach":{"2023":1},"beachcup":{"2023":1}},"Konrad Szwej":{"all":{"2023":16},"beach":{"2023":16},"beachcup":{"2023":16}},"Monika Kowal":{"all":{"2023":2},"beach":{"2023":2},"beachcup":{"2023":2}},"Olga Majewska":{"all":{"2023":2,"2024":20},"beach":{"2023":2},"beachcup":{"2023":2},"outdoor":{"2024":20},"wlu":{"2024":20}},"Joanna Szpejewska":{"all":{"2023":4},"outdoor":{"2023":4},"mpm":{"2023":2},"wlu":{"2023":2}},"Maryia Kuchynskaya":{"all":{"2023":2},"outdoor":{"2023":2},"mpm":{"2023":2}},"Anton Gatsko":{"all":{"2023":37,"2024":59,"2025":26,"2026":26},"outdoor":{"2023":37,"2024":54,"2025":7,"2026":3},"wlu":{"2023":37,"2024":52},"mpm":{"2024":2,"2025":7},"beach":{"2024":5,"2025":10,"2026":10},"beachcup":{"2024":5,"2025":10,"2026":10},"indoor":{"2025":9,"2026":13},"hmp":{"2025":9,"2026":13},"ppm":{"2026":3}},"Bartosz Pietraś":{"all":{"2023":17,"2024":29,"2025":7},"outdoor":{"2023":17,"2024":29},"wlu":{"2023":17,"2024":23},"mpm":{"2024":6},"indoor":{"2025":7},"hmp":{"2025":7}},"Klaudia Jamicka":{"all":{},"outdoor":{},"wlu":{}},"Maciej Chodukiewicz":{"all":{"2023":19,"2024":41},"outdoor":{"2023":19,"2024":38},"wlu":{"2023":19,"2024":35},"mpm":{"2024":3},"beach":{"2024":3},"beachcup":{"2024":3}},"Maciej Kiciński":{"all":{"2023":6,"2025":3,"2026":1},"outdoor":{"2023":6,"2025":3,"2026":1},"wlu":{"2023":6},"mpm":{"2025":3},"ppm":{"2026":1}},"Mateusz Czublun":{"all":{"2023":8,"2024":7,"2026":9},"outdoor":{"2023":8,"2024":7},"wlu":{"2023":8,"2024":7},"indoor":{"2026":9},"hmp":{"2026":9}},"Natalia Korszeń":{"all":{"2023":9,"2024":14},"outdoor":{"2023":9,"2024":9},"wlu":{"2023":9,"2024":9},"beach":{"2024":5},"beachcup":{"2024":5}},"Nela Kunowska":{"all":{"2024":4,"2025":2,"2026":6},"outdoor":{"2024":2,"2026":2},"mpm":{"2024":2},"beach":{"2024":2},"beachcup":{"2024":2},"indoor":{"2025":2,"2026":4},"hmp":{"2025":2,"2026":4},"ppm":{"2026":2}},"Amelia Sroka":{"all":{"2024":6},"outdoor":{"2024":6},"wlu":{"2024":6}},"Anna Jasiewicz":{"all":{"2024":6},"outdoor":{"2024":6},"wlu":{"2024":6}},"Antoni Majewski":{"all":{"2024":3,"2026":2},"outdoor":{"2024":3,"2026":2},"wlu":{"2024":3},"ppm":{"2026":2}},"Antonina Klin":{"all":{"2024":7},"outdoor":{"2024":7},"wlu":{"2024":7}},"Arina Bartashevich":{"all":{"2024":4},"outdoor":{"2024":4},"wlu":{"2024":4}},"Franciszek Gerus":{"all":{"2024":4},"outdoor":{"2024":4},"wlu":{"2024":4}},"Grzegorz Ruszczyński":{"all":{"2024":14,"2025":1,"2026":13},"outdoor":{"2024":14,"2025":1,"2026":5},"wlu":{"2024":14},"mpm":{"2025":1},"indoor":{"2026":6},"hmp":{"2026":6},"beach":{"2026":2},"beachcup":{"2026":2},"ppm":{"2026":5}},"Hanna Kędziora":{"all":{"2024":1,"2025":6,"2026":12},"outdoor":{"2024":1,"2026":1},"wlu":{"2024":1},"indoor":{"2025":4,"2026":8},"hmp":{"2025":4,"2026":8},"beach":{"2025":2,"2026":3},"beachcup":{"2025":2,"2026":3},"mpm":{},"ppm":{"2026":1}},"Kamila Bukowska":{"all":{"2024":5},"outdoor":{"2024":5},"wlu":{"2024":5}},"Katarzyna Arent":{"all":{"2024":2},"outdoor":{"2024":2},"wlu":{"2024":2}},"Katarzyna Palma":{"all":{"2024":3,"2025":23,"2026":3},"outdoor":{"2024":3,"2025":18,"2026":1},"wlu":{"2024":3},"mpm":{"2025":18},"beach":{"2025":5,"2026":2},"beachcup":{"2025":5,"2026":2},"ppm":{"2026":1}},"Małgorzata Jagielska":{"all":{},"outdoor":{},"wlu":{}},"Monika Zaczkowska":{"all":{},"outdoor":{},"wlu":{}},"Nadia Stróżyńska":{"all":{},"outdoor":{},"wlu":{}},"Róża Korczyc":{"all":{"2024":3},"outdoor":{"2024":3},"wlu":{"2024":3}},"Gaoweiang Dong":{"all":{"2025":1},"beach":{},"beachcup":{},"outdoor":{"2025":1},"mpm":{"2025":1}},"Anna Krawczyk":{"all":{"2026":9},"outdoor":{},"mpm":{},"beach":{"2026":9},"beachcup":{"2026":9}},"Damian Rosiak":{"all":{"2025":2},"outdoor":{"2025":2},"mpm":{"2025":2}},"Julia Jaśkiewicz":{"all":{},"outdoor":{},"mpm":{}},"Katarzyna Kiełbińska":{"all":{"2025":1,"2026":9},"outdoor":{"2025":1,"2026":5},"mpm":{"2025":1},"indoor":{"2026":4},"hmp":{"2026":4},"ppm":{"2026":5}},"Maja Górowska":{"all":{},"outdoor":{},"mpm":{}},"Wiktor Sulej-Michalski":{"all":{},"outdoor":{},"mpm":{}},"Karol Janiczek":{"all":{},"outdoor":{},"ppm":{}},"Patrycja Szymańska":{"all":{},"outdoor":{},"ppm":{}}};
+
+function buildPlayerChart(name, scopeKey){
+  const scoped = (YEARLY_BY_SCOPE[name] && YEARLY_BY_SCOPE[name][scopeKey]) || {};
+  const years = Object.keys(scoped).map(Number).sort((a,b) => a - b);
+  if (years.length === 0) return '';
+  const vals = years.map(y => scoped[y]);
+  const barW = 24, gap = 5, padL = 24, padB = 14, padT = 10;
+  const chartH = 64;
+  const w = padL + years.length*(barW+gap);
+  const h = padT + chartH + padB;
+  const max = Math.max(...vals, 1);
+  let bars = '';
+  years.forEach((y,i) => {
+    const v = vals[i];
+    const bh = v>0 ? Math.max(3, (v/max)*chartH) : 1;
+    const x = padL + i*(barW+gap);
+    const y0 = padT + (chartH - bh);
+    bars += `<rect x="${x}" y="${y0}" width="${barW}" height="${bh}" rx="3" fill="${v>0?'var(--accent)':'var(--border)'}"><title>${y}: ${v} pts</title></rect>`;
+    bars += `<text class="bar-val" x="${x+barW/2}" y="${y0-4}" font-size="9" text-anchor="middle" fill="var(--text-muted)">${v>0?v:''}</text>`;
+    bars += `<text x="${x+barW/2}" y="${padT+chartH+14}" font-size="9" text-anchor="middle" fill="var(--text-muted)" font-family="JetBrains Mono, monospace">${y}</text>`;
+  });
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+    <line x1="${padL}" y1="${padT+chartH}" x2="${w}" y2="${padT+chartH}" stroke="var(--border)" stroke-width="1"></line>
+    ${bars}
+  </svg>`;
+}
+
+function buildPlayerTable(d, activeScopeKey){
+  const rows = [['All tournaments (career)', d.all, true, 'all']];
+  ['ppm','mpm','wlu','plu','beachcup','hmp','poligon'].forEach(key => {
+    if (d.series[key].seasons > 0) rows.push([SERIES_META[key].label, d.series[key], false, key]);
+  });
+  const head = `<tr><th>Tournament</th><th>Seasons</th><th>Games</th><th>Assists</th><th>Goals</th><th>Total</th></tr>`;
+  const body = rows.map(([label, b, isAll, key]) => {
+    const isActive = !!activeScopeKey && (key === activeScopeKey || (SERIES_META[key] && SERIES_META[key].surface === activeScopeKey));
+    const cls = [isAll ? 'all-row' : '', isActive ? 'active-row' : ''].filter(Boolean).join(' ');
+    return `<tr class="${cls}"><td>${label}</td><td>${b.seasons}</td><td>${b.games}</td><td>${b.assists}</td><td>${b.points}</td><td>${b.sum}</td></tr>`;
+  }).join('');
+  return `<table class="expand-table"><thead>${head}</thead><tbody>${body}</tbody></table>`;
+}
+
+function buildExpandContent(name){
+  const d = DATA.find(x => x.name === name);
+  if (!d) return '';
+  const scopeKey = currentScopeKey();
+  const bucket = currentBucket(d);
+  const label = scopeDisplayName();
+  const sub = bucket.seasons > 0
+    ? `${label}: ${bucket.minY}–${bucket.maxY} · ${bucket.seasons} season${bucket.seasons===1?'':'s'} · ${bucket.games} games · ${bucket.sum} points`
+    : `${label}: no recorded appearances`;
+  const chart = buildPlayerChart(d.name, scopeKey);
+  return `
+    <p class="expand-sub">${sub}</p>
+    ${chart ? `<div class="expand-chart-wrap">${chart}</div>` : ''}
+    <p class="expand-section-title">Career, by tournament</p>
+    <div style="overflow-x:auto;">${buildPlayerTable(d, scopeKey)}</div>
+  `;
+}
+
+// directed assist->goal pairs, scraped from Flow Mixed game logs, bucketed by surface and tournament series (same scopes as YEARLY_BY_SCOPE)
+const NET_EDGES_BY_SCOPE = {"all":[["Bartłomiej Specjał","Daniel Błach",44],["Bartłomiej Specjał","Małgorzata Czaplińska",38],["Bartłomiej Specjał","Tomasz Zatoń",37],["Dariusz Urbanik","Bartłomiej Specjał",35],["Paweł Milanowicz","Małgorzata Czaplińska",30],["Bartłomiej Specjał","Paweł Milanowicz",30],["Michał Krotliński","Maja Kozak",27],["Paweł Milanowicz","Sergii Anufriiev",26],["Bartłomiej Specjał","Aleksandra Szyrwiel",26],["Paweł Milanowicz","Daniel Błach",24],["Marcin Bielewski","Tomasz Zatoń",24],["Marcin Bielewski","Michał Dul",23],["Daniel Błach","Paweł Milanowicz",21],["Daniel Błach","Bartłomiej Specjał",21],["Dariusz Urbanik","Małgorzata Czaplińska",21],["Paweł Milanowicz","Aleksandra Szyrwiel",21],["Paweł Milanowicz","Maja Kozak",19],["Bartłomiej Specjał","Zuzanna Brzezińska",19],["Maciej Pająk","Daniel Błach",19],["Maciej Pająk","Małgorzata Czaplińska",19],["Daniel Błach","Małgorzata Czaplińska",19],["Paweł Milanowicz","Bartłomiej Specjał",19],["Bartłomiej Specjał","Maja Kozak",18],["Mateusz Skorupa","Anna Jeziorska",18],["Jakub Wróbel","Bartłomiej Specjał",18],["Michał Krotliński","Paweł Milanowicz",17],["Rafał Furman","Anton Gatsko",16],["Jakub Wróbel","Paweł Milanowicz",16],["Dariusz Urbanik","Tomasz Zatoń",16],["Michał Krotliński","Małgorzata Czaplińska",15],["Daniel Błach","Zuzanna Brzezińska",15],["Tomasz Zatoń","Aleksandra Szyrwiel",15],["Marcin Bielewski","Sergii Anufriiev",15],["Paweł Milanowicz","Natalia Nędzi",14],["Jakub Wróbel","Daniel Błach",14],["Paweł Milanowicz","Dariusz Urbanik",14],["Tomasz Zatoń","Bartłomiej Specjał",14],["Michał Krotliński","Anton Gatsko",13],["Bartłomiej Specjał","Sergii Anufriiev",12],["Bartłomiej Specjał","Dariusz Urbanik",12],["Bartłomiej Specjał","Anna Jeziorska",11],["Andrzej Zaród","Daniel Błach",11],["Maciej Zięba","Zuzanna Brzezińska",11],["Maciej Pająk","Sergii Anufriiev",11],["Maciej Pająk","Bartłomiej Specjał",11],["Małgorzata Czaplińska","Daniel Błach",11],["Dariusz Urbanik","Daniel Błach",11],["Dariusz Urbanik","Sergii Anufriiev",11],["Daniel Błach","Aleksandra Szyrwiel",11],["Paweł Milanowicz","Jakub Wróbel",11],["Jakub Wróbel","Aleksandra Szyrwiel",11],["Jakub Wróbel","Tomasz Zatoń",11],["Małgorzata Czaplińska","Sergii Anufriiev",10],["Bartłomiej Specjał","Natalia Nędzi",10],["Aleksandra Szyrwiel","Bartłomiej Specjał",10],["Tomasz Zatoń","Dariusz Urbanik",10],["Michał Krotliński","Mateusz Skorupa",9],["Sergii Anufriiev","Małgorzata Czaplińska",9],["Sergii Anufriiev","Paweł Milanowicz",9],["Mateusz Skorupa","Rafał Furman",9],["Sergii Anufriiev","Daniel Błach",9],["Paweł Milanowicz","Anna Jeziorska",9],["Michał Krotliński","Anna Jeziorska",9],["Maciej Pająk","Zuzanna Brzezińska",9],["Bartłomiej Specjał","Jakub Wróbel",9],["Dariusz Urbanik","Paweł Milanowicz",9],["Jakub Wróbel","Sergii Anufriiev",9],["Tomasz Zatoń","Małgorzata Czaplińska",9],["Paweł Milanowicz","Maciej Pająk",8],["Michał Krotliński","Natalia Nędzi",8],["Michał Krotliński","Rafał Furman",8],["Maciej Pająk","Paweł Milanowicz",8],["Daniel Błach","Sergii Anufriiev",8],["Daniel Błach","Andrzej Zaród",8],["Mateusz Skorupa","Anton Gatsko",8],["Daniel Błach","Maja Kozak",8],["Michał Krotliński","Daniel Błach",8],["Maciej Zięba","Małgorzata Czaplińska",8],["Natalia Nędzi","Bartłomiej Specjał",8],["Dariusz Urbanik","Aleksandra Szyrwiel",8],["Maciej Pająk","Tomasz Zatoń",8],["Tomasz Zatoń","Sergii Anufriiev",8],["Tomasz Zatoń","Katarzyna Dobranowska",8],["Paweł Milanowicz","Tomasz Zatoń",8],["Sergii Anufriiev","Tomasz Zatoń",8],["Marcin Bielewski","Bartłomiej Specjał",8],["Maciej Zięba","Andrzej Zaród",7],["Andrzej Zaród","Maciej Zięba",7],["Paweł Milanowicz","Mateusz Skorupa",7],["Rafał Furman","Katarzyna Widźgowska",7],["Sergii Anufriiev","Anton Gatsko",7],["Rafał Furman","Anna Jeziorska",7],["Bartłomiej Specjał","Andrzej Zaród",7],["Zuzanna Brzezińska","Bartłomiej Specjał",7],["Daniel Błach","Natalia Nędzi",7],["Sergii Anufriiev","Jakub Wróbel",7],["Dariusz Urbanik","Katarzyna Dobranowska",7],["Michał Dul","Katarzyna Dobranowska",7],["Natalia Nędzi","Anton Gatsko",6],["Natalia Nędzi","Maciej Pająk",6],["Andrzej Zaród","Maja Kozak",6],["Maciej Zięba","Maja Kozak",6],["Mateusz Skorupa","Maja Kozak",6],["Maciej Zięba","Sergii Anufriiev",6],["Małgorzata Czaplińska","Maja Kozak",6],["Paweł Milanowicz","Rafał Furman",6],["Andrzej Zaród","Zuzanna Brzezińska",6],["Zuzanna Brzezińska","Daniel Błach",6],["Andrzej Zaród","Małgorzata Czaplińska",6],["Daniel Błach","Anna Jeziorska",6],["Maciej Pająk","Dariusz Urbanik",6],["Bartłomiej Specjał","Maciej Pająk",6],["Tomasz Zatoń","Jakub Wróbel",6],["Bartłomiej Specjał","Katarzyna Dobranowska",6],["Jakub Wróbel","Michał Dul",6],["Marcin Bielewski","Aleksandra Szyrwiel",6],["Andrzej Zaród","Anton Gatsko",5],["Michał Krotliński","Katarzyna Widźgowska",5],["Maciej Zięba","Katarzyna Widźgowska",5],["Natalia Nędzi","Michał Krotliński",5],["Maja Kozak","Michał Krotliński",5],["Natalia Nędzi","Paweł Milanowicz",5],["Katarzyna Widźgowska","Rafał Furman",5],["Paweł Milanowicz","Katarzyna Widźgowska",5],["Anna Jeziorska","Anton Gatsko",5],["Katarzyna Widźgowska","Anton Gatsko",5],["Katarzyna Widźgowska","Anna Jeziorska",5],["Maciej Zięba","Anna Jeziorska",5],["Mateusz Skorupa","Maciej Zięba",5],["Daniel Błach","Maciej Pająk",5],["Daniel Błach","Dariusz Urbanik",5],["Natalia Nędzi","Daniel Błach",5],["Paweł Milanowicz","Zuzanna Brzezińska",5],["Jakub Wróbel","Maciej Pająk",5],["Jakub Wróbel","Dariusz Urbanik",5],["Jakub Wróbel","Małgorzata Czaplińska",5],["Jakub Wróbel","Katarzyna Dobranowska",5],["Andrzej Zaród","Natalia Nędzi",4],["Andrzej Zaród","Maciej Pająk",4],["Maciej Zięba","Anton Gatsko",4],["Natalia Nędzi","Maja Kozak",4],["Rafał Furman","Michał Krotliński",4],["Michał Krotliński","Andrzej Zaród",4],["Maciej Pająk","Maja Kozak",4],["Rafał Furman","Sergii Anufriiev",4],["Michał Krotliński","Sergii Anufriiev",4],["Małgorzata Czaplińska","Maciej Zięba",4],["Paweł Milanowicz","Anton Gatsko",4],["Rafał Furman","Maja Kozak",4],["Małgorzata Czaplińska","Paweł Milanowicz",4],["Sergii Anufriiev","Maja Kozak",4],["Sergii Anufriiev","Rafał Furman",4],["Małgorzata Czaplińska","Katarzyna Widźgowska",4],["Daniel Błach","Mateusz Skorupa",4],["Andrzej Zaród","Paweł Milanowicz",4],["Dariusz Urbanik","Maciej Pająk",4],["Zuzanna Brzezińska","Paweł Milanowicz",4],["Natalia Nędzi","Zuzanna Brzezińska",4],["Dariusz Urbanik","Jakub Wróbel",4],["Maciej Pająk","Katarzyna Dobranowska",4],["Maciej Pająk","Aleksandra Szyrwiel",4],["Tomasz Zatoń","Maciej Pająk",4],["Małgorzata Czaplińska","Aleksandra Szyrwiel",4],["Paweł Milanowicz","Katarzyna Dobranowska",4],["Tomasz Zatoń","Paweł Milanowicz",4],["Sergii Anufriiev","Aleksandra Szyrwiel",4],["Aleksandra Szyrwiel","Tomasz Zatoń",4],["Aleksandra Szyrwiel","Sergii Anufriiev",4],["Zuzanna Brzezińska","Aleksandra Szyrwiel",4],["Bartłomiej Specjał","Michał Dul",4],["Bartłomiej Specjał","Marcin Bielewski",4],["Michał Dul","Paweł Milanowicz",4],["Dariusz Urbanik","Michał Dul",4],["Rafał Furman","Paweł Milanowicz",3],["Maciej Pająk","Katarzyna Widźgowska",3],["Maciej Pająk","Natalia Nędzi",3],["Mateusz Skorupa","Michał Krotliński",3],["Paweł Milanowicz","Michał Krotliński",3],["Małgorzata Czaplińska","Michał Krotliński",3],["Natalia Nędzi","Małgorzata Czaplińska",3],["Michał Krotliński","Bartłomiej Specjał",3],["Katarzyna Widźgowska","Małgorzata Czaplińska",3],["Mateusz Skorupa","Katarzyna Widźgowska",3],["Rafał Furman","Mateusz Skorupa",3],["Daniel Błach","Katarzyna Widźgowska",3],["Bartłomiej Specjał","Maciej Zięba",3],["Daniel Błach","Michał Krotliński",3],["Michał Krotliński","Maciej Zięba",3],["Bartłomiej Specjał","Katarzyna Widźgowska",3],["Michał Krotliński","Zuzanna Brzezińska",3],["Zuzanna Brzezińska","Małgorzata Czaplińska",3],["Paweł Milanowicz","Andrzej Zaród",3],["Maciej Pająk","Anna Jeziorska",3],["Dariusz Urbanik","Natalia Nędzi",3],["Małgorzata Czaplińska","Bartłomiej Specjał",3],["Tomasz Zatoń","Daniel Błach",3],["Sergii Anufriiev","Bartłomiej Specjał",3],["Katarzyna Dobranowska","Tomasz Zatoń",3],["Michał Dul","Bartłomiej Specjał",3],["Małgorzata Czaplińska","Maciej Pająk",2],["Maciej Pająk","Michał Krotliński",2],["Anton Gatsko","Andrzej Zaród",2],["Natalia Nędzi","Andrzej Zaród",2],["Maja Kozak","Anton Gatsko",2],["Michał Krotliński","Maciej Pająk",2],["Sergii Anufriiev","Maciej Zięba",2],["Sergii Anufriiev","Katarzyna Widźgowska",2],["Rafał Furman","Małgorzata Czaplińska",2],["Anton Gatsko","Paweł Milanowicz",2],["Mateusz Skorupa","Paweł Milanowicz",2],["Mateusz Skorupa","Małgorzata Czaplińska",2],["Anton Gatsko","Anna Jeziorska",2],["Maja Kozak","Paweł Milanowicz",2],["Andrzej Zaród","Bartłomiej Specjał",2],["Daniel Błach","Rafał Furman",2],["Anna Jeziorska","Paweł Milanowicz",2],["Andrzej Zaród","Sergii Anufriiev",2],["Bartłomiej Specjał","Mateusz Skorupa",2],["Maja Kozak","Małgorzata Czaplińska",2],["Katarzyna Widźgowska","Paweł Milanowicz",2],["Katarzyna Widźgowska","Maja Kozak",2],["Maja Kozak","Katarzyna Widźgowska",2],["Anna Jeziorska","Katarzyna Widźgowska",2],["Maja Kozak","Anna Jeziorska",2],["Andrzej Zaród","Anna Jeziorska",2],["Andrzej Zaród","Jakub Wróbel",2],["Zuzanna Brzezińska","Maja Kozak",2],["Maciej Zięba","Paweł Milanowicz",2],["Zuzanna Brzezińska","Maciej Zięba",2],["Maciej Zięba","Mateusz Skorupa",2],["Maciej Zięba","Bartłomiej Specjał",2],["Dariusz Urbanik","Maciej Zięba",2],["Natalia Nędzi","Maciej Zięba",2],["Natalia Nędzi","Anna Jeziorska",2],["Dariusz Urbanik","Anna Jeziorska",2],["Dariusz Urbanik","Andrzej Zaród",2],["Natalia Nędzi","Sergii Anufriiev",2],["Andrzej Zaród","Michał Krotliński",2],["Natalia Nędzi","Dariusz Urbanik",2],["Jakub Wróbel","Zuzanna Brzezińska",2],["Aleksandra Szyrwiel","Natalia Nędzi",2],["Sergii Anufriiev","Dariusz Urbanik",2],["Natalia Nędzi","Aleksandra Szyrwiel",2],["Katarzyna Dobranowska","Aleksandra Szyrwiel",2],["Daniel Błach","Jakub Wróbel",2],["Aleksandra Szyrwiel","Daniel Błach",2],["Małgorzata Czaplińska","Tomasz Zatoń",2],["Katarzyna Dobranowska","Dariusz Urbanik",2],["Daniel Błach","Marcin Bielewski",2],["Marcin Bielewski","Jakub Wróbel",2],["Tomasz Zatoń","Michał Dul",2],["Katarzyna Dobranowska","Paweł Milanowicz",2],["Tomasz Zatoń","Marcin Bielewski",2],["Andrzej Zaród","Rafał Furman",1],["Maciej Pająk","Anton Gatsko",1],["Andrzej Zaród","Katarzyna Widźgowska",1],["Rafał Furman","Natalia Nędzi",1],["Anton Gatsko","Michał Krotliński",1],["Maciej Zięba","Natalia Nędzi",1],["Maciej Zięba","Rafał Furman",1],["Natalia Nędzi","Mateusz Skorupa",1],["Paweł Milanowicz","Maciej Zięba",1],["Maja Kozak","Natalia Nędzi",1],["Natalia Nędzi","Katarzyna Widźgowska",1],["Małgorzata Czaplińska","Rafał Furman",1],["Małgorzata Czaplińska","Anton Gatsko",1],["Bartłomiej Specjał","Rafał Furman",1],["Maja Kozak","Bartłomiej Specjał",1],["Anna Jeziorska","Jakub Wróbel",1],["Anna Jeziorska","Michał Krotliński",1],["Sergii Anufriiev","Anna Jeziorska",1],["Maja Kozak","Rafał Furman",1],["Jakub Wróbel","Katarzyna Widźgowska",1],["Mateusz Skorupa","Sergii Anufriiev",1],["Sergii Anufriiev","Mateusz Skorupa",1],["Maja Kozak","Mateusz Skorupa",1],["Anna Jeziorska","Rafał Furman",1],["Zuzanna Brzezińska","Andrzej Zaród",1],["Zuzanna Brzezińska","Jakub Wróbel",1],["Jakub Wróbel","Anna Jeziorska",1],["Maciej Zięba","Daniel Błach",1],["Anna Jeziorska","Bartłomiej Specjał",1],["Bartłomiej Specjał","Michał Krotliński",1],["Anna Jeziorska","Zuzanna Brzezińska",1],["Katarzyna Widźgowska","Michał Krotliński",1],["Rafał Furman","Bartłomiej Specjał",1],["Zuzanna Brzezińska","Katarzyna Widźgowska",1],["Zuzanna Brzezińska","Sergii Anufriiev",1],["Mateusz Skorupa","Zuzanna Brzezińska",1],["Maciej Zięba","Maciej Pająk",1],["Maciej Pająk","Maciej Zięba",1],["Katarzyna Widźgowska","Maciej Zięba",1],["Maja Kozak","Daniel Błach",1],["Dariusz Urbanik","Maja Kozak",1],["Małgorzata Czaplińska","Andrzej Zaród",1],["Anna Jeziorska","Daniel Błach",1],["Rafał Furman","Daniel Błach",1],["Mateusz Skorupa","Natalia Nędzi",1],["Małgorzata Czaplińska","Natalia Nędzi",1],["Zuzanna Brzezińska","Michał Krotliński",1],["Andrzej Zaród","Dariusz Urbanik",1],["Anna Jeziorska","Maciej Pająk",1],["Jakub Wróbel","Natalia Nędzi",1],["Katarzyna Widźgowska","Dariusz Urbanik",1],["Sergii Anufriiev","Maciej Pająk",1],["Sergii Anufriiev","Natalia Nędzi",1],["Dariusz Urbanik","Michał Krotliński",1],["Aleksandra Szyrwiel","Maciej Pająk",1],["Małgorzata Czaplińska","Dariusz Urbanik",1],["Daniel Błach","Katarzyna Dobranowska",1],["Aleksandra Szyrwiel","Zuzanna Brzezińska",1],["Zuzanna Brzezińska","Natalia Nędzi",1],["Maciej Pająk","Jakub Wróbel",1],["Sergii Anufriiev","Zuzanna Brzezińska",1],["Małgorzata Czaplińska","Zuzanna Brzezińska",1],["Sergii Anufriiev","Katarzyna Dobranowska",1],["Katarzyna Dobranowska","Bartłomiej Specjał",1],["Michał Dul","Daniel Błach",1],["Marcin Bielewski","Daniel Błach",1],["Aleksandra Szyrwiel","Paweł Milanowicz",1],["Marcin Bielewski","Dariusz Urbanik",1],["Michał Dul","Jakub Wróbel",1],["Michał Dul","Aleksandra Szyrwiel",1],["Michał Dul","Dariusz Urbanik",1],["Aleksandra Szyrwiel","Katarzyna Dobranowska",1],["Marcin Bielewski","Katarzyna Dobranowska",1],["Michał Dul","Tomasz Zatoń",1],["Sergii Anufriiev","Marcin Bielewski",1],["Katarzyna Dobranowska","Marcin Bielewski",1]],"outdoor":[["Bartłomiej Specjał","Daniel Błach",20],["Bartłomiej Specjał","Paweł Milanowicz",19],["Daniel Błach","Paweł Milanowicz",17],["Rafał Furman","Anton Gatsko",15],["Paweł Milanowicz","Bartłomiej Specjał",15],["Michał Krotliński","Maja Kozak",13],["Mateusz Skorupa","Anna Jeziorska",13],["Bartłomiej Specjał","Małgorzata Czaplińska",13],["Marcin Bielewski","Sergii Anufriiev",13],["Marcin Bielewski","Tomasz Zatoń",12],["Paweł Milanowicz","Daniel Błach",11],["Paweł Milanowicz","Sergii Anufriiev",10],["Daniel Błach","Bartłomiej Specjał",10],["Bartłomiej Specjał","Zuzanna Brzezińska",10],["Daniel Błach","Małgorzata Czaplińska",9],["Paweł Milanowicz","Aleksandra Szyrwiel",9],["Bartłomiej Specjał","Aleksandra Szyrwiel",9],["Paweł Milanowicz","Maja Kozak",8],["Andrzej Zaród","Daniel Błach",8],["Mateusz Skorupa","Anton Gatsko",8],["Jakub Wróbel","Daniel Błach",8],["Michał Krotliński","Mateusz Skorupa",7],["Bartłomiej Specjał","Maja Kozak",7],["Jakub Wróbel","Bartłomiej Specjał",7],["Daniel Błach","Aleksandra Szyrwiel",7],["Bartłomiej Specjał","Tomasz Zatoń",7],["Tomasz Zatoń","Bartłomiej Specjał",7],["Maciej Pająk","Paweł Milanowicz",6],["Paweł Milanowicz","Mateusz Skorupa",6],["Michał Krotliński","Paweł Milanowicz",6],["Sergii Anufriiev","Anton Gatsko",6],["Michał Krotliński","Małgorzata Czaplińska",6],["Sergii Anufriiev","Paweł Milanowicz",6],["Bartłomiej Specjał","Anna Jeziorska",6],["Paweł Milanowicz","Anna Jeziorska",6],["Rafał Furman","Anna Jeziorska",6],["Michał Krotliński","Anna Jeziorska",6],["Mateusz Skorupa","Rafał Furman",6],["Maciej Zięba","Zuzanna Brzezińska",6],["Bartłomiej Specjał","Andrzej Zaród",6],["Andrzej Zaród","Maciej Zięba",6],["Andrzej Zaród","Zuzanna Brzezińska",6],["Dariusz Urbanik","Sergii Anufriiev",6],["Maciej Pająk","Małgorzata Czaplińska",6],["Paweł Milanowicz","Natalia Nędzi",5],["Daniel Błach","Sergii Anufriiev",5],["Paweł Milanowicz","Małgorzata Czaplińska",5],["Małgorzata Czaplińska","Sergii Anufriiev",5],["Anna Jeziorska","Anton Gatsko",5],["Katarzyna Widźgowska","Anton Gatsko",5],["Katarzyna Widźgowska","Anna Jeziorska",5],["Daniel Błach","Zuzanna Brzezińska",5],["Daniel Błach","Maja Kozak",5],["Bartłomiej Specjał","Sergii Anufriiev",5],["Bartłomiej Specjał","Natalia Nędzi",5],["Małgorzata Czaplińska","Daniel Błach",5],["Maciej Pająk","Tomasz Zatoń",5],["Sergii Anufriiev","Tomasz Zatoń",5],["Marcin Bielewski","Michał Dul",5],["Marcin Bielewski","Bartłomiej Specjał",5],["Mateusz Skorupa","Maja Kozak",4],["Rafał Furman","Katarzyna Widźgowska",4],["Maciej Zięba","Anna Jeziorska",4],["Dariusz Urbanik","Bartłomiej Specjał",4],["Dariusz Urbanik","Małgorzata Czaplińska",4],["Jakub Wróbel","Paweł Milanowicz",4],["Maciej Pająk","Sergii Anufriiev",4],["Aleksandra Szyrwiel","Bartłomiej Specjał",4],["Małgorzata Czaplińska","Aleksandra Szyrwiel",4],["Tomasz Zatoń","Aleksandra Szyrwiel",4],["Jakub Wróbel","Sergii Anufriiev",4],["Zuzanna Brzezińska","Aleksandra Szyrwiel",4],["Jakub Wróbel","Michał Dul",4],["Paweł Milanowicz","Michał Krotliński",3],["Sergii Anufriiev","Małgorzata Czaplińska",3],["Maja Kozak","Michał Krotliński",3],["Michał Krotliński","Natalia Nędzi",3],["Małgorzata Czaplińska","Maja Kozak",3],["Natalia Nędzi","Paweł Milanowicz",3],["Sergii Anufriiev","Daniel Błach",3],["Daniel Błach","Andrzej Zaród",3],["Andrzej Zaród","Maja Kozak",3],["Paweł Milanowicz","Katarzyna Widźgowska",3],["Mateusz Skorupa","Katarzyna Widźgowska",3],["Rafał Furman","Mateusz Skorupa",3],["Bartłomiej Specjał","Maciej Zięba",3],["Michał Krotliński","Maciej Zięba",3],["Zuzanna Brzezińska","Małgorzata Czaplińska",3],["Maciej Zięba","Małgorzata Czaplińska",3],["Zuzanna Brzezińska","Bartłomiej Specjał",3],["Natalia Nędzi","Bartłomiej Specjał",3],["Maciej Pająk","Bartłomiej Specjał",3],["Natalia Nędzi","Daniel Błach",3],["Dariusz Urbanik","Paweł Milanowicz",3],["Maciej Pająk","Katarzyna Dobranowska",3],["Paweł Milanowicz","Zuzanna Brzezińska",3],["Paweł Milanowicz","Dariusz Urbanik",3],["Tomasz Zatoń","Maciej Pająk",3],["Sergii Anufriiev","Jakub Wróbel",3],["Tomasz Zatoń","Paweł Milanowicz",3],["Jakub Wróbel","Tomasz Zatoń",3],["Marcin Bielewski","Aleksandra Szyrwiel",3],["Natalia Nędzi","Michał Krotliński",2],["Natalia Nędzi","Maciej Pająk",2],["Maciej Pająk","Maja Kozak",2],["Maciej Pająk","Natalia Nędzi",2],["Mateusz Skorupa","Michał Krotliński",2],["Michał Krotliński","Maciej Pająk",2],["Katarzyna Widźgowska","Rafał Furman",2],["Rafał Furman","Maja Kozak",2],["Sergii Anufriiev","Rafał Furman",2],["Anton Gatsko","Anna Jeziorska",2],["Paweł Milanowicz","Rafał Furman",2],["Andrzej Zaród","Bartłomiej Specjał",2],["Daniel Błach","Rafał Furman",2],["Andrzej Zaród","Sergii Anufriiev",2],["Rafał Furman","Michał Krotliński",2],["Michał Krotliński","Anton Gatsko",2],["Anna Jeziorska","Katarzyna Widźgowska",2],["Maja Kozak","Anna Jeziorska",2],["Michał Krotliński","Sergii Anufriiev",2],["Andrzej Zaród","Anna Jeziorska",2],["Andrzej Zaród","Jakub Wróbel",2],["Zuzanna Brzezińska","Maja Kozak",2],["Maciej Zięba","Paweł Milanowicz",2],["Michał Krotliński","Katarzyna Widźgowska",2],["Małgorzata Czaplińska","Katarzyna Widźgowska",2],["Bartłomiej Specjał","Jakub Wróbel",2],["Dariusz Urbanik","Maciej Zięba",2],["Mateusz Skorupa","Maciej Zięba",2],["Daniel Błach","Natalia Nędzi",2],["Michał Krotliński","Daniel Błach",2],["Dariusz Urbanik","Daniel Błach",2],["Maciej Pająk","Dariusz Urbanik",2],["Maciej Pająk","Daniel Błach",2],["Zuzanna Brzezińska","Daniel Błach",2],["Daniel Błach","Maciej Pająk",2],["Jakub Wróbel","Maciej Pająk",2],["Dariusz Urbanik","Natalia Nędzi",2],["Jakub Wróbel","Zuzanna Brzezińska",2],["Jakub Wróbel","Dariusz Urbanik",2],["Natalia Nędzi","Aleksandra Szyrwiel",2],["Tomasz Zatoń","Daniel Błach",2],["Paweł Milanowicz","Katarzyna Dobranowska",2],["Jakub Wróbel","Aleksandra Szyrwiel",2],["Jakub Wróbel","Katarzyna Dobranowska",2],["Dariusz Urbanik","Tomasz Zatoń",2],["Daniel Błach","Jakub Wróbel",2],["Tomasz Zatoń","Sergii Anufriiev",2],["Sergii Anufriiev","Bartłomiej Specjał",2],["Tomasz Zatoń","Małgorzata Czaplińska",2],["Tomasz Zatoń","Jakub Wróbel",2],["Bartłomiej Specjał","Michał Dul",2],["Paweł Milanowicz","Jakub Wróbel",2],["Tomasz Zatoń","Michał Dul",2],["Michał Dul","Paweł Milanowicz",2],["Tomasz Zatoń","Marcin Bielewski",2],["Maciej Zięba","Rafał Furman",1],["Natalia Nędzi","Mateusz Skorupa",1],["Maciej Zięba","Katarzyna Widźgowska",1],["Natalia Nędzi","Anton Gatsko",1],["Natalia Nędzi","Maja Kozak",1],["Paweł Milanowicz","Anton Gatsko",1],["Maja Kozak","Natalia Nędzi",1],["Natalia Nędzi","Katarzyna Widźgowska",1],["Maja Kozak","Paweł Milanowicz",1],["Bartłomiej Specjał","Rafał Furman",1],["Mateusz Skorupa","Paweł Milanowicz",1],["Anna Jeziorska","Paweł Milanowicz",1],["Michał Krotliński","Bartłomiej Specjał",1],["Maja Kozak","Bartłomiej Specjał",1],["Anna Jeziorska","Jakub Wróbel",1],["Bartłomiej Specjał","Mateusz Skorupa",1],["Sergii Anufriiev","Katarzyna Widźgowska",1],["Jakub Wróbel","Katarzyna Widźgowska",1],["Maja Kozak","Katarzyna Widźgowska",1],["Maja Kozak","Mateusz Skorupa",1],["Maja Kozak","Anton Gatsko",1],["Anna Jeziorska","Rafał Furman",1],["Michał Krotliński","Rafał Furman",1],["Daniel Błach","Katarzyna Widźgowska",1],["Zuzanna Brzezińska","Andrzej Zaród",1],["Daniel Błach","Michał Krotliński",1],["Daniel Błach","Mateusz Skorupa",1],["Zuzanna Brzezińska","Jakub Wróbel",1],["Jakub Wróbel","Anna Jeziorska",1],["Maciej Zięba","Maja Kozak",1],["Bartłomiej Specjał","Katarzyna Widźgowska",1],["Sergii Anufriiev","Maja Kozak",1],["Maciej Zięba","Sergii Anufriiev",1],["Rafał Furman","Bartłomiej Specjał",1],["Zuzanna Brzezińska","Maciej Zięba",1],["Zuzanna Brzezińska","Katarzyna Widźgowska",1],["Zuzanna Brzezińska","Sergii Anufriiev",1],["Małgorzata Czaplińska","Maciej Zięba",1],["Mateusz Skorupa","Małgorzata Czaplińska",1],["Maja Kozak","Daniel Błach",1],["Andrzej Zaród","Natalia Nędzi",1],["Andrzej Zaród","Małgorzata Czaplińska",1],["Maciej Zięba","Bartłomiej Specjał",1],["Natalia Nędzi","Maciej Zięba",1],["Dariusz Urbanik","Maja Kozak",1],["Małgorzata Czaplińska","Andrzej Zaród",1],["Anna Jeziorska","Daniel Błach",1],["Maciej Zięba","Andrzej Zaród",1],["Rafał Furman","Daniel Błach",1],["Dariusz Urbanik","Anna Jeziorska",1],["Natalia Nędzi","Anna Jeziorska",1],["Maciej Pająk","Katarzyna Widźgowska",1],["Zuzanna Brzezińska","Michał Krotliński",1],["Dariusz Urbanik","Maciej Pająk",1],["Natalia Nędzi","Zuzanna Brzezińska",1],["Daniel Błach","Anna Jeziorska",1],["Jakub Wróbel","Natalia Nędzi",1],["Katarzyna Widźgowska","Dariusz Urbanik",1],["Dariusz Urbanik","Jakub Wróbel",1],["Zuzanna Brzezińska","Paweł Milanowicz",1],["Michał Krotliński","Zuzanna Brzezińska",1],["Dariusz Urbanik","Michał Krotliński",1],["Sergii Anufriiev","Dariusz Urbanik",1],["Małgorzata Czaplińska","Paweł Milanowicz",1],["Małgorzata Czaplińska","Bartłomiej Specjał",1],["Bartłomiej Specjał","Dariusz Urbanik",1],["Dariusz Urbanik","Aleksandra Szyrwiel",1],["Katarzyna Dobranowska","Aleksandra Szyrwiel",1],["Daniel Błach","Katarzyna Dobranowska",1],["Tomasz Zatoń","Katarzyna Dobranowska",1],["Aleksandra Szyrwiel","Daniel Błach",1],["Jakub Wróbel","Małgorzata Czaplińska",1],["Sergii Anufriiev","Aleksandra Szyrwiel",1],["Bartłomiej Specjał","Maciej Pająk",1],["Aleksandra Szyrwiel","Zuzanna Brzezińska",1],["Aleksandra Szyrwiel","Natalia Nędzi",1],["Natalia Nędzi","Sergii Anufriiev",1],["Zuzanna Brzezińska","Natalia Nędzi",1],["Paweł Milanowicz","Tomasz Zatoń",1],["Paweł Milanowicz","Maciej Pająk",1],["Maciej Pająk","Jakub Wróbel",1],["Sergii Anufriiev","Zuzanna Brzezińska",1],["Małgorzata Czaplińska","Zuzanna Brzezińska",1],["Michał Dul","Daniel Błach",1],["Daniel Błach","Marcin Bielewski",1],["Marcin Bielewski","Jakub Wróbel",1],["Aleksandra Szyrwiel","Tomasz Zatoń",1],["Michał Dul","Bartłomiej Specjał",1],["Marcin Bielewski","Dariusz Urbanik",1],["Michał Dul","Katarzyna Dobranowska",1],["Michał Dul","Tomasz Zatoń",1],["Bartłomiej Specjał","Marcin Bielewski",1],["Dariusz Urbanik","Michał Dul",1],["Sergii Anufriiev","Marcin Bielewski",1],["Katarzyna Dobranowska","Marcin Bielewski",1],["Tomasz Zatoń","Dariusz Urbanik",1]],"beach":[["Bartłomiej Specjał","Daniel Błach",14],["Michał Krotliński","Paweł Milanowicz",9],["Bartłomiej Specjał","Małgorzata Czaplińska",8],["Michał Krotliński","Maja Kozak",7],["Michał Krotliński","Anton Gatsko",6],["Bartłomiej Specjał","Zuzanna Brzezińska",6],["Bartłomiej Specjał","Maja Kozak",6],["Daniel Błach","Bartłomiej Specjał",6],["Jakub Wróbel","Paweł Milanowicz",6],["Mateusz Skorupa","Anna Jeziorska",5],["Bartłomiej Specjał","Anna Jeziorska",5],["Daniel Błach","Anna Jeziorska",5],["Maciej Pająk","Daniel Błach",5],["Paweł Milanowicz","Jakub Wróbel",5],["Michał Krotliński","Małgorzata Czaplińska",4],["Natalia Nędzi","Anton Gatsko",4],["Natalia Nędzi","Maciej Pająk",4],["Andrzej Zaród","Anton Gatsko",4],["Andrzej Zaród","Maciej Pająk",4],["Dariusz Urbanik","Bartłomiej Specjał",4],["Paweł Milanowicz","Sergii Anufriiev",4],["Michał Dul","Katarzyna Dobranowska",4],["Andrzej Zaród","Natalia Nędzi",3],["Maciej Zięba","Sergii Anufriiev",3],["Maciej Zięba","Katarzyna Widźgowska",3],["Rafał Furman","Katarzyna Widźgowska",3],["Michał Krotliński","Anna Jeziorska",3],["Paweł Milanowicz","Anna Jeziorska",3],["Daniel Błach","Zuzanna Brzezińska",3],["Andrzej Zaród","Małgorzata Czaplińska",3],["Maciej Pająk","Anna Jeziorska",3],["Maciej Pająk","Małgorzata Czaplińska",3],["Natalia Nędzi","Zuzanna Brzezińska",3],["Małgorzata Czaplińska","Daniel Błach",3],["Bartłomiej Specjał","Dariusz Urbanik",3],["Jakub Wróbel","Sergii Anufriiev",3],["Paweł Milanowicz","Aleksandra Szyrwiel",3],["Jakub Wróbel","Aleksandra Szyrwiel",3],["Maciej Pająk","Michał Krotliński",2],["Anton Gatsko","Andrzej Zaród",2],["Maciej Pająk","Katarzyna Widźgowska",2],["Sergii Anufriiev","Małgorzata Czaplińska",2],["Natalia Nędzi","Paweł Milanowicz",2],["Michał Krotliński","Sergii Anufriiev",2],["Paweł Milanowicz","Małgorzata Czaplińska",2],["Małgorzata Czaplińska","Maciej Zięba",2],["Paweł Milanowicz","Anton Gatsko",2],["Maja Kozak","Michał Krotliński",2],["Michał Krotliński","Natalia Nędzi",2],["Paweł Milanowicz","Maja Kozak",2],["Michał Krotliński","Daniel Błach",2],["Mateusz Skorupa","Maciej Zięba",2],["Zuzanna Brzezińska","Bartłomiej Specjał",2],["Michał Krotliński","Zuzanna Brzezińska",2],["Michał Krotliński","Bartłomiej Specjał",2],["Bartłomiej Specjał","Katarzyna Widźgowska",2],["Natalia Nędzi","Bartłomiej Specjał",2],["Maciej Zięba","Małgorzata Czaplińska",2],["Paweł Milanowicz","Daniel Błach",2],["Bartłomiej Specjał","Paweł Milanowicz",2],["Daniel Błach","Natalia Nędzi",2],["Zuzanna Brzezińska","Paweł Milanowicz",2],["Daniel Błach","Dariusz Urbanik",2],["Natalia Nędzi","Daniel Błach",2],["Jakub Wróbel","Małgorzata Czaplińska",2],["Dariusz Urbanik","Małgorzata Czaplińska",2],["Jakub Wróbel","Daniel Błach",2],["Sergii Anufriiev","Daniel Błach",2],["Aleksandra Szyrwiel","Sergii Anufriiev",2],["Katarzyna Dobranowska","Paweł Milanowicz",2],["Michał Dul","Bartłomiej Specjał",2],["Jakub Wróbel","Katarzyna Dobranowska",2],["Paweł Milanowicz","Katarzyna Dobranowska",2],["Michał Dul","Paweł Milanowicz",2],["Andrzej Zaród","Rafał Furman",1],["Małgorzata Czaplińska","Maciej Pająk",1],["Maciej Pająk","Anton Gatsko",1],["Paweł Milanowicz","Maciej Pająk",1],["Rafał Furman","Paweł Milanowicz",1],["Natalia Nędzi","Andrzej Zaród",1],["Andrzej Zaród","Katarzyna Widźgowska",1],["Paweł Milanowicz","Maciej Zięba",1],["Rafał Furman","Sergii Anufriiev",1],["Małgorzata Czaplińska","Michał Krotliński",1],["Paweł Milanowicz","Natalia Nędzi",1],["Sergii Anufriiev","Maciej Zięba",1],["Natalia Nędzi","Michał Krotliński",1],["Sergii Anufriiev","Katarzyna Widźgowska",1],["Anna Jeziorska","Michał Krotliński",1],["Sergii Anufriiev","Anna Jeziorska",1],["Rafał Furman","Michał Krotliński",1],["Mateusz Skorupa","Michał Krotliński",1],["Sergii Anufriiev","Paweł Milanowicz",1],["Michał Krotliński","Mateusz Skorupa",1],["Małgorzata Czaplińska","Paweł Milanowicz",1],["Michał Krotliński","Rafał Furman",1],["Rafał Furman","Anna Jeziorska",1],["Anna Jeziorska","Paweł Milanowicz",1],["Paweł Milanowicz","Mateusz Skorupa",1],["Sergii Anufriiev","Anton Gatsko",1],["Sergii Anufriiev","Rafał Furman",1],["Maja Kozak","Rafał Furman",1],["Maciej Zięba","Daniel Błach",1],["Daniel Błach","Katarzyna Widźgowska",1],["Daniel Błach","Maja Kozak",1],["Anna Jeziorska","Bartłomiej Specjał",1],["Bartłomiej Specjał","Michał Krotliński",1],["Anna Jeziorska","Zuzanna Brzezińska",1],["Maciej Zięba","Anna Jeziorska",1],["Katarzyna Widźgowska","Michał Krotliński",1],["Paweł Milanowicz","Bartłomiej Specjał",1],["Daniel Błach","Mateusz Skorupa",1],["Natalia Nędzi","Maciej Zięba",1],["Maciej Zięba","Andrzej Zaród",1],["Mateusz Skorupa","Natalia Nędzi",1],["Maciej Zięba","Maja Kozak",1],["Natalia Nędzi","Anna Jeziorska",1],["Paweł Milanowicz","Zuzanna Brzezińska",1],["Maciej Pająk","Bartłomiej Specjał",1],["Michał Krotliński","Katarzyna Widźgowska",1],["Andrzej Zaród","Dariusz Urbanik",1],["Paweł Milanowicz","Katarzyna Widźgowska",1],["Daniel Błach","Małgorzata Czaplińska",1],["Dariusz Urbanik","Anna Jeziorska",1],["Anna Jeziorska","Maciej Pająk",1],["Andrzej Zaród","Daniel Błach",1],["Małgorzata Czaplińska","Sergii Anufriiev",1],["Dariusz Urbanik","Jakub Wróbel",1],["Dariusz Urbanik","Daniel Błach",1],["Jakub Wróbel","Bartłomiej Specjał",1],["Bartłomiej Specjał","Jakub Wróbel",1],["Jakub Wróbel","Maciej Pająk",1],["Dariusz Urbanik","Sergii Anufriiev",1],["Dariusz Urbanik","Maciej Pająk",1],["Daniel Błach","Maciej Pająk",1],["Maciej Pająk","Sergii Anufriiev",1],["Bartłomiej Specjał","Sergii Anufriiev",1],["Sergii Anufriiev","Aleksandra Szyrwiel",1],["Aleksandra Szyrwiel","Paweł Milanowicz",1],["Sergii Anufriiev","Jakub Wróbel",1],["Bartłomiej Specjał","Katarzyna Dobranowska",1],["Jakub Wróbel","Michał Dul",1],["Dariusz Urbanik","Paweł Milanowicz",1],["Michał Dul","Jakub Wróbel",1]],"indoor":[["Bartłomiej Specjał","Tomasz Zatoń",30],["Dariusz Urbanik","Bartłomiej Specjał",27],["Paweł Milanowicz","Małgorzata Czaplińska",23],["Marcin Bielewski","Michał Dul",18],["Bartłomiej Specjał","Małgorzata Czaplińska",17],["Bartłomiej Specjał","Aleksandra Szyrwiel",17],["Dariusz Urbanik","Małgorzata Czaplińska",15],["Dariusz Urbanik","Tomasz Zatoń",14],["Paweł Milanowicz","Sergii Anufriiev",12],["Maciej Pająk","Daniel Błach",12],["Marcin Bielewski","Tomasz Zatoń",12],["Paweł Milanowicz","Dariusz Urbanik",11],["Paweł Milanowicz","Daniel Błach",11],["Tomasz Zatoń","Aleksandra Szyrwiel",11],["Maciej Pająk","Małgorzata Czaplińska",10],["Bartłomiej Specjał","Daniel Błach",10],["Jakub Wróbel","Bartłomiej Specjał",10],["Paweł Milanowicz","Maja Kozak",9],["Maciej Pająk","Zuzanna Brzezińska",9],["Daniel Błach","Małgorzata Czaplińska",9],["Bartłomiej Specjał","Paweł Milanowicz",9],["Paweł Milanowicz","Aleksandra Szyrwiel",9],["Tomasz Zatoń","Dariusz Urbanik",9],["Paweł Milanowicz","Natalia Nędzi",8],["Dariusz Urbanik","Daniel Błach",8],["Bartłomiej Specjał","Dariusz Urbanik",8],["Jakub Wróbel","Tomasz Zatoń",8],["Michał Krotliński","Maja Kozak",7],["Daniel Błach","Zuzanna Brzezińska",7],["Maciej Pająk","Bartłomiej Specjał",7],["Dariusz Urbanik","Aleksandra Szyrwiel",7],["Tomasz Zatoń","Bartłomiej Specjał",7],["Tomasz Zatoń","Katarzyna Dobranowska",7],["Tomasz Zatoń","Małgorzata Czaplińska",7],["Paweł Milanowicz","Tomasz Zatoń",7],["Dariusz Urbanik","Katarzyna Dobranowska",7],["Michał Krotliński","Rafał Furman",6],["Maciej Pająk","Sergii Anufriiev",6],["Bartłomiej Specjał","Sergii Anufriiev",6],["Paweł Milanowicz","Maciej Pająk",6],["Aleksandra Szyrwiel","Bartłomiej Specjał",6],["Jakub Wróbel","Aleksandra Szyrwiel",6],["Jakub Wróbel","Paweł Milanowicz",6],["Tomasz Zatoń","Sergii Anufriiev",6],["Bartłomiej Specjał","Jakub Wróbel",6],["Maciej Zięba","Andrzej Zaród",5],["Michał Krotliński","Anton Gatsko",5],["Michał Krotliński","Małgorzata Czaplińska",5],["Maciej Zięba","Zuzanna Brzezińska",5],["Bartłomiej Specjał","Maja Kozak",5],["Daniel Błach","Bartłomiej Specjał",5],["Bartłomiej Specjał","Natalia Nędzi",5],["Daniel Błach","Andrzej Zaród",5],["Dariusz Urbanik","Paweł Milanowicz",5],["Bartłomiej Specjał","Maciej Pająk",5],["Bartłomiej Specjał","Katarzyna Dobranowska",5],["Maciej Zięba","Anton Gatsko",4],["Michał Krotliński","Andrzej Zaród",4],["Maciej Zięba","Maja Kozak",4],["Paweł Milanowicz","Rafał Furman",4],["Sergii Anufriiev","Małgorzata Czaplińska",4],["Małgorzata Czaplińska","Sergii Anufriiev",4],["Michał Krotliński","Daniel Błach",4],["Zuzanna Brzezińska","Daniel Błach",4],["Sergii Anufriiev","Daniel Błach",4],["Andrzej Zaród","Paweł Milanowicz",4],["Maciej Pająk","Dariusz Urbanik",4],["Daniel Błach","Aleksandra Szyrwiel",4],["Paweł Milanowicz","Jakub Wróbel",4],["Maciej Pająk","Aleksandra Szyrwiel",4],["Daniel Błach","Paweł Milanowicz",4],["Jakub Wróbel","Daniel Błach",4],["Tomasz Zatoń","Jakub Wróbel",4],["Dariusz Urbanik","Sergii Anufriiev",4],["Natalia Nędzi","Maja Kozak",3],["Andrzej Zaród","Maja Kozak",3],["Michał Krotliński","Natalia Nędzi",3],["Natalia Nędzi","Małgorzata Czaplińska",3],["Mateusz Skorupa","Rafał Furman",3],["Rafał Furman","Sergii Anufriiev",3],["Małgorzata Czaplińska","Maja Kozak",3],["Sergii Anufriiev","Maja Kozak",3],["Katarzyna Widźgowska","Rafał Furman",3],["Katarzyna Widźgowska","Małgorzata Czaplińska",3],["Maciej Zięba","Małgorzata Czaplińska",3],["Daniel Błach","Sergii Anufriiev",3],["Bartłomiej Specjał","Zuzanna Brzezińska",3],["Daniel Błach","Dariusz Urbanik",3],["Daniel Błach","Natalia Nędzi",3],["Natalia Nędzi","Bartłomiej Specjał",3],["Paweł Milanowicz","Andrzej Zaród",3],["Paweł Milanowicz","Bartłomiej Specjał",3],["Jakub Wróbel","Dariusz Urbanik",3],["Małgorzata Czaplińska","Daniel Błach",3],["Maciej Pająk","Tomasz Zatoń",3],["Aleksandra Szyrwiel","Tomasz Zatoń",3],["Sergii Anufriiev","Jakub Wróbel",3],["Katarzyna Dobranowska","Tomasz Zatoń",3],["Sergii Anufriiev","Tomasz Zatoń",3],["Bartłomiej Specjał","Marcin Bielewski",3],["Marcin Bielewski","Bartłomiej Specjał",3],["Dariusz Urbanik","Michał Dul",3],["Marcin Bielewski","Aleksandra Szyrwiel",3],["Michał Krotliński","Katarzyna Widźgowska",2],["Natalia Nędzi","Michał Krotliński",2],["Małgorzata Czaplińska","Paweł Milanowicz",2],["Rafał Furman","Maja Kozak",2],["Rafał Furman","Małgorzata Czaplińska",2],["Rafał Furman","Paweł Milanowicz",2],["Anton Gatsko","Paweł Milanowicz",2],["Mateusz Skorupa","Maja Kozak",2],["Małgorzata Czaplińska","Michał Krotliński",2],["Małgorzata Czaplińska","Katarzyna Widźgowska",2],["Maja Kozak","Małgorzata Czaplińska",2],["Katarzyna Widźgowska","Paweł Milanowicz",2],["Katarzyna Widźgowska","Maja Kozak",2],["Maciej Zięba","Mateusz Skorupa",2],["Daniel Błach","Mateusz Skorupa",2],["Maciej Pająk","Maja Kozak",2],["Daniel Błach","Maciej Pająk",2],["Maciej Zięba","Sergii Anufriiev",2],["Daniel Błach","Michał Krotliński",2],["Zuzanna Brzezińska","Bartłomiej Specjał",2],["Daniel Błach","Maja Kozak",2],["Dariusz Urbanik","Andrzej Zaród",2],["Andrzej Zaród","Michał Krotliński",2],["Michał Krotliński","Paweł Milanowicz",2],["Andrzej Zaród","Małgorzata Czaplińska",2],["Andrzej Zaród","Daniel Błach",2],["Natalia Nędzi","Dariusz Urbanik",2],["Maciej Pająk","Paweł Milanowicz",2],["Małgorzata Czaplińska","Bartłomiej Specjał",2],["Dariusz Urbanik","Maciej Pająk",2],["Jakub Wróbel","Małgorzata Czaplińska",2],["Dariusz Urbanik","Jakub Wróbel",2],["Jakub Wróbel","Sergii Anufriiev",2],["Jakub Wróbel","Maciej Pająk",2],["Sergii Anufriiev","Paweł Milanowicz",2],["Sergii Anufriiev","Aleksandra Szyrwiel",2],["Małgorzata Czaplińska","Tomasz Zatoń",2],["Aleksandra Szyrwiel","Sergii Anufriiev",2],["Katarzyna Dobranowska","Dariusz Urbanik",2],["Michał Dul","Katarzyna Dobranowska",2],["Marcin Bielewski","Sergii Anufriiev",2],["Bartłomiej Specjał","Michał Dul",2],["Andrzej Zaród","Anton Gatsko",1],["Rafał Furman","Natalia Nędzi",1],["Anton Gatsko","Michał Krotliński",1],["Rafał Furman","Michał Krotliński",1],["Maja Kozak","Anton Gatsko",1],["Maciej Zięba","Katarzyna Widźgowska",1],["Rafał Furman","Anton Gatsko",1],["Maciej Zięba","Natalia Nędzi",1],["Natalia Nędzi","Anton Gatsko",1],["Andrzej Zaród","Maciej Zięba",1],["Natalia Nędzi","Andrzej Zaród",1],["Paweł Milanowicz","Anton Gatsko",1],["Małgorzata Czaplińska","Rafał Furman",1],["Michał Krotliński","Mateusz Skorupa",1],["Mateusz Skorupa","Paweł Milanowicz",1],["Małgorzata Czaplińska","Anton Gatsko",1],["Sergii Anufriiev","Rafał Furman",1],["Mateusz Skorupa","Małgorzata Czaplińska",1],["Mateusz Skorupa","Sergii Anufriiev",1],["Sergii Anufriiev","Mateusz Skorupa",1],["Maja Kozak","Paweł Milanowicz",1],["Maja Kozak","Katarzyna Widźgowska",1],["Paweł Milanowicz","Katarzyna Widźgowska",1],["Mateusz Skorupa","Maciej Zięba",1],["Bartłomiej Specjał","Mateusz Skorupa",1],["Sergii Anufriiev","Maciej Zięba",1],["Mateusz Skorupa","Zuzanna Brzezińska",1],["Daniel Błach","Katarzyna Widźgowska",1],["Maciej Zięba","Maciej Pająk",1],["Maciej Pająk","Maciej Zięba",1],["Maciej Zięba","Bartłomiej Specjał",1],["Małgorzata Czaplińska","Maciej Zięba",1],["Katarzyna Widźgowska","Maciej Zięba",1],["Zuzanna Brzezińska","Maciej Zięba",1],["Natalia Nędzi","Sergii Anufriiev",1],["Bartłomiej Specjał","Andrzej Zaród",1],["Małgorzata Czaplińska","Natalia Nędzi",1],["Małgorzata Czaplińska","Maciej Pająk",1],["Maciej Pająk","Natalia Nędzi",1],["Dariusz Urbanik","Natalia Nędzi",1],["Sergii Anufriiev","Maciej Pająk",1],["Zuzanna Brzezińska","Paweł Milanowicz",1],["Paweł Milanowicz","Zuzanna Brzezińska",1],["Sergii Anufriiev","Natalia Nędzi",1],["Aleksandra Szyrwiel","Maciej Pająk",1],["Aleksandra Szyrwiel","Natalia Nędzi",1],["Małgorzata Czaplińska","Dariusz Urbanik",1],["Maciej Pająk","Katarzyna Dobranowska",1],["Tomasz Zatoń","Paweł Milanowicz",1],["Tomasz Zatoń","Maciej Pająk",1],["Aleksandra Szyrwiel","Daniel Błach",1],["Sergii Anufriiev","Katarzyna Dobranowska",1],["Sergii Anufriiev","Dariusz Urbanik",1],["Katarzyna Dobranowska","Bartłomiej Specjał",1],["Sergii Anufriiev","Bartłomiej Specjał",1],["Marcin Bielewski","Jakub Wróbel",1],["Tomasz Zatoń","Daniel Błach",1],["Marcin Bielewski","Daniel Błach",1],["Daniel Błach","Marcin Bielewski",1],["Jakub Wróbel","Michał Dul",1],["Jakub Wróbel","Katarzyna Dobranowska",1],["Michał Dul","Aleksandra Szyrwiel",1],["Michał Dul","Dariusz Urbanik",1],["Aleksandra Szyrwiel","Katarzyna Dobranowska",1],["Marcin Bielewski","Katarzyna Dobranowska",1],["Katarzyna Dobranowska","Aleksandra Szyrwiel",1]],"ppm":[],"mpm":[["Bartłomiej Specjał","Daniel Błach",20],["Bartłomiej Specjał","Paweł Milanowicz",19],["Daniel Błach","Paweł Milanowicz",17],["Paweł Milanowicz","Bartłomiej Specjał",15],["Michał Krotliński","Maja Kozak",13],["Marcin Bielewski","Tomasz Zatoń",12],["Paweł Milanowicz","Daniel Błach",11],["Daniel Błach","Bartłomiej Specjał",10],["Bartłomiej Specjał","Zuzanna Brzezińska",10],["Bartłomiej Specjał","Małgorzata Czaplińska",10],["Bartłomiej Specjał","Aleksandra Szyrwiel",9],["Paweł Milanowicz","Maja Kozak",8],["Andrzej Zaród","Daniel Błach",8],["Michał Krotliński","Mateusz Skorupa",7],["Bartłomiej Specjał","Maja Kozak",7],["Jakub Wróbel","Daniel Błach",7],["Jakub Wróbel","Bartłomiej Specjał",7],["Daniel Błach","Aleksandra Szyrwiel",7],["Maciej Pająk","Paweł Milanowicz",6],["Paweł Milanowicz","Mateusz Skorupa",6],["Paweł Milanowicz","Sergii Anufriiev",6],["Michał Krotliński","Paweł Milanowicz",6],["Michał Krotliński","Małgorzata Czaplińska",6],["Bartłomiej Specjał","Anna Jeziorska",6],["Paweł Milanowicz","Anna Jeziorska",6],["Maciej Zięba","Zuzanna Brzezińska",6],["Bartłomiej Specjał","Andrzej Zaród",6],["Andrzej Zaród","Maciej Zięba",6],["Andrzej Zaród","Zuzanna Brzezińska",6],["Dariusz Urbanik","Sergii Anufriiev",6],["Maciej Pająk","Małgorzata Czaplińska",6],["Daniel Błach","Małgorzata Czaplińska",6],["Paweł Milanowicz","Natalia Nędzi",5],["Paweł Milanowicz","Małgorzata Czaplińska",5],["Daniel Błach","Zuzanna Brzezińska",5],["Daniel Błach","Maja Kozak",5],["Bartłomiej Specjał","Sergii Anufriiev",5],["Bartłomiej Specjał","Natalia Nędzi",5],["Małgorzata Czaplińska","Daniel Błach",5],["Maciej Pająk","Tomasz Zatoń",5],["Paweł Milanowicz","Aleksandra Szyrwiel",5],["Bartłomiej Specjał","Tomasz Zatoń",5],["Marcin Bielewski","Michał Dul",5],["Marcin Bielewski","Bartłomiej Specjał",5],["Michał Krotliński","Anna Jeziorska",4],["Małgorzata Czaplińska","Sergii Anufriiev",4],["Maciej Zięba","Anna Jeziorska",4],["Dariusz Urbanik","Bartłomiej Specjał",4],["Dariusz Urbanik","Małgorzata Czaplińska",4],["Jakub Wróbel","Paweł Milanowicz",4],["Maciej Pająk","Sergii Anufriiev",4],["Aleksandra Szyrwiel","Bartłomiej Specjał",4],["Małgorzata Czaplińska","Aleksandra Szyrwiel",4],["Tomasz Zatoń","Aleksandra Szyrwiel",4],["Zuzanna Brzezińska","Aleksandra Szyrwiel",4],["Jakub Wróbel","Michał Dul",4],["Paweł Milanowicz","Michał Krotliński",3],["Maja Kozak","Michał Krotliński",3],["Michał Krotliński","Natalia Nędzi",3],["Małgorzata Czaplińska","Maja Kozak",3],["Natalia Nędzi","Paweł Milanowicz",3],["Daniel Błach","Sergii Anufriiev",3],["Daniel Błach","Andrzej Zaród",3],["Andrzej Zaród","Maja Kozak",3],["Paweł Milanowicz","Katarzyna Widźgowska",3],["Bartłomiej Specjał","Maciej Zięba",3],["Michał Krotliński","Maciej Zięba",3],["Zuzanna Brzezińska","Małgorzata Czaplińska",3],["Maciej Zięba","Małgorzata Czaplińska",3],["Zuzanna Brzezińska","Bartłomiej Specjał",3],["Natalia Nędzi","Bartłomiej Specjał",3],["Maciej Pająk","Bartłomiej Specjał",3],["Natalia Nędzi","Daniel Błach",3],["Dariusz Urbanik","Paweł Milanowicz",3],["Maciej Pająk","Katarzyna Dobranowska",3],["Paweł Milanowicz","Zuzanna Brzezińska",3],["Paweł Milanowicz","Dariusz Urbanik",3],["Tomasz Zatoń","Maciej Pająk",3],["Tomasz Zatoń","Paweł Milanowicz",3],["Jakub Wróbel","Tomasz Zatoń",3],["Tomasz Zatoń","Bartłomiej Specjał",3],["Jakub Wróbel","Sergii Anufriiev",3],["Marcin Bielewski","Aleksandra Szyrwiel",3],["Natalia Nędzi","Michał Krotliński",2],["Natalia Nędzi","Maciej Pająk",2],["Maciej Pająk","Maja Kozak",2],["Maciej Pająk","Natalia Nędzi",2],["Mateusz Skorupa","Michał Krotliński",2],["Sergii Anufriiev","Małgorzata Czaplińska",2],["Michał Krotliński","Maciej Pająk",2],["Sergii Anufriiev","Anton Gatsko",2],["Paweł Milanowicz","Rafał Furman",2],["Andrzej Zaród","Bartłomiej Specjał",2],["Sergii Anufriiev","Daniel Błach",2],["Daniel Błach","Rafał Furman",2],["Andrzej Zaród","Sergii Anufriiev",2],["Michał Krotliński","Sergii Anufriiev",2],["Andrzej Zaród","Anna Jeziorska",2],["Andrzej Zaród","Jakub Wróbel",2],["Zuzanna Brzezińska","Maja Kozak",2],["Maciej Zięba","Paweł Milanowicz",2],["Michał Krotliński","Katarzyna Widźgowska",2],["Małgorzata Czaplińska","Katarzyna Widźgowska",2],["Bartłomiej Specjał","Jakub Wróbel",2],["Dariusz Urbanik","Maciej Zięba",2],["Mateusz Skorupa","Maciej Zięba",2],["Daniel Błach","Natalia Nędzi",2],["Michał Krotliński","Daniel Błach",2],["Dariusz Urbanik","Daniel Błach",2],["Maciej Pająk","Dariusz Urbanik",2],["Maciej Pająk","Daniel Błach",2],["Zuzanna Brzezińska","Daniel Błach",2],["Daniel Błach","Maciej Pająk",2],["Jakub Wróbel","Maciej Pająk",2],["Dariusz Urbanik","Natalia Nędzi",2],["Jakub Wróbel","Zuzanna Brzezińska",2],["Jakub Wróbel","Dariusz Urbanik",2],["Natalia Nędzi","Aleksandra Szyrwiel",2],["Tomasz Zatoń","Daniel Błach",2],["Paweł Milanowicz","Katarzyna Dobranowska",2],["Jakub Wróbel","Aleksandra Szyrwiel",2],["Jakub Wróbel","Katarzyna Dobranowska",2],["Dariusz Urbanik","Tomasz Zatoń",2],["Tomasz Zatoń","Małgorzata Czaplińska",2],["Tomasz Zatoń","Jakub Wróbel",2],["Bartłomiej Specjał","Michał Dul",2],["Paweł Milanowicz","Jakub Wróbel",2],["Tomasz Zatoń","Michał Dul",2],["Michał Dul","Paweł Milanowicz",2],["Tomasz Zatoń","Marcin Bielewski",2],["Maciej Zięba","Rafał Furman",1],["Mateusz Skorupa","Maja Kozak",1],["Natalia Nędzi","Mateusz Skorupa",1],["Maciej Zięba","Katarzyna Widźgowska",1],["Katarzyna Widźgowska","Rafał Furman",1],["Sergii Anufriiev","Paweł Milanowicz",1],["Natalia Nędzi","Anton Gatsko",1],["Natalia Nędzi","Maja Kozak",1],["Rafał Furman","Maja Kozak",1],["Paweł Milanowicz","Anton Gatsko",1],["Maja Kozak","Natalia Nędzi",1],["Natalia Nędzi","Katarzyna Widźgowska",1],["Maja Kozak","Paweł Milanowicz",1],["Bartłomiej Specjał","Rafał Furman",1],["Mateusz Skorupa","Paweł Milanowicz",1],["Anna Jeziorska","Paweł Milanowicz",1],["Michał Krotliński","Bartłomiej Specjał",1],["Maja Kozak","Bartłomiej Specjał",1],["Anna Jeziorska","Jakub Wróbel",1],["Rafał Furman","Anna Jeziorska",1],["Bartłomiej Specjał","Mateusz Skorupa",1],["Sergii Anufriiev","Katarzyna Widźgowska",1],["Anton Gatsko","Anna Jeziorska",1],["Mateusz Skorupa","Rafał Furman",1],["Rafał Furman","Michał Krotliński",1],["Michał Krotliński","Anton Gatsko",1],["Jakub Wróbel","Katarzyna Widźgowska",1],["Rafał Furman","Mateusz Skorupa",1],["Daniel Błach","Katarzyna Widźgowska",1],["Zuzanna Brzezińska","Andrzej Zaród",1],["Daniel Błach","Michał Krotliński",1],["Maja Kozak","Anna Jeziorska",1],["Daniel Błach","Mateusz Skorupa",1],["Zuzanna Brzezińska","Jakub Wróbel",1],["Jakub Wróbel","Anna Jeziorska",1],["Maciej Zięba","Maja Kozak",1],["Bartłomiej Specjał","Katarzyna Widźgowska",1],["Sergii Anufriiev","Maja Kozak",1],["Maciej Zięba","Sergii Anufriiev",1],["Rafał Furman","Bartłomiej Specjał",1],["Zuzanna Brzezińska","Maciej Zięba",1],["Zuzanna Brzezińska","Katarzyna Widźgowska",1],["Sergii Anufriiev","Rafał Furman",1],["Zuzanna Brzezińska","Sergii Anufriiev",1],["Małgorzata Czaplińska","Maciej Zięba",1],["Mateusz Skorupa","Małgorzata Czaplińska",1],["Maja Kozak","Daniel Błach",1],["Andrzej Zaród","Natalia Nędzi",1],["Andrzej Zaród","Małgorzata Czaplińska",1],["Maciej Zięba","Bartłomiej Specjał",1],["Natalia Nędzi","Maciej Zięba",1],["Dariusz Urbanik","Maja Kozak",1],["Małgorzata Czaplińska","Andrzej Zaród",1],["Anna Jeziorska","Daniel Błach",1],["Maciej Zięba","Andrzej Zaród",1],["Rafał Furman","Daniel Błach",1],["Dariusz Urbanik","Anna Jeziorska",1],["Natalia Nędzi","Anna Jeziorska",1],["Maciej Pająk","Katarzyna Widźgowska",1],["Zuzanna Brzezińska","Michał Krotliński",1],["Dariusz Urbanik","Maciej Pająk",1],["Natalia Nędzi","Zuzanna Brzezińska",1],["Daniel Błach","Anna Jeziorska",1],["Jakub Wróbel","Natalia Nędzi",1],["Katarzyna Widźgowska","Dariusz Urbanik",1],["Dariusz Urbanik","Jakub Wróbel",1],["Zuzanna Brzezińska","Paweł Milanowicz",1],["Michał Krotliński","Zuzanna Brzezińska",1],["Dariusz Urbanik","Michał Krotliński",1],["Sergii Anufriiev","Dariusz Urbanik",1],["Małgorzata Czaplińska","Paweł Milanowicz",1],["Małgorzata Czaplińska","Bartłomiej Specjał",1],["Bartłomiej Specjał","Dariusz Urbanik",1],["Dariusz Urbanik","Aleksandra Szyrwiel",1],["Katarzyna Dobranowska","Aleksandra Szyrwiel",1],["Daniel Błach","Katarzyna Dobranowska",1],["Tomasz Zatoń","Katarzyna Dobranowska",1],["Daniel Błach","Jakub Wróbel",1],["Aleksandra Szyrwiel","Daniel Błach",1],["Jakub Wróbel","Małgorzata Czaplińska",1],["Bartłomiej Specjał","Maciej Pająk",1],["Aleksandra Szyrwiel","Zuzanna Brzezińska",1],["Aleksandra Szyrwiel","Natalia Nędzi",1],["Natalia Nędzi","Sergii Anufriiev",1],["Zuzanna Brzezińska","Natalia Nędzi",1],["Paweł Milanowicz","Tomasz Zatoń",1],["Paweł Milanowicz","Maciej Pająk",1],["Maciej Pająk","Jakub Wróbel",1],["Sergii Anufriiev","Zuzanna Brzezińska",1],["Małgorzata Czaplińska","Zuzanna Brzezińska",1],["Michał Dul","Daniel Błach",1],["Daniel Błach","Marcin Bielewski",1],["Marcin Bielewski","Jakub Wróbel",1],["Marcin Bielewski","Sergii Anufriiev",1],["Tomasz Zatoń","Sergii Anufriiev",1],["Aleksandra Szyrwiel","Tomasz Zatoń",1],["Michał Dul","Bartłomiej Specjał",1],["Marcin Bielewski","Dariusz Urbanik",1],["Michał Dul","Katarzyna Dobranowska",1],["Michał Dul","Tomasz Zatoń",1],["Bartłomiej Specjał","Marcin Bielewski",1],["Dariusz Urbanik","Michał Dul",1],["Katarzyna Dobranowska","Marcin Bielewski",1],["Tomasz Zatoń","Dariusz Urbanik",1]],"hmp":[["Bartłomiej Specjał","Tomasz Zatoń",29],["Dariusz Urbanik","Bartłomiej Specjał",24],["Paweł Milanowicz","Małgorzata Czaplińska",19],["Marcin Bielewski","Michał Dul",18],["Bartłomiej Specjał","Aleksandra Szyrwiel",17],["Bartłomiej Specjał","Małgorzata Czaplińska",13],["Dariusz Urbanik","Tomasz Zatoń",12],["Paweł Milanowicz","Sergii Anufriiev",11],["Tomasz Zatoń","Aleksandra Szyrwiel",11],["Marcin Bielewski","Tomasz Zatoń",11],["Maciej Pająk","Małgorzata Czaplińska",10],["Dariusz Urbanik","Małgorzata Czaplińska",10],["Paweł Milanowicz","Maja Kozak",9],["Maciej Pająk","Daniel Błach",9],["Maciej Pająk","Zuzanna Brzezińska",9],["Jakub Wróbel","Bartłomiej Specjał",9],["Paweł Milanowicz","Natalia Nędzi",8],["Paweł Milanowicz","Daniel Błach",8],["Michał Krotliński","Maja Kozak",7],["Daniel Błach","Zuzanna Brzezińska",7],["Bartłomiej Specjał","Daniel Błach",7],["Bartłomiej Specjał","Paweł Milanowicz",7],["Dariusz Urbanik","Daniel Błach",7],["Paweł Milanowicz","Dariusz Urbanik",7],["Paweł Milanowicz","Tomasz Zatoń",7],["Tomasz Zatoń","Dariusz Urbanik",7],["Dariusz Urbanik","Katarzyna Dobranowska",7],["Jakub Wróbel","Tomasz Zatoń",7],["Michał Krotliński","Rafał Furman",6],["Daniel Błach","Małgorzata Czaplińska",6],["Bartłomiej Specjał","Sergii Anufriiev",6],["Dariusz Urbanik","Aleksandra Szyrwiel",6],["Paweł Milanowicz","Aleksandra Szyrwiel",6],["Jakub Wróbel","Paweł Milanowicz",6],["Tomasz Zatoń","Bartłomiej Specjał",6],["Maciej Zięba","Andrzej Zaród",5],["Michał Krotliński","Anton Gatsko",5],["Michał Krotliński","Małgorzata Czaplińska",5],["Maciej Zięba","Zuzanna Brzezińska",5],["Bartłomiej Specjał","Maja Kozak",5],["Maciej Pająk","Bartłomiej Specjał",5],["Bartłomiej Specjał","Natalia Nędzi",5],["Daniel Błach","Andrzej Zaród",5],["Dariusz Urbanik","Paweł Milanowicz",5],["Bartłomiej Specjał","Dariusz Urbanik",5],["Paweł Milanowicz","Maciej Pająk",5],["Bartłomiej Specjał","Katarzyna Dobranowska",5],["Tomasz Zatoń","Katarzyna Dobranowska",5],["Maciej Zięba","Anton Gatsko",4],["Michał Krotliński","Andrzej Zaród",4],["Maciej Zięba","Maja Kozak",4],["Paweł Milanowicz","Rafał Furman",4],["Sergii Anufriiev","Małgorzata Czaplińska",4],["Małgorzata Czaplińska","Sergii Anufriiev",4],["Michał Krotliński","Daniel Błach",4],["Zuzanna Brzezińska","Daniel Błach",4],["Andrzej Zaród","Paweł Milanowicz",4],["Maciej Pająk","Dariusz Urbanik",4],["Maciej Pająk","Aleksandra Szyrwiel",4],["Aleksandra Szyrwiel","Bartłomiej Specjał",4],["Jakub Wróbel","Aleksandra Szyrwiel",4],["Dariusz Urbanik","Sergii Anufriiev",4],["Bartłomiej Specjał","Jakub Wróbel",4],["Natalia Nędzi","Maja Kozak",3],["Andrzej Zaród","Maja Kozak",3],["Michał Krotliński","Natalia Nędzi",3],["Natalia Nędzi","Małgorzata Czaplińska",3],["Mateusz Skorupa","Rafał Furman",3],["Rafał Furman","Sergii Anufriiev",3],["Małgorzata Czaplińska","Maja Kozak",3],["Sergii Anufriiev","Maja Kozak",3],["Katarzyna Widźgowska","Rafał Furman",3],["Katarzyna Widźgowska","Małgorzata Czaplińska",3],["Maciej Zięba","Małgorzata Czaplińska",3],["Daniel Błach","Sergii Anufriiev",3],["Sergii Anufriiev","Daniel Błach",3],["Daniel Błach","Bartłomiej Specjał",3],["Maciej Pająk","Sergii Anufriiev",3],["Bartłomiej Specjał","Zuzanna Brzezińska",3],["Daniel Błach","Dariusz Urbanik",3],["Daniel Błach","Natalia Nędzi",3],["Natalia Nędzi","Bartłomiej Specjał",3],["Paweł Milanowicz","Andrzej Zaród",3],["Daniel Błach","Aleksandra Szyrwiel",3],["Paweł Milanowicz","Jakub Wróbel",3],["Jakub Wróbel","Dariusz Urbanik",3],["Bartłomiej Specjał","Maciej Pająk",3],["Tomasz Zatoń","Małgorzata Czaplińska",3],["Tomasz Zatoń","Jakub Wróbel",3],["Aleksandra Szyrwiel","Tomasz Zatoń",3],["Sergii Anufriiev","Jakub Wróbel",3],["Katarzyna Dobranowska","Tomasz Zatoń",3],["Sergii Anufriiev","Tomasz Zatoń",3],["Dariusz Urbanik","Michał Dul",3],["Marcin Bielewski","Aleksandra Szyrwiel",3],["Michał Krotliński","Katarzyna Widźgowska",2],["Natalia Nędzi","Michał Krotliński",2],["Małgorzata Czaplińska","Paweł Milanowicz",2],["Rafał Furman","Maja Kozak",2],["Rafał Furman","Małgorzata Czaplińska",2],["Rafał Furman","Paweł Milanowicz",2],["Anton Gatsko","Paweł Milanowicz",2],["Mateusz Skorupa","Maja Kozak",2],["Małgorzata Czaplińska","Michał Krotliński",2],["Małgorzata Czaplińska","Katarzyna Widźgowska",2],["Maja Kozak","Małgorzata Czaplińska",2],["Katarzyna Widźgowska","Paweł Milanowicz",2],["Katarzyna Widźgowska","Maja Kozak",2],["Maciej Zięba","Mateusz Skorupa",2],["Daniel Błach","Mateusz Skorupa",2],["Maciej Pająk","Maja Kozak",2],["Daniel Błach","Maciej Pająk",2],["Maciej Zięba","Sergii Anufriiev",2],["Daniel Błach","Michał Krotliński",2],["Zuzanna Brzezińska","Bartłomiej Specjał",2],["Daniel Błach","Maja Kozak",2],["Dariusz Urbanik","Andrzej Zaród",2],["Andrzej Zaród","Michał Krotliński",2],["Michał Krotliński","Paweł Milanowicz",2],["Andrzej Zaród","Małgorzata Czaplińska",2],["Andrzej Zaród","Daniel Błach",2],["Paweł Milanowicz","Bartłomiej Specjał",2],["Natalia Nędzi","Dariusz Urbanik",2],["Małgorzata Czaplińska","Bartłomiej Specjał",2],["Dariusz Urbanik","Maciej Pająk",2],["Daniel Błach","Paweł Milanowicz",2],["Jakub Wróbel","Daniel Błach",2],["Jakub Wróbel","Maciej Pająk",2],["Sergii Anufriiev","Paweł Milanowicz",2],["Sergii Anufriiev","Aleksandra Szyrwiel",2],["Maciej Pająk","Tomasz Zatoń",2],["Małgorzata Czaplińska","Tomasz Zatoń",2],["Aleksandra Szyrwiel","Sergii Anufriiev",2],["Tomasz Zatoń","Sergii Anufriiev",2],["Katarzyna Dobranowska","Dariusz Urbanik",2],["Michał Dul","Katarzyna Dobranowska",2],["Marcin Bielewski","Sergii Anufriiev",2],["Bartłomiej Specjał","Michał Dul",2],["Marcin Bielewski","Bartłomiej Specjał",2],["Andrzej Zaród","Anton Gatsko",1],["Rafał Furman","Natalia Nędzi",1],["Anton Gatsko","Michał Krotliński",1],["Rafał Furman","Michał Krotliński",1],["Maja Kozak","Anton Gatsko",1],["Maciej Zięba","Katarzyna Widźgowska",1],["Rafał Furman","Anton Gatsko",1],["Maciej Zięba","Natalia Nędzi",1],["Natalia Nędzi","Anton Gatsko",1],["Andrzej Zaród","Maciej Zięba",1],["Natalia Nędzi","Andrzej Zaród",1],["Paweł Milanowicz","Anton Gatsko",1],["Małgorzata Czaplińska","Rafał Furman",1],["Michał Krotliński","Mateusz Skorupa",1],["Mateusz Skorupa","Paweł Milanowicz",1],["Małgorzata Czaplińska","Anton Gatsko",1],["Sergii Anufriiev","Rafał Furman",1],["Mateusz Skorupa","Małgorzata Czaplińska",1],["Mateusz Skorupa","Sergii Anufriiev",1],["Sergii Anufriiev","Mateusz Skorupa",1],["Maja Kozak","Paweł Milanowicz",1],["Maja Kozak","Katarzyna Widźgowska",1],["Paweł Milanowicz","Katarzyna Widźgowska",1],["Mateusz Skorupa","Maciej Zięba",1],["Bartłomiej Specjał","Mateusz Skorupa",1],["Sergii Anufriiev","Maciej Zięba",1],["Mateusz Skorupa","Zuzanna Brzezińska",1],["Daniel Błach","Katarzyna Widźgowska",1],["Maciej Zięba","Maciej Pająk",1],["Maciej Pająk","Maciej Zięba",1],["Maciej Zięba","Bartłomiej Specjał",1],["Małgorzata Czaplińska","Maciej Zięba",1],["Katarzyna Widźgowska","Maciej Zięba",1],["Zuzanna Brzezińska","Maciej Zięba",1],["Natalia Nędzi","Sergii Anufriiev",1],["Bartłomiej Specjał","Andrzej Zaród",1],["Małgorzata Czaplińska","Natalia Nędzi",1],["Małgorzata Czaplińska","Maciej Pająk",1],["Maciej Pająk","Natalia Nędzi",1],["Maciej Pająk","Paweł Milanowicz",1],["Dariusz Urbanik","Natalia Nędzi",1],["Sergii Anufriiev","Maciej Pająk",1],["Zuzanna Brzezińska","Paweł Milanowicz",1],["Paweł Milanowicz","Zuzanna Brzezińska",1],["Sergii Anufriiev","Natalia Nędzi",1],["Aleksandra Szyrwiel","Maciej Pająk",1],["Aleksandra Szyrwiel","Natalia Nędzi",1],["Małgorzata Czaplińska","Daniel Błach",1],["Jakub Wróbel","Małgorzata Czaplińska",1],["Małgorzata Czaplińska","Dariusz Urbanik",1],["Aleksandra Szyrwiel","Daniel Błach",1],["Sergii Anufriiev","Katarzyna Dobranowska",1],["Sergii Anufriiev","Dariusz Urbanik",1],["Katarzyna Dobranowska","Bartłomiej Specjał",1],["Sergii Anufriiev","Bartłomiej Specjał",1],["Dariusz Urbanik","Jakub Wróbel",1],["Jakub Wróbel","Sergii Anufriiev",1],["Jakub Wróbel","Michał Dul",1],["Jakub Wróbel","Katarzyna Dobranowska",1],["Bartłomiej Specjał","Marcin Bielewski",1],["Michał Dul","Aleksandra Szyrwiel",1],["Michał Dul","Dariusz Urbanik",1],["Aleksandra Szyrwiel","Katarzyna Dobranowska",1],["Marcin Bielewski","Katarzyna Dobranowska",1],["Katarzyna Dobranowska","Aleksandra Szyrwiel",1]],"beachcup":[["Bartłomiej Specjał","Daniel Błach",14],["Michał Krotliński","Paweł Milanowicz",9],["Bartłomiej Specjał","Małgorzata Czaplińska",8],["Michał Krotliński","Maja Kozak",7],["Michał Krotliński","Anton Gatsko",6],["Bartłomiej Specjał","Zuzanna Brzezińska",6],["Bartłomiej Specjał","Maja Kozak",6],["Daniel Błach","Bartłomiej Specjał",6],["Jakub Wróbel","Paweł Milanowicz",6],["Mateusz Skorupa","Anna Jeziorska",5],["Bartłomiej Specjał","Anna Jeziorska",5],["Daniel Błach","Anna Jeziorska",5],["Maciej Pająk","Daniel Błach",5],["Paweł Milanowicz","Jakub Wróbel",5],["Michał Krotliński","Małgorzata Czaplińska",4],["Natalia Nędzi","Anton Gatsko",4],["Natalia Nędzi","Maciej Pająk",4],["Andrzej Zaród","Anton Gatsko",4],["Andrzej Zaród","Maciej Pająk",4],["Dariusz Urbanik","Bartłomiej Specjał",4],["Paweł Milanowicz","Sergii Anufriiev",4],["Michał Dul","Katarzyna Dobranowska",4],["Andrzej Zaród","Natalia Nędzi",3],["Maciej Zięba","Sergii Anufriiev",3],["Maciej Zięba","Katarzyna Widźgowska",3],["Rafał Furman","Katarzyna Widźgowska",3],["Michał Krotliński","Anna Jeziorska",3],["Paweł Milanowicz","Anna Jeziorska",3],["Daniel Błach","Zuzanna Brzezińska",3],["Andrzej Zaród","Małgorzata Czaplińska",3],["Maciej Pająk","Anna Jeziorska",3],["Maciej Pająk","Małgorzata Czaplińska",3],["Natalia Nędzi","Zuzanna Brzezińska",3],["Małgorzata Czaplińska","Daniel Błach",3],["Bartłomiej Specjał","Dariusz Urbanik",3],["Jakub Wróbel","Sergii Anufriiev",3],["Paweł Milanowicz","Aleksandra Szyrwiel",3],["Jakub Wróbel","Aleksandra Szyrwiel",3],["Maciej Pająk","Michał Krotliński",2],["Anton Gatsko","Andrzej Zaród",2],["Maciej Pająk","Katarzyna Widźgowska",2],["Sergii Anufriiev","Małgorzata Czaplińska",2],["Natalia Nędzi","Paweł Milanowicz",2],["Michał Krotliński","Sergii Anufriiev",2],["Paweł Milanowicz","Małgorzata Czaplińska",2],["Małgorzata Czaplińska","Maciej Zięba",2],["Paweł Milanowicz","Anton Gatsko",2],["Maja Kozak","Michał Krotliński",2],["Michał Krotliński","Natalia Nędzi",2],["Paweł Milanowicz","Maja Kozak",2],["Michał Krotliński","Daniel Błach",2],["Mateusz Skorupa","Maciej Zięba",2],["Zuzanna Brzezińska","Bartłomiej Specjał",2],["Michał Krotliński","Zuzanna Brzezińska",2],["Michał Krotliński","Bartłomiej Specjał",2],["Bartłomiej Specjał","Katarzyna Widźgowska",2],["Natalia Nędzi","Bartłomiej Specjał",2],["Maciej Zięba","Małgorzata Czaplińska",2],["Paweł Milanowicz","Daniel Błach",2],["Bartłomiej Specjał","Paweł Milanowicz",2],["Daniel Błach","Natalia Nędzi",2],["Zuzanna Brzezińska","Paweł Milanowicz",2],["Daniel Błach","Dariusz Urbanik",2],["Natalia Nędzi","Daniel Błach",2],["Jakub Wróbel","Małgorzata Czaplińska",2],["Dariusz Urbanik","Małgorzata Czaplińska",2],["Jakub Wróbel","Daniel Błach",2],["Sergii Anufriiev","Daniel Błach",2],["Aleksandra Szyrwiel","Sergii Anufriiev",2],["Katarzyna Dobranowska","Paweł Milanowicz",2],["Michał Dul","Bartłomiej Specjał",2],["Jakub Wróbel","Katarzyna Dobranowska",2],["Paweł Milanowicz","Katarzyna Dobranowska",2],["Michał Dul","Paweł Milanowicz",2],["Andrzej Zaród","Rafał Furman",1],["Małgorzata Czaplińska","Maciej Pająk",1],["Maciej Pająk","Anton Gatsko",1],["Paweł Milanowicz","Maciej Pająk",1],["Rafał Furman","Paweł Milanowicz",1],["Natalia Nędzi","Andrzej Zaród",1],["Andrzej Zaród","Katarzyna Widźgowska",1],["Paweł Milanowicz","Maciej Zięba",1],["Rafał Furman","Sergii Anufriiev",1],["Małgorzata Czaplińska","Michał Krotliński",1],["Paweł Milanowicz","Natalia Nędzi",1],["Sergii Anufriiev","Maciej Zięba",1],["Natalia Nędzi","Michał Krotliński",1],["Sergii Anufriiev","Katarzyna Widźgowska",1],["Anna Jeziorska","Michał Krotliński",1],["Sergii Anufriiev","Anna Jeziorska",1],["Rafał Furman","Michał Krotliński",1],["Mateusz Skorupa","Michał Krotliński",1],["Sergii Anufriiev","Paweł Milanowicz",1],["Michał Krotliński","Mateusz Skorupa",1],["Małgorzata Czaplińska","Paweł Milanowicz",1],["Michał Krotliński","Rafał Furman",1],["Rafał Furman","Anna Jeziorska",1],["Anna Jeziorska","Paweł Milanowicz",1],["Paweł Milanowicz","Mateusz Skorupa",1],["Sergii Anufriiev","Anton Gatsko",1],["Sergii Anufriiev","Rafał Furman",1],["Maja Kozak","Rafał Furman",1],["Maciej Zięba","Daniel Błach",1],["Daniel Błach","Katarzyna Widźgowska",1],["Daniel Błach","Maja Kozak",1],["Anna Jeziorska","Bartłomiej Specjał",1],["Bartłomiej Specjał","Michał Krotliński",1],["Anna Jeziorska","Zuzanna Brzezińska",1],["Maciej Zięba","Anna Jeziorska",1],["Katarzyna Widźgowska","Michał Krotliński",1],["Paweł Milanowicz","Bartłomiej Specjał",1],["Daniel Błach","Mateusz Skorupa",1],["Natalia Nędzi","Maciej Zięba",1],["Maciej Zięba","Andrzej Zaród",1],["Mateusz Skorupa","Natalia Nędzi",1],["Maciej Zięba","Maja Kozak",1],["Natalia Nędzi","Anna Jeziorska",1],["Paweł Milanowicz","Zuzanna Brzezińska",1],["Maciej Pająk","Bartłomiej Specjał",1],["Michał Krotliński","Katarzyna Widźgowska",1],["Andrzej Zaród","Dariusz Urbanik",1],["Paweł Milanowicz","Katarzyna Widźgowska",1],["Daniel Błach","Małgorzata Czaplińska",1],["Dariusz Urbanik","Anna Jeziorska",1],["Anna Jeziorska","Maciej Pająk",1],["Andrzej Zaród","Daniel Błach",1],["Małgorzata Czaplińska","Sergii Anufriiev",1],["Dariusz Urbanik","Jakub Wróbel",1],["Dariusz Urbanik","Daniel Błach",1],["Jakub Wróbel","Bartłomiej Specjał",1],["Bartłomiej Specjał","Jakub Wróbel",1],["Jakub Wróbel","Maciej Pająk",1],["Dariusz Urbanik","Sergii Anufriiev",1],["Dariusz Urbanik","Maciej Pająk",1],["Daniel Błach","Maciej Pająk",1],["Maciej Pająk","Sergii Anufriiev",1],["Bartłomiej Specjał","Sergii Anufriiev",1],["Sergii Anufriiev","Aleksandra Szyrwiel",1],["Aleksandra Szyrwiel","Paweł Milanowicz",1],["Sergii Anufriiev","Jakub Wróbel",1],["Bartłomiej Specjał","Katarzyna Dobranowska",1],["Jakub Wróbel","Michał Dul",1],["Dariusz Urbanik","Paweł Milanowicz",1],["Michał Dul","Jakub Wróbel",1]],"wlu":[["Rafał Furman","Anton Gatsko",15],["Mateusz Skorupa","Anna Jeziorska",13],["Mateusz Skorupa","Anton Gatsko",8],["Anna Jeziorska","Anton Gatsko",5],["Katarzyna Widźgowska","Anton Gatsko",5],["Mateusz Skorupa","Rafał Furman",5],["Katarzyna Widźgowska","Anna Jeziorska",5],["Rafał Furman","Anna Jeziorska",5],["Sergii Anufriiev","Paweł Milanowicz",5],["Sergii Anufriiev","Tomasz Zatoń",5],["Sergii Anufriiev","Anton Gatsko",4],["Rafał Furman","Katarzyna Widźgowska",4],["Paweł Milanowicz","Sergii Anufriiev",4],["Paweł Milanowicz","Aleksandra Szyrwiel",4],["Mateusz Skorupa","Katarzyna Widźgowska",3],["Mateusz Skorupa","Maja Kozak",3],["Sergii Anufriiev","Jakub Wróbel",3],["Bartłomiej Specjał","Małgorzata Czaplińska",3],["Daniel Błach","Małgorzata Czaplińska",3],["Anna Jeziorska","Katarzyna Widźgowska",2],["Rafał Furman","Mateusz Skorupa",2],["Michał Krotliński","Anna Jeziorska",2],["Daniel Błach","Sergii Anufriiev",2],["Sergii Anufriiev","Bartłomiej Specjał",2],["Sergii Anufriiev","Rafał Furman",1],["Anton Gatsko","Anna Jeziorska",1],["Maja Kozak","Anna Jeziorska",1],["Katarzyna Widźgowska","Rafał Furman",1],["Maja Kozak","Katarzyna Widźgowska",1],["Rafał Furman","Maja Kozak",1],["Maja Kozak","Mateusz Skorupa",1],["Maja Kozak","Anton Gatsko",1],["Anna Jeziorska","Rafał Furman",1],["Michał Krotliński","Anton Gatsko",1],["Rafał Furman","Michał Krotliński",1],["Michał Krotliński","Rafał Furman",1],["Sergii Anufriiev","Aleksandra Szyrwiel",1],["Tomasz Zatoń","Sergii Anufriiev",1],["Jakub Wróbel","Daniel Błach",1],["Sergii Anufriiev","Daniel Błach",1],["Małgorzata Czaplińska","Sergii Anufriiev",1],["Sergii Anufriiev","Małgorzata Czaplińska",1],["Daniel Błach","Jakub Wróbel",1],["Jakub Wróbel","Sergii Anufriiev",1]],"plu":[["Marcin Bielewski","Sergii Anufriiev",12],["Tomasz Zatoń","Bartłomiej Specjał",4],["Bartłomiej Specjał","Tomasz Zatoń",2],["Sergii Anufriiev","Marcin Bielewski",1]],"poligon":[["Dariusz Urbanik","Małgorzata Czaplińska",5],["Tomasz Zatoń","Sergii Anufriiev",4],["Paweł Milanowicz","Małgorzata Czaplińska",4],["Bartłomiej Specjał","Małgorzata Czaplińska",4],["Paweł Milanowicz","Dariusz Urbanik",4],["Tomasz Zatoń","Małgorzata Czaplińska",4],["Dariusz Urbanik","Bartłomiej Specjał",3],["Bartłomiej Specjał","Dariusz Urbanik",3],["Daniel Błach","Małgorzata Czaplińska",3],["Paweł Milanowicz","Aleksandra Szyrwiel",3],["Maciej Pająk","Sergii Anufriiev",3],["Paweł Milanowicz","Daniel Błach",3],["Maciej Pająk","Daniel Błach",3],["Bartłomiej Specjał","Daniel Błach",3],["Tomasz Zatoń","Dariusz Urbanik",2],["Jakub Wróbel","Daniel Błach",2],["Daniel Błach","Bartłomiej Specjał",2],["Aleksandra Szyrwiel","Bartłomiej Specjał",2],["Daniel Błach","Paweł Milanowicz",2],["Małgorzata Czaplińska","Daniel Błach",2],["Bartłomiej Specjał","Paweł Milanowicz",2],["Bartłomiej Specjał","Maciej Pająk",2],["Bartłomiej Specjał","Jakub Wróbel",2],["Maciej Pająk","Bartłomiej Specjał",2],["Tomasz Zatoń","Katarzyna Dobranowska",2],["Jakub Wróbel","Aleksandra Szyrwiel",2],["Dariusz Urbanik","Tomasz Zatoń",2],["Bartłomiej Specjał","Marcin Bielewski",2],["Dariusz Urbanik","Aleksandra Szyrwiel",1],["Maciej Pająk","Tomasz Zatoń",1],["Dariusz Urbanik","Jakub Wróbel",1],["Dariusz Urbanik","Daniel Błach",1],["Paweł Milanowicz","Jakub Wróbel",1],["Jakub Wróbel","Małgorzata Czaplińska",1],["Paweł Milanowicz","Bartłomiej Specjał",1],["Daniel Błach","Aleksandra Szyrwiel",1],["Maciej Pająk","Paweł Milanowicz",1],["Sergii Anufriiev","Daniel Błach",1],["Tomasz Zatoń","Bartłomiej Specjał",1],["Bartłomiej Specjał","Tomasz Zatoń",1],["Maciej Pająk","Katarzyna Dobranowska",1],["Tomasz Zatoń","Jakub Wróbel",1],["Paweł Milanowicz","Sergii Anufriiev",1],["Paweł Milanowicz","Maciej Pająk",1],["Tomasz Zatoń","Paweł Milanowicz",1],["Tomasz Zatoń","Maciej Pająk",1],["Jakub Wróbel","Sergii Anufriiev",1],["Marcin Bielewski","Jakub Wróbel",1],["Tomasz Zatoń","Daniel Błach",1],["Marcin Bielewski","Tomasz Zatoń",1],["Marcin Bielewski","Daniel Błach",1],["Daniel Błach","Marcin Bielewski",1],["Jakub Wróbel","Bartłomiej Specjał",1],["Marcin Bielewski","Bartłomiej Specjał",1],["Jakub Wróbel","Tomasz Zatoń",1]]};
+
+const NET_NODES = ["Bartłomiej Specjał","Paweł Milanowicz","Daniel Błach","Sergii Anufriiev","Tomasz Zatoń","Małgorzata Czaplińska","Dariusz Urbanik","Maciej Pająk","Jakub Wróbel","Michał Krotliński","Aleksandra Szyrwiel","Rafał Furman","Maja Kozak","Marcin Bielewski","Anton Gatsko","Natalia Nędzi","Andrzej Zaród","Anna Jeziorska","Zuzanna Brzezińska","Mateusz Skorupa","Maciej Zięba","Katarzyna Widźgowska","Katarzyna Dobranowska","Michał Dul"];
+
+function netInitials(name){
+  const parts = name.split(' ');
+  return parts[0] + ' ' + parts[parts.length-1][0] + '.';
+}
+
+// node positions are fixed (based on all-time involvement) so the layout doesn't reshuffle when the surface/tournament filter changes
+let NET_ORDER = null, NET_POS = null;
+function initNetworkLayout(){
+  const degree = {};
+  NET_NODES.forEach(n => degree[n] = 0);
+  NET_EDGES_BY_SCOPE.all.forEach(([a,b,w]) => { degree[a] = (degree[a]||0) + w; degree[b] = (degree[b]||0) + w; });
+
+  NET_ORDER = NET_NODES.slice().sort((a,b) => degree[b] - degree[a]);
+  NET_POS = {};
+  const N = NET_ORDER.length;
+  const cx = 310, cy = 225, R = 158;
+  NET_ORDER.forEach((name, i) => {
+    const angle = -Math.PI/2 + (i / N) * Math.PI * 2;
+    NET_POS[name] = { x: cx + R * Math.cos(angle), y: cy + R * Math.sin(angle), angle };
+  });
+}
+
+function buildNetwork(){
+  const order = NET_ORDER, pos = NET_POS;
+  const cx = 310, cy = 225;
+  const edges = NET_EDGES_BY_SCOPE[currentScopeKey()] || [];
+
+  document.getElementById('networkScope').textContent = scopeDisplayName();
+
+  const degree = {};
+  NET_NODES.forEach(n => degree[n] = 0);
+  edges.forEach(([a,b,w]) => { degree[a] = (degree[a]||0) + w; degree[b] = (degree[b]||0) + w; });
+
+  // combine reciprocal directed edges into one undirected weight for the visual
+  const combined = {};
+  const dir = {};
+  edges.forEach(([a,b,w]) => {
+    dir[a + '->' + b] = w;
+    const key = a < b ? a + '||' + b : b + '||' + a;
+    combined[key] = (combined[key] || 0) + w;
+  });
+  const combinedEntries = Object.entries(combined);
+  const maxCombined = Math.max(1, ...combinedEntries.map(e => e[1]));
+
+  let edgeSvg = '';
+  combinedEntries.forEach(([key, w]) => {
+    const [a, b] = key.split('||');
+    const pa = pos[a], pb = pos[b];
+    const mx = (pa.x + pb.x) / 2, my = (pa.y + pb.y) / 2;
+    const bow = 0.32;
+    const qx = cx + (mx - cx) * (1 - bow), qy = cy + (my - cy) * (1 - bow);
+    const strokeW = (0.5 + Math.sqrt(w) * 0.75).toFixed(2);
+    const op = (0.1 + (w / maxCombined) * 0.55).toFixed(3);
+    edgeSvg += `<path class="net-edge" data-a="${a}" data-b="${b}" d="M${pa.x.toFixed(1)},${pa.y.toFixed(1)} Q${qx.toFixed(1)},${qy.toFixed(1)} ${pb.x.toFixed(1)},${pb.y.toFixed(1)}" stroke-width="${strokeW}" opacity="${op}"></path>`;
+  });
+
+  const maxDeg = Math.max(1, ...Object.values(degree));
+  let nodeSvg = '';
+  order.forEach(name => {
+    const p = pos[name];
+    const r = 3 + Math.sqrt(degree[name] / maxDeg) * 7;
+    const onRight = Math.cos(p.angle) >= -0.02;
+    const labelX = p.x + (onRight ? r + 4 : -(r + 4));
+    nodeSvg += `<g class="net-node" data-name="${name.replace(/"/g,'&quot;')}">
+      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${r.toFixed(1)}"></circle>
+      <text x="${labelX.toFixed(1)}" y="${(p.y+3).toFixed(1)}" text-anchor="${onRight?'start':'end'}">${netInitials(name)}</text>
+    </g>`;
+  });
+
+  const svg = `<svg viewBox="0 0 620 450" width="620" height="450">
+    <g id="netEdges">${edgeSvg}</g>
+    <g id="netNodes">${nodeSvg}</g>
+  </svg>`;
+  document.getElementById('networkChart').innerHTML = svg;
+
+  const topPair = combinedEntries.slice().sort((a,b)=>b[1]-a[1])[0];
+  renderNetworkPanel(null, {dir, degree, topPair});
+
+  document.querySelectorAll('.net-node').forEach(g => {
+    g.addEventListener('click', () => {
+      const name = g.dataset.name;
+      const alreadyActive = g.classList.contains('active');
+      selectNetworkNode(alreadyActive ? null : name, {dir, degree, topPair});
+    });
+  });
+}
+
+function selectNetworkNode(name, ctx){
+  document.querySelectorAll('.net-node').forEach(g => {
+    const isActive = g.dataset.name === name;
+    g.classList.toggle('active', isActive);
+    g.classList.toggle('dim', !!name && !isActive);
+  });
+  document.querySelectorAll('.net-edge').forEach(p => {
+    if (!name) { p.classList.remove('hi'); p.style.opacity = ''; return; }
+    const touches = p.dataset.a === name || p.dataset.b === name;
+    p.classList.toggle('hi', touches);
+    p.style.opacity = touches ? 0.9 : 0.04;
+  });
+  renderNetworkPanel(name, ctx);
+}
+
+function renderNetworkPanel(name, ctx){
+  const panel = document.getElementById('networkPanel');
+  if (!name) {
+    if (!ctx.topPair) {
+      panel.innerHTML = `
+      <h4>Overview</h4>
+      <p class="network-empty">No plays recorded for <strong>${scopeDisplayName()}</strong>.</p>`;
+      return;
+    }
+    const [pairKey, w] = ctx.topPair;
+    const [a,b] = pairKey.split('||');
+    panel.innerHTML = `
+      <h4>Overview</h4>
+      <p class="network-empty">Strongest connection: <strong>${netInitials(a)}</strong> &harr; <strong>${netInitials(b)}</strong> (${w} logged plays). Click any player to see their top partners.</p>`;
+    return;
+  }
+  const partners = {};
+  Object.entries(ctx.dir).forEach(([key, w]) => {
+    const [a,b] = key.split('->');
+    if (a === name) { partners[b] = partners[b] || {to:0, from:0}; partners[b].to += w; }
+    if (b === name) { partners[a] = partners[a] || {to:0, from:0}; partners[a].from += w; }
+  });
+  const list = Object.entries(partners)
+    .map(([p, v]) => ({partner:p, total: v.to+v.from, to:v.to, from:v.from}))
+    .sort((a,b) => b.total - a.total)
+    .slice(0,7);
+  panel.innerHTML = `
+    <h4>Selected player</h4>
+    <p class="np-name">${name}</p>
+    <p class="np-sub">${ctx.degree[name]} total connections</p>
+    <ol class="np-list">
+      ${list.map(p => `<li title="${name} → ${p.partner}: ${p.to} · ${p.partner} → ${name}: ${p.from}"><span class="np-partner">${p.partner}</span><span class="np-count">${p.total}</span></li>`).join('')}
+    </ol>`;
+}
+
+let sortKey = 'sum', sortDir = -1;
+let surface = 'all';
+let tournament = 'all';
+let metricMode = 'total';
+let expandedPlayer = null;
+
+const METRIC_HEAD = {
+  total:     {assists:'Assists', points:'Goals', sum:'Total'},
+  perGame:   {assists:'Ast/G',   points:'Gl/G',  sum:'Tot/G'},
+  perSeason: {assists:'Ast/Szn', points:'Gl/Szn', sum:'Tot/Szn'}
+};
+
+function metricVal(d, field){
+  if (metricMode === 'total') return d[field];
+  if (metricMode === 'perGame') return d.games ? d[field]/d.games : 0;
+  return d.seasons ? d[field]/d.seasons : 0;
+}
+function fmtMetric(v){
+  return metricMode === 'total' ? String(v) : v.toFixed(2);
+}
+function updateMetricHeaders(){
+  const map = METRIC_HEAD[metricMode];
+  ['assists','points','sum'].forEach(key => {
+    const th = document.querySelector(`thead th[data-key="${key}"]`);
+    if (th && th.firstChild) th.firstChild.textContent = map[key];
+  });
+}
+
+function currentBucket(d){
+  if (tournament !== 'all') return d.series[tournament];
+  return d[surface];
+}
+function currentScopeKey(){
+  return tournament !== 'all' ? tournament : surface;
+}
+function scopeDisplayName(){
+  if (tournament !== 'all') return SERIES_META[tournament].label;
+  if (surface === 'all') return 'All tournaments';
+  return surface.charAt(0).toUpperCase() + surface.slice(1);
+}
+
+function renderTable(filterText){
+  const body = document.getElementById('rosterBody');
+  const f = (filterText||'').trim().toLowerCase();
+  let rows = DATA
+    .filter(d => d.name.toLowerCase().includes(f))
+    .filter(d => currentBucket(d).seasons > 0)
+    .map(d => ({name:d.name, ...currentBucket(d)}));
+
+  const maxMetricSum = Math.max(1, ...rows.map(d=>metricVal(d,'sum')));
+
+  rows = rows.slice().sort((a,b) => {
+    if(sortKey === 'name') return sortDir * a.name.localeCompare(b.name);
+    if(sortKey === 'assists' || sortKey === 'points' || sortKey === 'sum') return sortDir * (metricVal(a,sortKey) - metricVal(b,sortKey));
+    return sortDir * (a[sortKey] - b[sortKey]);
+  });
+
+  const scopeLabel = tournament !== 'all' ? SERIES_META[tournament].label : (surface === 'all' ? 'any surface' : surface);
+  if(rows.length === 0){
+    body.innerHTML = `<tr class="empty-row"><td colspan="7">No player matches “${filterText}” in ${scopeLabel}.</td></tr>`;
+    document.getElementById('rowCount').textContent = '0 players shown';
+    return;
+  }
+
+  body.innerHTML = rows.map((d, i) => {
+    const rank = i + 1;
+    const metricSum = metricVal(d,'sum');
+    const pct = Math.max(4, Math.round((metricSum / maxMetricSum) * 100));
+    const isExpanded = d.name === expandedPlayer;
+    const safeName = d.name.replace(/"/g,'&quot;');
+    const summaryRow = `<tr class="${sortKey==='sum' && sortDir===-1 && rank<=3 ? 'top3' : ''}${isExpanded ? ' expanded' : ''}" data-player="${safeName}">
+      <td class="col-rank">${rank}</td>
+      <td class="col-player"><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></span>${d.name}${JERSEY[d.name] ? `<span class="jersey-badge">#${JERSEY[d.name]}</span>` : ''}<span class="meta"><span class="seasons">${d.minY===d.maxY ? d.minY : d.minY+'–'+d.maxY} &middot; ${d.seasons} season${d.seasons===1?'':'s'}</span></span></td>
+      <td>${d.seasons}</td>
+      <td>${d.games}</td>
+      <td>${fmtMetric(metricVal(d,'assists'))}</td>
+      <td>${fmtMetric(metricVal(d,'points'))}</td>
+      <td class="col-total bar-cell">${fmtMetric(metricSum)}<span class="bar-track"><span class="bar-fill" style="width:${pct}%"></span></span></td>
+    </tr>`;
+    const expandRow = isExpanded ? `<tr class="expand-row"><td colspan="7">${buildExpandContent(d.name)}</td></tr>` : '';
+    return summaryRow + expandRow;
+  }).join('');
+
+  document.getElementById('rowCount').textContent = `${rows.length} of ${DATA.length} players shown`;
+}
+
+function updateSortIndicators(){
+  document.querySelectorAll('#rosterTable thead th').forEach(th => {
+    th.classList.toggle('sorted', th.dataset.key === sortKey);
+    const arrow = th.querySelector('.arrow');
+    if(arrow) arrow.innerHTML = sortDir === 1 ? '&uarr;' : '&darr;';
+  });
+}
+
+function packH2H(a){ return {games:a[0], wins:a[1], losses:a[2], pf:a[3], pa:a[4]}; }
+const H2H_ALL = H2H_RAW.map(r => ({
+  name:r[0],
+  all:packH2H(r[1]), outdoor:packH2H(r[2]), beach:packH2H(r[3]), indoor:packH2H(r[4]),
+  series:{ ppm:packH2H(r[5]), mpm:packH2H(r[6]), hmp:packH2H(r[7]), beachcup:packH2H(r[8]), wlu:packH2H(r[9]), plu:packH2H(r[10]), poligon:packH2H(r[11]) }
+}));
+// drop one-off opponents (faced fewer than 2 times all-time) from the listed table so hat-tournament pickup teams don't clutter it
+const H2H_DATA = H2H_ALL.filter(d => d.all.games >= 2);
+
+function winPct(d){ return d.games ? (d.wins / d.games) * 100 : 0; }
+
+let h2hSortKey = 'games', h2hSortDir = -1;
+
+function renderH2H(filterText){
+  const body = document.getElementById('h2hBody');
+  const f = (filterText||'').trim().toLowerCase();
+  let rows = H2H_DATA
+    .filter(d => d.name.toLowerCase().includes(f))
+    .filter(d => currentBucket(d).games > 0)
+    .map(d => ({name:d.name, ...currentBucket(d)}));
+
+  rows = rows.slice().sort((a,b) => {
+    if(h2hSortKey === 'name') return h2hSortDir * a.name.localeCompare(b.name);
+    if(h2hSortKey === 'winpct') return h2hSortDir * (winPct(a) - winPct(b));
+    if(h2hSortKey === 'diff') return h2hSortDir * ((a.pf - a.pa) - (b.pf - b.pa));
+    if(h2hSortKey === 'record') return h2hSortDir * (a.wins - b.wins);
+    return h2hSortDir * (a[h2hSortKey] - b[h2hSortKey]);
+  });
+
+  const scopeLabel = tournament !== 'all' ? SERIES_META[tournament].label : (surface === 'all' ? 'any surface' : surface);
+
+  const allInScope = H2H_ALL.map(d => currentBucket(d)).filter(b => b.games > 0);
+  const totalGames = allInScope.reduce((s,b) => s + b.games, 0);
+  const totalWins = allInScope.reduce((s,b) => s + b.wins, 0);
+  const totalLosses = allInScope.reduce((s,b) => s + b.losses, 0);
+  document.getElementById('h2hRecord').innerHTML = totalGames
+    ? `<strong>${totalWins}-${totalLosses}</strong> (${Math.round((totalWins/totalGames)*100)}%) in ${scopeLabel}`
+    : `No games recorded in ${scopeLabel}`;
+
+  if(rows.length === 0){
+    body.innerHTML = `<tr class="empty-row"><td colspan="6">No opponent matches “${filterText}” in ${scopeLabel}.</td></tr>`;
+    document.getElementById('h2hCount').textContent = '0 opponents shown';
+    return;
+  }
+
+  const maxGames = Math.max(...rows.map(d => d.games));
+  const maxWinDiff = Math.max(...rows.map(d => d.wins - d.losses));
+  const maxWinPct = Math.max(...rows.map(d => winPct(d)));
+  const maxPtDiff = Math.max(...rows.map(d => d.pf - d.pa));
+
+  body.innerHTML = rows.map((d, i) => {
+    const rank = i + 1;
+    const diff = d.pf - d.pa;
+    const diffStr = (diff > 0 ? '+' : '') + diff;
+    const wp = winPct(d);
+    const winDiff = d.wins - d.losses;
+    return `<tr>
+      <td class="col-rank">${rank}</td>
+      <td class="col-player">${d.name}</td>
+      <td class="${d.games === maxGames ? 'h2h-best' : ''}">${d.games}</td>
+      <td class="${winDiff === maxWinDiff ? 'h2h-best' : ''}">${d.wins}-${d.losses}</td>
+      <td class="${wp === maxWinPct ? 'h2h-best' : ''}">${wp.toFixed(0)}%</td>
+      <td class="col-diff ${diff > 0 ? 'pos' : (diff < 0 ? 'neg' : '')} ${diff === maxPtDiff ? 'h2h-best' : ''}">${diffStr}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('h2hCount').textContent = `${rows.length} of ${H2H_DATA.length} opponents shown`;
+}
+
+function updateH2HSortIndicators(){
+  document.querySelectorAll('#h2hTable thead th').forEach(th => {
+    th.classList.toggle('sorted', th.dataset.key === h2hSortKey);
+    const arrow = th.querySelector('.arrow');
+    if(arrow) arrow.innerHTML = h2hSortDir === 1 ? '&uarr;' : '&darr;';
+  });
+}
+
+function renderLeaders(){
+  const active = DATA.filter(d => currentBucket(d).seasons > 0).map(d => ({name:d.name, ...currentBucket(d)}));
+  const byGames = active.slice().sort((a,b) => b.games - a.games).slice(0,3);
+  const byAssists = active.slice().sort((a,b) => metricVal(b,'assists') - metricVal(a,'assists')).slice(0,3);
+  const byGoals = active.slice().sort((a,b) => metricVal(b,'points') - metricVal(a,'points')).slice(0,3);
+  const modeSuffix = metricMode === 'perGame' ? ' &middot; per game' : (metricMode === 'perSeason' ? ' &middot; per season' : '');
+
+  const card = (title, list, valueFn) => `
+    <div class="leader-card">
+      <h3>${title}</h3>
+      <ol class="leader-list">
+        ${list.map((d,i) => `<li class="leader-item"><span class="leader-rank">${i+1}</span><span class="leader-name">${d.name}</span><span class="leader-val">${valueFn(d)}</span></li>`).join('')}
+      </ol>
+    </div>`;
+
+  document.getElementById('leadersSection').innerHTML =
+    card('Most games played', byGames, d => d.games) +
+    card('Most assists' + modeSuffix, byAssists, d => fmtMetric(metricVal(d,'assists'))) +
+    card('Most goals' + modeSuffix, byGoals, d => fmtMetric(metricVal(d,'points')));
+}
+
+function rerender(){
+  renderLeaders();
+  renderTable(document.getElementById('searchBox').value);
+  renderH2H(document.getElementById('h2hSearchBox').value);
+  buildNetwork();
+}
+
+document.querySelectorAll('#rosterTable thead th[data-key]').forEach(th => {
+  const activate = () => {
+    const key = th.dataset.key;
+    if(key === 'rank') return;
+    if(sortKey === key){ sortDir *= -1; } else { sortKey = key; sortDir = key === 'name' ? 1 : -1; }
+    updateSortIndicators();
+    renderTable(document.getElementById('searchBox').value);
+  };
+  th.addEventListener('click', activate);
+  th.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(); }});
+});
+
+document.getElementById('searchBox').addEventListener('input', e => renderTable(e.target.value));
+
+document.querySelectorAll('#h2hTable thead th[data-key]').forEach(th => {
+  const activate = () => {
+    const key = th.dataset.key;
+    if(key === 'rank') return;
+    if(h2hSortKey === key){ h2hSortDir *= -1; } else { h2hSortKey = key; h2hSortDir = key === 'name' ? 1 : -1; }
+    updateH2HSortIndicators();
+    renderH2H(document.getElementById('h2hSearchBox').value);
+  };
+  th.addEventListener('click', activate);
+  th.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(); }});
+});
+
+document.getElementById('h2hSearchBox').addEventListener('input', e => renderH2H(e.target.value));
+
+document.querySelectorAll('#surfaceFilter button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    surface = btn.dataset.surface;
+    tournament = 'all';
+    document.getElementById('tournamentFilter').value = 'all';
+    document.querySelectorAll('#surfaceFilter button').forEach(b => {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+    });
+    rerender();
+  });
+});
+
+document.getElementById('tournamentFilter').addEventListener('change', (e) => {
+  tournament = e.target.value;
+  if (tournament !== 'all') {
+    surface = SERIES_META[tournament].surface;
+    document.querySelectorAll('#surfaceFilter button').forEach(b => {
+      const match = b.dataset.surface === surface;
+      b.classList.toggle('active', match);
+      b.setAttribute('aria-selected', match ? 'true' : 'false');
+    });
+  }
+  rerender();
+});
+
+document.querySelectorAll('#metricToggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    metricMode = btn.dataset.metric;
+    document.querySelectorAll('#metricToggle button').forEach(b => {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+    });
+    updateMetricHeaders();
+    rerender();
+  });
+});
+
+document.getElementById('rosterBody').addEventListener('click', (e) => {
+  const row = e.target.closest('tr[data-player]');
+  if (!row) return;
+  const name = row.dataset.player;
+  expandedPlayer = expandedPlayer === name ? null : name;
+  renderTable(document.getElementById('searchBox').value);
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      const match = b === btn;
+      b.classList.toggle('active', match);
+      b.setAttribute('aria-selected', match ? 'true' : 'false');
+    });
+    document.getElementById('panelPlayers').hidden = tab !== 'players';
+    document.getElementById('panelTeam').hidden = tab !== 'team';
+  });
+});
+
+renderLeaders();
+initNetworkLayout();
+buildNetwork();
+updateSortIndicators();
+updateH2HSortIndicators();
+updateMetricHeaders();
+renderTable('');
+renderH2H('');
+</script>
+
+</body></html>

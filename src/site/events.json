@@ -1,0 +1,20 @@
+[
+  { "date": "2027-01-30", "kind": "tournament", "title": { "pl": "WLU O/W", "en": "WLU O/W" }, "desc": { "pl": "Liga zimowa · kolejka", "en": "Winter league · round" } },
+  { "date": "2027-02-13", "kind": "tournament", "title": { "pl": "Pomeranian Power", "en": "Pomeranian Power" }, "desc": { "pl": "Turniej halowy", "en": "Indoor tournament" } },
+  { "date": "2027-02-20", "kind": "tournament", "title": { "pl": "WLU O/W", "en": "WLU O/W" }, "desc": { "pl": "Liga zimowa · kolejka", "en": "Winter league · round" } },
+  { "date": "2027-03-06", "kind": "championship", "title": { "pl": "HMP X", "en": "HMP X" }, "desc": { "pl": "Halowe Mistrzostwa Polski", "en": "Polish Indoor Championships" } },
+  { "date": "2027-04-10", "kind": "tournament", "title": { "pl": "Wroc-Series", "en": "Wroc-Series" }, "desc": { "pl": "Wrocławski cykl turniejów", "en": "Wrocław tournament series" } },
+  { "date": "2027-05-01", "kind": "tournament", "title": { "pl": "EUCS Tour (1)", "en": "EUCS Tour (1)" }, "desc": { "pl": "European Ultimate Championship Series", "en": "European Ultimate Championship Series" } },
+  { "date": "2027-05-08", "kind": "tournament", "title": { "pl": "30-lecie Ultimate w Polsce", "en": "30 years of Ultimate in Poland" }, "desc": { "pl": "Turniej jubileuszowy", "en": "Anniversary tournament" } },
+  { "date": "2027-05-15", "kind": "tournament", "title": { "pl": "Wroc-Series", "en": "Wroc-Series" }, "desc": { "pl": "Wrocławski cykl turniejów", "en": "Wrocław tournament series" } },
+  { "date": "2027-05-22", "kind": "championship", "title": { "pl": "MPO/W", "en": "MPO/W" }, "desc": { "pl": "Mistrzostwa Polski Open/Women", "en": "Polish Open & Women Championships" } },
+  { "date": "2027-06-05", "kind": "tournament", "title": { "pl": "EUCS Tour (2)", "en": "EUCS Tour (2)" }, "desc": { "pl": "European Ultimate Championship Series", "en": "European Ultimate Championship Series" } },
+  { "date": "2027-06-19", "kind": "championship", "title": { "pl": "MPBU", "en": "MPBU" }, "desc": { "pl": "Mistrzostwa Polski w Beach Ultimate", "en": "Polish Beach Championships" } },
+  { "date": "2027-06-26", "kind": "tournament", "title": { "pl": "Wroc-Series", "en": "Wroc-Series" }, "desc": { "pl": "Wrocławski cykl turniejów", "en": "Wrocław tournament series" } },
+  { "date": "2027-07-24", "kind": "tournament", "title": { "pl": "EUCS Tour (3)", "en": "EUCS Tour (3)" }, "desc": { "pl": "European Ultimate Championship Series", "en": "European Ultimate Championship Series" } },
+  { "date": "2027-08-07", "kind": "tournament", "title": { "pl": "Lagoon", "en": "Lagoon" }, "desc": { "pl": "Jeszcze niepotwierdzony", "en": "Not confirmed yet" } },
+  { "date": "2027-08-14", "kind": "championship", "title": { "pl": "PPX", "en": "PPX" }, "desc": { "pl": "Puchar Polski Mixed", "en": "Polish Mixed Cup" } },
+  { "date": "2027-08-21", "kind": "tournament", "title": { "pl": "SandSlash", "en": "SandSlash" }, "desc": { "pl": "Turniej plażowy", "en": "Beach tournament" } },
+  { "date": "2027-09-04", "kind": "tournament", "title": { "pl": "Wroc-Series", "en": "Wroc-Series" }, "desc": { "pl": "Wrocławski cykl turniejów", "en": "Wrocław tournament series" } },
+  { "date": "2027-09-11", "kind": "championship", "title": { "pl": "MPX", "en": "MPX" }, "desc": { "pl": "Mistrzostwa Polski Mixed", "en": "Polish Mixed Championships" } }
+]
