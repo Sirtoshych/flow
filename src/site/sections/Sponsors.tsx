@@ -1,5 +1,6 @@
 import { CONTACT_URL } from '../data.js'
 import type { Copy } from '../i18n.js'
+import { ArrowIcon } from './ArrowIcon.js'
 import { SectionHead } from './SectionHead.js'
 
 const LOGO_SLOTS = ['sponsor-1', 'sponsor-2', 'sponsor-3']
@@ -16,7 +17,7 @@ export function Sponsors({ copy }: { copy: Copy }) {
         {LOGO_SLOTS.map(id => (
           <div key={id} className="sponsor"><span className="sponsor__ph">Logo</span></div>
         ))}
-        <a href={CONTACT_URL} className="sponsor sponsor--cta" target="_blank" rel="noopener noreferrer">{copy.yourLogo}</a>
+        <a href={CONTACT_URL} className="sponsor sponsor--cta" target="_blank" rel="noopener noreferrer">{copy.yourLogo} <ArrowIcon /></a>
       </div>
     </section>
   )

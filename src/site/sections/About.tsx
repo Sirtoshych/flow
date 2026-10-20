@@ -1,5 +1,6 @@
 import { COACHES, FOUNDED, PLAYERS, SOCIALS, asset } from '../data.js'
 import type { Copy } from '../i18n.js'
+import { ArrowIcon } from './ArrowIcon.js'
 import { Cta } from './Cta.js'
 import { SectionHead } from './SectionHead.js'
 
@@ -17,7 +18,7 @@ export function About({ copy, now }: { copy: Copy; now: number }) {
             {SOCIALS.map(social => (
               <a key={social.label} href={social.href} className="social" target="_blank" rel="noopener noreferrer">
                 {social.label}
-                <span aria-hidden="true">↗︎</span>
+                <ArrowIcon />
               </a>
             ))}
           </div>
@@ -37,7 +38,7 @@ export function About({ copy, now }: { copy: Copy; now: number }) {
                 <span>{copy.statLabels[index]}</span>
               </div>
             ))}
-            <a href="#players" className="chip chip--link" aria-label={copy.nav[3]}>↗︎</a>
+            <a href="#players" className="chip chip--link" aria-label={copy.nav[3]}><ArrowIcon /></a>
           </div>
         </div>
         <div className="about__side">

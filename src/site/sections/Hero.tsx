@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { HERO_PHOTOS, HERO_PHOTOS_MOBILE, asset } from '../data.js'
 import type { Copy, Lang } from '../i18n.js'
 import { LOCALE, countdown, nextTraining, type SiteEvent } from '../time.js'
+import { ArrowIcon } from './ArrowIcon.js'
 import { Cta } from './Cta.js'
 
 const NAV_IDS = ['trainings', 'history', 'achievements', 'players', 'media', 'calendar', 'sponsors']
@@ -67,7 +68,7 @@ export function Hero({ copy, lang, now, next }: Props) {
             {links.map(link => (
               <a key={link.href} href={link.href}>
                 {link.label}
-                <span aria-hidden="true">↗︎</span>
+                <ArrowIcon />
               </a>
             ))}
           </nav>

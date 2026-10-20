@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
 
+import { ArrowIcon } from './ArrowIcon.js'
+
 type Props = { href: string; variant: 'blue' | 'dark' | 'white'; large?: boolean; external?: boolean; children: ReactNode }
 
 export function Cta({ href, variant, large = false, external = false, children }: Props) {
@@ -11,7 +13,7 @@ export function Cta({ href, variant, large = false, external = false, children }
       rel={external ? 'noopener noreferrer' : undefined}
     >
       {children}
-      <span className="cta__icon" aria-hidden="true">↗︎</span>
+      <span className="cta__icon"><ArrowIcon /></span>
     </a>
   )
 }

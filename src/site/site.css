@@ -1361,6 +1361,7 @@ body:has(.menu:popover-open) {
 }
 
 .sponsor--cta {
+  gap: 6px;
   font: 800 20px var(--display);
   text-transform: uppercase;
   color: var(--blue);
