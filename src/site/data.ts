@@ -17,6 +17,12 @@ export const HERO_PHOTOS = [
   { file: 'hero/hero-indoor.webp', pos: '60% 35%', alt: 'Flow player holding the disc indoors' },
   { file: 'hero/hero-huddle.webp', pos: '50% 55%', alt: 'Flow team celebrating on the beach' },
   { file: 'photo-anthem.webp', pos: '35% 40%', alt: 'Players lined up before a game' },
+  { file: 'photo-sprint-clean.webp', pos: '60% 40%', alt: 'Flow players sprinting' },
+  { file: 'photo-trophy.webp', pos: '50% 40%', alt: 'Flow team with a trophy' },
+  { file: 'hero/hero-medals.webp', pos: '50% 62%', alt: 'Flow team with medals after a tournament' },
+  { file: 'hero/hero-run.webp', pos: '50% 40%', alt: 'Flow players running a sprint drill' },
+  { file: 'hero/hero-block.webp', pos: '60% 40%', alt: 'Flow player marking a thrower' },
+  { file: 'hero/hero-rain.webp', pos: '50% 35%', alt: 'Flow players cutting in the rain' },
 ]
 
 export const HERO_PHOTOS_MOBILE = [
