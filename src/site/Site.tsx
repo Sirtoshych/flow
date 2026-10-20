@@ -14,7 +14,7 @@ import { Trainings } from './sections/Trainings.js'
 import { Ultimate } from './sections/Ultimate.js'
 
 export function Site({ lang }: { lang: Lang }) {
-  const t = COPY[lang]
+  const copy = COPY[lang]
   const now = useNow(30_000)
   const events = localizedEvents(lang)
   const next = nextEvent(events, now)
@@ -22,20 +22,20 @@ export function Site({ lang }: { lang: Lang }) {
   return (
     <div className="page">
       <div className="shell">
-        <Hero t={t} lang={lang} now={now} next={next} />
-        <Marquee t={t} />
+        <Hero copy={copy} lang={lang} now={now} next={next} />
+        <Marquee copy={copy} />
         <main className="main">
-          <About t={t} now={now} />
-          <History t={t} />
-          <Achievements t={t} />
-          <Trainings t={t} />
-          <Players t={t} />
-          <Ultimate t={t} />
-          <Media t={t} />
-          <Calendar t={t} lang={lang} events={events} next={next} />
-          <Sponsors t={t} />
+          <About copy={copy} now={now} />
+          <History copy={copy} />
+          <Achievements copy={copy} />
+          <Trainings copy={copy} />
+          <Players copy={copy} />
+          <Ultimate copy={copy} />
+          <Media copy={copy} />
+          <Calendar copy={copy} lang={lang} events={events} next={next} />
+          <Sponsors copy={copy} />
         </main>
-        <Footer t={t} />
+        <Footer copy={copy} />
       </div>
     </div>
   )

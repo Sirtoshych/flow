@@ -11,7 +11,7 @@ export function Cta({ href, variant, large = false, external = false, children }
       rel={external ? 'noopener noreferrer' : undefined}
     >
       {children}
-      <span className="cta__icon" aria-hidden="true">↗</span>
+      <span className="cta__icon" aria-hidden="true">↗︎</span>
     </a>
   )
 }

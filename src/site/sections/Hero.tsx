@@ -15,9 +15,9 @@ const subscribeMobile = (onChange: () => void) => {
   return () => MOBILE_QUERY.removeEventListener('change', onChange)
 }
 
-type Props = { t: Copy; lang: Lang; now: number; next: SiteEvent | undefined }
+type Props = { copy: Copy; lang: Lang; now: number; next: SiteEvent | undefined }
 
-export function Hero({ t, lang, now, next }: Props) {
+export function Hero({ copy, lang, now, next }: Props) {
   const [hero, setHero] = useState(0)
   const menuRef = useRef<HTMLDivElement>(null)
   const mobile = useSyncExternalStore(subscribeMobile, isMobile)
@@ -25,56 +25,56 @@ export function Hero({ t, lang, now, next }: Props) {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const id = setInterval(() => setHero(h => h + 1), 5000)
+    const id = setInterval(() => setHero(current => current + 1), 5000)
     return () => clearInterval(id)
   }, [])
 
   const locale = LOCALE[lang]
   const training = nextTraining(now).toLocaleString(locale, { weekday: 'long' })
-  const links = [...NAV_IDS.map((id, i) => ({ href: `#${id}`, label: t.nav[i] })), { href: `${import.meta.env.BASE_URL}stats/`, label: t.stats }]
+  const links = [...NAV_IDS.map((id, index) => ({ href: `#${id}`, label: copy.nav[index] })), { href: `${import.meta.env.BASE_URL}stats/`, label: copy.stats }]
   const closeMenu = () => menuRef.current?.hidePopover()
 
   return (
     <header id="top" className="hero">
-      {photos.map((p, i) => (
+      {photos.map((photo, index) => (
         <img
-          key={p.file}
-          src={asset(p.file)}
-          alt={p.alt}
-          className={`cover hero__photo${i === hero % photos.length ? ' is-active' : ''}`}
-          style={{ objectPosition: p.pos }}
-          fetchPriority={i === 0 ? 'high' : 'auto'}
+          key={photo.file}
+          src={asset(photo.file)}
+          alt={photo.alt}
+          className={`cover hero__photo${index === hero % photos.length ? ' is-active' : ''}`}
+          style={{ objectPosition: photo.pos }}
+          fetchPriority={index === 0 ? 'high' : 'auto'}
         />
       ))}
       <div className="hero__shade" />
 
       <div className="hero__bar">
         <nav className="hero__nav">
-          {links.map(l => <a key={l.href} href={l.href}>{l.label}</a>)}
+          {links.map(link => <a key={link.href} href={link.href}>{link.label}</a>)}
         </nav>
         <button type="button" className="menu-btn" popoverTarget="menu">
           <svg width="18" height="14" viewBox="0 0 18 14" aria-hidden="true">
             <path d="M0 1h18M0 7h18M0 13h18" stroke="currentColor" strokeWidth="2" />
           </svg>
-          {t.menu}
+          {copy.menu}
         </button>
         <div id="menu" ref={menuRef} popover="auto" className="menu">
           <div className="menu__head">
             <span className="menu__title">Flow Wrocław</span>
-            <button type="button" className="menu__close" popoverTarget="menu" popoverTargetAction="hide" aria-label={t.close}>×</button>
+            <button type="button" className="menu__close" popoverTarget="menu" popoverTargetAction="hide" aria-label={copy.close}>×</button>
           </div>
           <nav className="menu__nav" onClick={closeMenu}>
-            {links.map(l => (
-              <a key={l.href} href={l.href}>
-                {l.label}
-                <span aria-hidden="true">↗</span>
+            {links.map(link => (
+              <a key={link.href} href={link.href}>
+                {link.label}
+                <span aria-hidden="true">↗︎</span>
               </a>
             ))}
           </nav>
         </div>
         <div className="lang">
-          {LANGS.map(l => (
-            <a key={l} href={LANG_HREF[l]} hrefLang={l} aria-current={l === lang ? 'page' : undefined}>{l.toUpperCase()}</a>
+          {LANGS.map(code => (
+            <a key={code} href={LANG_HREF[code]} hrefLang={code} aria-current={code === lang ? 'page' : undefined}>{code.toUpperCase()}</a>
           ))}
         </div>
       </div>
@@ -82,26 +82,26 @@ export function Hero({ t, lang, now, next }: Props) {
       <div className="hero__cards">
         <div className="glass glass--training">
           <div className="glass__info glass__info--white">
-            <span className="glass__eyebrow">{t.nextP}</span>
+            <span className="glass__eyebrow">{copy.nextP}</span>
             <span className="glass__title">{training} · 20:00</span>
-            <span className="glass__meta">{t.prSched}</span>
+            <span className="glass__meta">{copy.prSched}</span>
           </div>
           <div className="glass__action">
-            <Cta href="#trainings" variant="blue" large>{t.join}</Cta>
+            <Cta href="#trainings" variant="blue" large>{copy.join}</Cta>
           </div>
         </div>
         {next !== undefined && (
           <div className="glass">
             <div className="glass__info glass__info--blue">
-              <span className="glass__eyebrow">{t.nextT}</span>
+              <span className="glass__eyebrow">{copy.nextT}</span>
               <span className="glass__title">{next.title}</span>
               <span className="glass__meta">{next.date.toLocaleString(locale, { month: 'short', day: 'numeric' })} · {next.desc}</span>
             </div>
             <div className="countdown">
-              {countdown(next.date.getTime(), now).map((v, i) => (
-                <div key={t.units[i]}>
-                  <b>{v}</b>
-                  <span>{t.units[i]}</span>
+              {countdown(next.date.getTime(), now).map((value, index) => (
+                <div key={copy.units[index]}>
+                  <b>{value}</b>
+                  <span>{copy.units[index]}</span>
                 </div>
               ))}
             </div>
@@ -110,7 +110,7 @@ export function Hero({ t, lang, now, next }: Props) {
       </div>
 
       <div className="hero__bottom">
-        <span className="hero__eyebrow">{t.teamEyebrow}</span>
+        <span className="hero__eyebrow">{copy.teamEyebrow}</span>
         <div className="hero__row">
           <h1>Flow Wrocław</h1>
           <img src={asset('flow-badge.webp')} alt="Flow Wrocław Ultimate logo" className="hero__badge" />

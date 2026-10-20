@@ -26,7 +26,7 @@ const METRIC_OPTIONS: { value: Metric; label: string }[] = [
 ]
 
 // a single-season career is a one-off guest unless that season is the current one (a newcomer)
-const ROSTER = data.players.filter(p => p.stats.all !== undefined && (p.stats.all.seasons > 1 || p.stats.all.lastYear === CURRENT_YEAR))
+const ROSTER = data.players.filter(player => player.stats.all !== undefined && (player.stats.all.seasons > 1 || player.stats.all.lastYear === CURRENT_YEAR))
 
 export function Players({ scope }: { scope: Scope }) {
   const [mode, setMode] = useState<Metric>('total')
@@ -38,14 +38,14 @@ export function Players({ scope }: { scope: Scope }) {
     const bucket = player.stats[scope]
     return bucket === undefined ? [] : [{ player, bucket }]
   })
-  const q = query.trim().toLowerCase()
-  const rows = sorted(inScope.filter(r => r.player.name.toLowerCase().includes(q)), sort, (r, key) =>
-    key === 'name' ? r.player.name : key === 'seasons' || key === 'games' ? r.bucket[key] : per(r.bucket, key, mode))
-  const maxTotal = Math.max(1, ...rows.map(r => per(r.bucket, 'total', mode)))
+  const needle = query.trim().toLowerCase()
+  const rows = sorted(inScope.filter(row => row.player.name.toLowerCase().includes(needle)), sort, (row, key) =>
+    key === 'name' ? row.player.name : key === 'seasons' || key === 'games' ? row.bucket[key] : per(row.bucket, key, mode))
+  const maxTotal = Math.max(1, ...rows.map(row => per(row.bucket, 'total', mode)))
   const podium = sort.key === 'total' && sort.dir === -1
 
-  const handleRowClick = (e: MouseEvent<HTMLTableRowElement>) => {
-    const name = e.currentTarget.dataset.player
+  const handleRowClick = (event: MouseEvent<HTMLTableRowElement>) => {
+    const name = event.currentTarget.dataset.player
     if (name !== undefined) setExpanded(current => (current === name ? null : name))
   }
 
@@ -65,8 +65,8 @@ export function Players({ scope }: { scope: Scope }) {
             <SortableTh sortKey="name" sort={sort} onSort={onSort} left>Player</SortableTh>
             <SortableTh sortKey="seasons" sort={sort} onSort={onSort}>Seasons</SortableTh>
             <SortableTh sortKey="games" sort={sort} onSort={onSort}>Games</SortableTh>
-            {STATS.map(s => (
-              <SortableTh key={s} sortKey={s} sort={sort} onSort={onSort}>{HEAD[mode][s]}</SortableTh>
+            {STATS.map(stat => (
+              <SortableTh key={stat} sortKey={stat} sort={sort} onSort={onSort}>{HEAD[mode][stat]}</SortableTh>
             ))}
           </tr>
         </thead>
@@ -74,14 +74,14 @@ export function Players({ scope }: { scope: Scope }) {
           {rows.length === 0 && (
             <tr><td colSpan={7} className="p-8 text-center italic text-muted">No player matches “{query}” in {scopeLabel(scope)}.</td></tr>
           )}
-          {rows.map(({ player, bucket }, i) => {
+          {rows.map(({ player, bucket }, index) => {
             const open = player.name === expanded
-            const gold = podium && i < 3
+            const gold = podium && index < 3
             const total = per(bucket, 'total', mode)
             return (
               <Fragment key={player.name}>
                 <tr data-player={player.name} onClick={handleRowClick} className={`cursor-pointer ${open ? 'bg-accent-soft' : 'hover:bg-accent-soft'}`}>
-                  <td className={`${TD} w-10 font-mono text-[0.8rem] ${gold ? 'font-bold text-gold' : 'text-muted'}`}>{i + 1}</td>
+                  <td className={`${TD} w-10 font-mono text-[0.8rem] ${gold ? 'font-bold text-gold' : 'text-muted'}`}>{index + 1}</td>
                   <td className={`${TD} font-semibold ${open ? 'text-accent' : gold ? 'text-gold' : ''}`}>
                     <button type="button" aria-expanded={open} className="cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-accent">
                       <svg className={`mr-1.5 inline size-[13px] align-middle transition-transform ${open ? 'rotate-90 text-accent' : 'text-muted'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">

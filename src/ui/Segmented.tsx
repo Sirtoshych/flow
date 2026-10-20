@@ -9,26 +9,26 @@ type SegmentedProps<T extends string> = {
 }
 
 export function Segmented<T extends string>({ label, options, value, onChange, className = '' }: SegmentedProps<T>) {
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const picked = options.find(o => o.value === e.currentTarget.value)
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    const picked = options.find(option => option.value === event.currentTarget.value)
     if (picked !== undefined) onChange(picked.value)
   }
 
   return (
     <div role="radiogroup" aria-label={label} className={`inline-flex h-10 gap-0.5 rounded-[9px] border border-line bg-surface-2 p-[3px] ${className}`}>
-      {options.map(o => (
+      {options.map(option => (
         <button
-          key={o.value}
+          key={option.value}
           type="button"
           role="radio"
-          value={o.value}
-          aria-checked={o.value === value}
+          value={option.value}
+          aria-checked={option.value === value}
           onClick={handleClick}
           className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2 text-[0.84rem] font-semibold focus-visible:outline-2 focus-visible:outline-accent sm:px-3 ${
-            o.value === value ? 'bg-surface text-accent shadow-card' : 'text-muted hover:text-ink'
+            option.value === value ? 'bg-surface text-accent shadow-card' : 'text-muted hover:text-ink'
           }`}
         >
-          {o.label}
+          {option.label}
         </button>
       ))}
     </div>

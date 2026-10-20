@@ -30,7 +30,7 @@ const SURFACE_ICONS: Record<Surface, ReactNode> = {
   indoor: <svg {...ICON}><path d="M2 8.5 8 3l6 5.5" /><path d="M3.5 7.5V14h9V7.5" /></svg>,
 }
 
-const SURFACE_OPTIONS = SURFACES.map(s => ({ value: s, label: <>{SURFACE_ICONS[s]}{SURFACE_LABEL[s]}</> }))
+const SURFACE_OPTIONS = SURFACES.map(surface => ({ value: surface, label: <>{SURFACE_ICONS[surface]}{SURFACE_LABEL[surface]}</> }))
 
 export function App() {
   const [tab, setTab] = useState<Tab>('players')
@@ -38,16 +38,16 @@ export function App() {
   const [series, setSeries] = useState<Series | 'all'>('all')
   const scope: Scope = series === 'all' ? surface : series
 
-  const handleTabClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const picked = TABS.find(t => t.id === e.currentTarget.value)
+  const handleTabClick = (event: MouseEvent<HTMLButtonElement>) => {
+    const picked = TABS.find(item => item.id === event.currentTarget.value)
     if (picked !== undefined) setTab(picked.id)
   }
-  const handleSurfaceChange = (s: Surface) => {
-    setSurface(s)
+  const handleSurfaceChange = (nextSurface: Surface) => {
+    setSurface(nextSurface)
     setSeries('all')
   }
-  const handleSeriesChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const picked = SERIES_KEYS.find(s => s === e.target.value)
+  const handleSeriesChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const picked = SERIES_KEYS.find(key => key === event.target.value)
     setSeries(picked ?? 'all')
     if (picked !== undefined) setSurface(SERIES[picked].surface)
   }
@@ -89,8 +89,8 @@ export function App() {
           <option value="all">All tournaments</option>
           {PLAYING_SURFACES.map(surf => (
             <optgroup key={surf} label={SURFACE_LABEL[surf]}>
-              {SERIES_KEYS.filter(s => SERIES[s].surface === surf).map(s => (
-                <option key={s} value={s}>{SERIES[s].label}</option>
+              {SERIES_KEYS.filter(key => SERIES[key].surface === surf).map(key => (
+                <option key={key} value={key}>{SERIES[key].label}</option>
               ))}
             </optgroup>
           ))}

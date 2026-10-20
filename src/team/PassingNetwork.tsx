@@ -15,16 +15,16 @@ export function PassingNetwork({ scope }: { scope: Scope }) {
   const edges = data.network[scope] ?? []
   const involvement = involvementByPlayer(edges)
   const links = undirectedLinks(edges)
-  const strongest = d3.greatest(links, l => l.count)
+  const strongest = d3.greatest(links, link => link.count)
 
   const partners = selected === null ? [] : d3
     .rollups(
-      edges.filter(e => e.from === selected || e.to === selected),
-      v => ({ to: d3.sum(v, e => (e.from === selected ? e.count : 0)), from: d3.sum(v, e => (e.to === selected ? e.count : 0)) }),
-      e => (e.from === selected ? e.to : e.from),
+      edges.filter(edge => edge.from === selected || edge.to === selected),
+      group => ({ to: d3.sum(group, edge => (edge.from === selected ? edge.count : 0)), from: d3.sum(group, edge => (edge.to === selected ? edge.count : 0)) }),
+      edge => (edge.from === selected ? edge.to : edge.from),
     )
-    .map(([name, v]) => ({ name, ...v, total: v.to + v.from }))
-    .sort((a, b) => b.total - a.total)
+    .map(([name, counts]) => ({ name, ...counts, total: counts.to + counts.from }))
+    .sort((first, second) => second.total - first.total)
     .slice(0, 7)
 
   return (

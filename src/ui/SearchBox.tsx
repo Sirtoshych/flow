@@ -8,7 +8,7 @@ type SearchBoxProps = {
 }
 
 export function SearchBox({ value, onChange, placeholder, className = '' }: SearchBoxProps) {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => onChange(event.target.value)
 
   return (
     <label className={`relative block ${className}`}>

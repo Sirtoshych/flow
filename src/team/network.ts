@@ -17,25 +17,25 @@ export function shortName(name: string): string {
 
 export function involvementByPlayer(edges: Edge[]): Map<string, number> {
   const involvement = new Map<string, number>()
-  for (const e of edges) for (const n of [e.from, e.to]) involvement.set(n, (involvement.get(n) ?? 0) + e.count)
+  for (const edge of edges) for (const name of [edge.from, edge.to]) involvement.set(name, (involvement.get(name) ?? 0) + edge.count)
   return involvement
 }
 
 export function circleLayout(edges: Edge[]): Map<string, Pos> {
-  const names = [...involvementByPlayer(edges)].sort((a, b) => b[1] - a[1]).map(([name]) => name)
-  return new Map(names.map((name, i): [string, Pos] => {
-    const angle = -Math.PI / 2 + (i / names.length) * 2 * Math.PI
+  const names = [...involvementByPlayer(edges)].sort((first, second) => second[1] - first[1]).map(([name]) => name)
+  return new Map(names.map((name, index): [string, Pos] => {
+    const angle = -Math.PI / 2 + (index / names.length) * 2 * Math.PI
     return [name, { x: CX + RING_R * Math.cos(angle), y: CY + RING_R * Math.sin(angle), right: Math.cos(angle) >= -0.02 }]
   }))
 }
 
 export function undirectedLinks(edges: Edge[]): Link[] {
   const links = new Map<string, Link>()
-  for (const e of edges) {
-    const [a, b] = e.from < e.to ? [e.from, e.to] : [e.to, e.from]
-    const link = links.get(`${a}|${b}`) ?? { a, b, count: 0 }
-    link.count += e.count
-    links.set(`${a}|${b}`, link)
+  for (const edge of edges) {
+    const [source, target] = edge.from < edge.to ? [edge.from, edge.to] : [edge.to, edge.from]
+    const link = links.get(`${source}|${target}`) ?? { a: source, b: target, count: 0 }
+    link.count += edge.count
+    links.set(`${source}|${target}`, link)
   }
   return [...links.values()]
 }

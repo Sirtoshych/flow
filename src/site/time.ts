@@ -11,23 +11,23 @@ const TRAINING_HOUR = 20
 export type SiteEvent = { date: Date; championship: boolean; title: string; desc: string }
 
 export function localizedEvents(lang: Lang): SiteEvent[] {
-  return events.map(e => ({ date: new Date(`${e.date}T09:00`), championship: e.kind === 'championship', title: e.title[lang], desc: e.desc[lang] }))
+  return events.map(event => ({ date: new Date(`${event.date}T09:00`), championship: event.kind === 'championship', title: event.title[lang], desc: event.desc[lang] }))
 }
 
 export function nextEvent(list: SiteEvent[], now: number): SiteEvent | undefined {
-  return list.find(e => e.date.getTime() > now) ?? list.at(-1)
+  return list.find(event => event.date.getTime() > now) ?? list.at(-1)
 }
 
 export function nextTraining(now: number): Date {
-  for (let k = 0; ; k++) {
-    const d = new Date(now)
-    d.setDate(d.getDate() + k)
-    d.setHours(TRAINING_HOUR, 0, 0, 0)
-    if (TRAINING_WEEKDAYS.includes(d.getDay()) && d.getTime() > now) return d
+  for (let dayOffset = 0; ; dayOffset++) {
+    const candidate = new Date(now)
+    candidate.setDate(candidate.getDate() + dayOffset)
+    candidate.setHours(TRAINING_HOUR, 0, 0, 0)
+    if (TRAINING_WEEKDAYS.includes(candidate.getDay()) && candidate.getTime() > now) return candidate
   }
 }
 
-const pad = (n: number) => String(n).padStart(2, '0')
+const pad = (value: number) => String(value).padStart(2, '0')
 
 export function countdown(target: number, now: number): [days: string, hours: string, minutes: string] {
   const diff = Math.max(0, target - now)

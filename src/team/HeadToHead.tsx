@@ -9,21 +9,21 @@ import { sorted, useSort } from '../ui/sort.js'
 import { H2, NOTE, TD, TDR } from '../ui/styles.js'
 
 type SortKey = 'name' | 'games' | 'record' | 'winPct' | 'diff'
-type MatchupRow = { name: string; m: Matchup }
+type MatchupRow = { name: string; matchup: Matchup }
 
 // opponents faced only once all-time are pickup/hat teams and stay out of the table
-const LISTED = data.opponents.filter(o => (o.stats.all?.games ?? 0) >= 2)
+const LISTED = data.opponents.filter(opponent => (opponent.stats.all?.games ?? 0) >= 2)
 const BEST = 'font-bold text-ink'
 
-const winPct = (m: Matchup) => (m.games > 0 ? (m.wins / m.games) * 100 : 0)
-const diff = (m: Matchup) => m.pointsFor - m.pointsAgainst
+const winPct = (matchup: Matchup) => (matchup.games > 0 ? (matchup.wins / matchup.games) * 100 : 0)
+const diff = (matchup: Matchup) => matchup.pointsFor - matchup.pointsAgainst
 
-function sortValue({ name, m }: MatchupRow, key: SortKey): number | string {
+function sortValue({ name, matchup }: MatchupRow, key: SortKey): number | string {
   if (key === 'name') return name
-  if (key === 'games') return m.games
-  if (key === 'record') return m.wins
-  if (key === 'winPct') return winPct(m)
-  return diff(m)
+  if (key === 'games') return matchup.games
+  if (key === 'record') return matchup.wins
+  if (key === 'winPct') return winPct(matchup)
+  return diff(matchup)
 }
 
 export function HeadToHead({ scope }: { scope: Scope }) {
@@ -31,22 +31,22 @@ export function HeadToHead({ scope }: { scope: Scope }) {
   const [sort, onSort] = useSort<SortKey>('games')
 
   // the overall record still counts the unlisted one-off opponents
-  const everyMatchup = data.opponents.flatMap(o => o.stats[scope] ?? [])
-  const games = d3.sum(everyMatchup, m => m.games)
-  const wins = d3.sum(everyMatchup, m => m.wins)
-  const losses = d3.sum(everyMatchup, m => m.losses)
+  const everyMatchup = data.opponents.flatMap(opponent => opponent.stats[scope] ?? [])
+  const games = d3.sum(everyMatchup, matchup => matchup.games)
+  const wins = d3.sum(everyMatchup, matchup => matchup.wins)
+  const losses = d3.sum(everyMatchup, matchup => matchup.losses)
 
-  const q = query.trim().toLowerCase()
-  const inScope: MatchupRow[] = LISTED.flatMap(o => {
-    const m = o.stats[scope]
-    return m === undefined ? [] : [{ name: o.name, m }]
+  const needle = query.trim().toLowerCase()
+  const inScope: MatchupRow[] = LISTED.flatMap(opponent => {
+    const matchup = opponent.stats[scope]
+    return matchup === undefined ? [] : [{ name: opponent.name, matchup }]
   })
-  const rows = sorted(inScope.filter(r => r.name.toLowerCase().includes(q)), sort, sortValue)
+  const rows = sorted(inScope.filter(row => row.name.toLowerCase().includes(needle)), sort, sortValue)
   const best = {
-    games: d3.max(rows, r => r.m.games),
-    record: d3.max(rows, r => r.m.wins - r.m.losses),
-    winPct: d3.max(rows, r => winPct(r.m)),
-    diff: d3.max(rows, r => diff(r.m)),
+    games: d3.max(rows, row => row.matchup.games),
+    record: d3.max(rows, row => row.matchup.wins - row.matchup.losses),
+    winPct: d3.max(rows, row => winPct(row.matchup)),
+    diff: d3.max(rows, row => diff(row.matchup)),
   }
 
   return (
@@ -75,16 +75,16 @@ export function HeadToHead({ scope }: { scope: Scope }) {
           {rows.length === 0 && (
             <tr><td colSpan={6} className="p-8 text-center italic text-muted">No opponent matches “{query}” in {scopeLabel(scope)}.</td></tr>
           )}
-          {rows.map(({ name, m }, i) => {
-            const d = diff(m)
+          {rows.map(({ name, matchup }, index) => {
+            const pointDiff = diff(matchup)
             return (
               <tr key={name} className="hover:bg-accent-soft">
-                <td className={`${TD} w-10 font-mono text-[0.8rem] text-muted`}>{i + 1}</td>
+                <td className={`${TD} w-10 font-mono text-[0.8rem] text-muted`}>{index + 1}</td>
                 <td className={`${TD} font-semibold`}>{name}</td>
-                <td className={`${TDR} ${m.games === best.games ? BEST : ''}`}>{m.games}</td>
-                <td className={`${TDR} ${m.wins - m.losses === best.record ? BEST : ''}`}>{m.wins}-{m.losses}</td>
-                <td className={`${TDR} ${winPct(m) === best.winPct ? BEST : ''}`}>{winPct(m).toFixed(0)}%</td>
-                <td className={`${TDR} ${d === best.diff ? BEST : d > 0 ? 'text-accent' : d < 0 ? 'text-muted' : ''}`}>{d > 0 ? '+' : ''}{d}</td>
+                <td className={`${TDR} ${matchup.games === best.games ? BEST : ''}`}>{matchup.games}</td>
+                <td className={`${TDR} ${matchup.wins - matchup.losses === best.record ? BEST : ''}`}>{matchup.wins}-{matchup.losses}</td>
+                <td className={`${TDR} ${winPct(matchup) === best.winPct ? BEST : ''}`}>{winPct(matchup).toFixed(0)}%</td>
+                <td className={`${TDR} ${pointDiff === best.diff ? BEST : pointDiff > 0 ? 'text-accent' : pointDiff < 0 ? 'text-muted' : ''}`}>{pointDiff > 0 ? '+' : ''}{pointDiff}</td>
               </tr>
             )
           })}

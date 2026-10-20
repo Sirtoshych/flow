@@ -35,7 +35,7 @@ export type FlowData = {
 
 export const data: FlowData = raw
 
-export const CURRENT_YEAR = Math.max(...data.players.map(p => p.stats.all?.lastYear ?? 0))
+export const CURRENT_YEAR = Math.max(...data.players.map(player => player.stats.all?.lastYear ?? 0))
 
 export const SURFACE_LABEL: Record<Surface, string> = { all: 'All surfaces', outdoor: 'Outdoor', beach: 'Beach', indoor: 'Indoor' }
 
@@ -49,6 +49,6 @@ export const SERIES: Record<Series, { label: string; surface: PlayingSurface }> 
   poligon: { label: 'Poligon', surface: 'indoor' },
 }
 
-export const isSeries = (s: Scope): s is Series => s in SERIES
+export const isSeries = (scope: Scope): scope is Series => scope in SERIES
 
-export const scopeLabel = (s: Scope) => (s === 'all' ? 'All tournaments' : isSeries(s) ? SERIES[s].label : SURFACE_LABEL[s])
+export const scopeLabel = (scope: Scope) => (scope === 'all' ? 'All tournaments' : isSeries(scope) ? SERIES[scope].label : SURFACE_LABEL[scope])

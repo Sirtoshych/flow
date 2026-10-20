@@ -27,8 +27,8 @@ export function PlayerDetail({ player, scope }: { player: Player; scope: Scope }
         <table className="w-full border-collapse text-[0.82rem] tabular-nums [&_tbody_tr:last-child>td]:border-b-0">
           <thead>
             <tr>
-              {HEADINGS.map((h, i) => (
-                <th key={h} className={`${CELL} font-display text-[0.72rem] font-extrabold uppercase text-muted ${i === 0 ? 'text-left' : 'text-right'}`}>{h}</th>
+              {HEADINGS.map((heading, index) => (
+                <th key={heading} className={`${CELL} font-display text-[0.72rem] font-extrabold uppercase text-muted ${index === 0 ? 'text-left' : 'text-right'}`}>{heading}</th>
               ))}
             </tr>
           </thead>
@@ -38,8 +38,8 @@ export function PlayerDetail({ player, scope }: { player: Player; scope: Scope }
               return (
                 <tr key={key} className={`${key === 'all' ? 'font-bold text-accent' : ''} ${active ? 'bg-accent-soft' : ''}`}>
                   <td className={`${CELL} text-left font-semibold`}>{label}</td>
-                  {[bucket.seasons, bucket.games, bucket.assists, bucket.goals, bucket.total].map((v, i) => (
-                    <td key={i} className={`${CELL} text-right`}>{v}</td>
+                  {[bucket.seasons, bucket.games, bucket.assists, bucket.goals, bucket.total].map((value, index) => (
+                    <td key={index} className={`${CELL} text-right`}>{value}</td>
                   ))}
                 </tr>
               )

@@ -1,11 +1,11 @@
 import type { Copy } from '../i18n.js'
 
-export function Marquee({ t }: { t: Copy }) {
+export function Marquee({ copy }: { copy: Copy }) {
   const run = (hidden: boolean) => (
     <div className="marquee__run" aria-hidden={hidden}>
-      {t.marquee.map(w => (
-        <span key={w} className="marquee__item">
-          <span className="marquee__word">{w}</span>
+      {copy.marquee.map(word => (
+        <span key={word} className="marquee__item">
+          <span className="marquee__word">{word}</span>
           <span className="marquee__sep" />
         </span>
       ))}
@@ -13,7 +13,7 @@ export function Marquee({ t }: { t: Copy }) {
   )
 
   return (
-    <a href="#trainings" className="marquee" title={t.seeTrainings}>
+    <a href="#trainings" className="marquee" title={copy.seeTrainings}>
       <div className="marquee__track">
         {run(false)}
         {run(true)}
