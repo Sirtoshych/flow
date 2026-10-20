@@ -32,7 +32,7 @@ export function Hero({ copy, lang, now, next }: Props) {
 
   const locale = LOCALE[lang]
   const training = nextTraining(now).toLocaleString(locale, { weekday: 'long' })
-  const links = [...NAV_IDS.map((id, index) => ({ href: `#${id}`, label: copy.nav[index] })), { href: `${import.meta.env.BASE_URL}stats/`, label: copy.stats }]
+  const links = NAV_IDS.map((id, index) => ({ href: `#${id}`, label: copy.nav[index] }))
   const closeMenu = () => menuRef.current?.hidePopover()
 
   return (
