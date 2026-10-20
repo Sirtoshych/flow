@@ -3,6 +3,8 @@ export type Lang = 'pl' | 'en'
 const pl = {
   nav: ['Treningi', 'Historia', 'Osiągnięcia', 'Zawodnicy', 'Media', 'Kalendarz', 'Partnerzy'],
   stats: 'Statystyki',
+  menu: 'Menu',
+  close: 'Zamknij menu',
   join: 'Przyjdź na trening',
   teamEyebrow: 'Ultimate frisbee mixed · Od 2011',
   nextP: 'Najbliższy trening',
@@ -94,6 +96,8 @@ export type Copy = typeof pl
 const en: Copy = {
   nav: ['Trainings', 'History', 'Achievements', 'Players', 'Media', 'Calendar', 'Partners'],
   stats: 'Stats',
+  menu: 'Menu',
+  close: 'Close menu',
   join: 'Join a training',
   teamEyebrow: 'Mixed ultimate frisbee · Since 2011',
   nextP: 'Next training',

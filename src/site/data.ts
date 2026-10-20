@@ -10,9 +10,22 @@ export const SOCIALS = [
 ]
 
 export const HERO_PHOTOS = [
-  { file: 'photo-sprint-clean.webp', pos: '60% 40%', alt: 'Flow players sprinting' },
-  { file: 'photo-catch-v2.webp', pos: '70% 25%', alt: 'Flow player skying for a disc' },
-  { file: 'photo-throw.webp', pos: '55% 35%', alt: 'Flow player throwing a forehand' },
+  { file: 'hero/hero-dive.webp', pos: '50% 40%', alt: 'Flow player diving for a disc' },
+  { file: 'hero/hero-mark.webp', pos: '60% 40%', alt: 'Flow player looking for a throw past a marker' },
+  { file: 'hero/hero-sky.webp', pos: '50% 30%', alt: 'Flow player skying opponents for a disc' },
+  { file: 'hero/hero-beach.webp', pos: '50% 50%', alt: 'Flow player catching a disc on the beach' },
+  { file: 'hero/hero-indoor.webp', pos: '60% 35%', alt: 'Flow player holding the disc indoors' },
+  { file: 'hero/hero-huddle.webp', pos: '50% 55%', alt: 'Flow team celebrating on the beach' },
+  { file: 'photo-anthem.webp', pos: '35% 40%', alt: 'Players lined up before a game' },
+]
+
+export const HERO_PHOTOS_MOBILE = [
+  { file: 'mobile/hero-m-reach.webp', pos: '50% 40%', alt: 'Flow player reaching for a disc' },
+  { file: 'mobile/hero-m-indoor.webp', pos: '55% 50%', alt: 'Flow player throwing past a marker indoors' },
+  { file: 'mobile/hero-m-sky.webp', pos: '55% 40%', alt: 'Flow player skying for a disc' },
+  { file: 'mobile/hero-m-mark.webp', pos: '45% 50%', alt: 'Flow player faking a throw' },
+  { file: 'mobile/hero-m-beach.webp', pos: '40% 45%', alt: 'Flow player cutting on the beach' },
+  { file: 'mobile/hero-m-catch.webp', pos: '45% 40%', alt: 'Flow player catching a disc' },
 ]
 
 export const PLAYERS: [name: string, num: number][] = [
