@@ -26,12 +26,12 @@ export const HERO_PHOTOS = [
 ]
 
 export const HERO_PHOTOS_MOBILE = [
-  { file: 'mobile/hero-m-reach.webp', pos: '50% 40%', alt: 'Flow player reaching for a disc' },
   { file: 'mobile/hero-m-indoor.webp', pos: '55% 50%', alt: 'Flow player throwing past a marker indoors' },
   { file: 'mobile/hero-m-sky.webp', pos: '55% 40%', alt: 'Flow player skying for a disc' },
   { file: 'mobile/hero-m-mark.webp', pos: '45% 50%', alt: 'Flow player faking a throw' },
   { file: 'mobile/hero-m-beach.webp', pos: '40% 45%', alt: 'Flow player cutting on the beach' },
-  { file: 'mobile/hero-m-catch.webp', pos: '45% 40%', alt: 'Flow player catching a disc' },
+  { file: 'mobile/hero-m-catch.webp', pos: '45% 40%', alt: 'Flow player catching a disc' }, 
+  { file: 'mobile/hero-m-reach.webp', pos: '50% 40%', alt: 'Flow player reaching for a disc' },
 ]
 
 export const PLAYERS: [name: string, num: number][] = [

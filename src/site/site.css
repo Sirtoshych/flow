@@ -1422,6 +1422,10 @@ body:has(.menu:popover-open) {
     display: inline-flex;
   }
 
+  .page {
+    padding: 0;
+  }
+
   .hero__shade {
     background: linear-gradient(180deg, rgba(10, 34, 102, 0.15) 0%, rgba(10, 34, 102, 0) 30%, rgba(10, 20, 50, 0.6) 100%);
   }
