@@ -1,12 +1,10 @@
 import { MEDIA, asset } from '../data.js'
 import type { Copy } from '../i18n.js'
-import { SectionHead } from './SectionHead.js'
 
 export function Media({ copy }: { copy: Copy }) {
   return (
     <section id="media" className="section">
-      <SectionHead no="07" />
-      <h2 className="h2">{copy.media}<span className="dot">.</span></h2>
+      <h1 className="h2">{copy.media}<span className="dot">.</span></h1>
       <div className="media">
         {MEDIA.map(item => (
           <div key={item.file} className={`media__cell ${item.span ?? ''}`}>

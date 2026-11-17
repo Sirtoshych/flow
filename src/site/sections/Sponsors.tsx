@@ -8,7 +8,7 @@ const LOGO_SLOTS = ['sponsor-1', 'sponsor-2', 'sponsor-3']
 export function Sponsors({ copy }: { copy: Copy }) {
   return (
     <section id="sponsors" className="section">
-      <SectionHead no="09" />
+      <SectionHead no="04" />
       <div className="title-row">
         <h2 className="h2">{copy.partners}<span className="dot">.</span></h2>
         <p className="uf__p">{copy.partnersP}</p>

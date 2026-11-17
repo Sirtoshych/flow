@@ -1,6 +1,7 @@
-import type { Copy } from '../i18n.js'
+import type { Copy, Lang } from '../i18n.js'
+import { pageHref } from '../pages.js'
 
-export function Marquee({ copy }: { copy: Copy }) {
+export function Marquee({ copy, lang }: { copy: Copy; lang: Lang }) {
   const run = (hidden: boolean) => (
     <div className="marquee__run" aria-hidden={hidden}>
       {copy.marquee.map(word => (
@@ -13,7 +14,7 @@ export function Marquee({ copy }: { copy: Copy }) {
   )
 
   return (
-    <a href="#trainings" className="marquee" title={copy.seeTrainings}>
+    <a href={pageHref(lang, 'trainings')} className="marquee" title={copy.seeTrainings}>
       <div className="marquee__track">
         {run(false)}
         {run(true)}

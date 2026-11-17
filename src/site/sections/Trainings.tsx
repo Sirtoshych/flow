@@ -1,14 +1,12 @@
 import { CONTACT_URL, asset } from '../data.js'
 import type { Copy } from '../i18n.js'
 import { Cta } from './Cta.js'
-import { SectionHead } from './SectionHead.js'
 import { TrainingCarousel } from './TrainingCarousel.js'
 
 export function Trainings({ copy }: { copy: Copy }) {
   return (
     <section id="trainings" className="section">
-      <SectionHead no="04" />
-      <h2 className="h2">{copy.trainings}<span className="dot">.</span></h2>
+      <h1 className="h2">{copy.trainings}<span className="dot">.</span></h1>
       <div className="info">
         <div className="info__price">
           <span className="info__label">{copy.price}</span>

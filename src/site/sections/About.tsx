@@ -1,10 +1,11 @@
 import { COACHES, FOUNDED, PLAYERS, SOCIALS, asset } from '../data.js'
-import type { Copy } from '../i18n.js'
+import type { Copy, Lang } from '../i18n.js'
+import { pageHref } from '../pages.js'
 import { ArrowIcon } from './ArrowIcon.js'
 import { Cta } from './Cta.js'
 import { SectionHead } from './SectionHead.js'
 
-export function About({ copy, now }: { copy: Copy; now: number }) {
+export function About({ copy, lang, now }: { copy: Copy; lang: Lang; now: number }) {
   const stats = [PLAYERS.length, COACHES.length]
 
   return (
@@ -25,7 +26,7 @@ export function About({ copy, now }: { copy: Copy; now: number }) {
         </div>
         <div className="about__cta-col">
           <p className="text">{copy.heroP}</p>
-          <Cta href="#trainings" variant="dark">{copy.seeTrainings}</Cta>
+          <Cta href={pageHref(lang, 'trainings')} variant="dark">{copy.seeTrainings}</Cta>
         </div>
       </div>
       <div className="about__photos">
@@ -38,7 +39,7 @@ export function About({ copy, now }: { copy: Copy; now: number }) {
                 <span>{copy.statLabels[index]}</span>
               </div>
             ))}
-            <a href="#players" className="chip chip--link" aria-label={copy.nav[3]}><ArrowIcon /></a>
+            <a href={pageHref(lang, 'players')} className="chip chip--link" aria-label={copy.nav[4]}><ArrowIcon /></a>
           </div>
         </div>
         <div className="about__side">

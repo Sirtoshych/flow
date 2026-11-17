@@ -222,10 +222,22 @@ a {
   color: rgba(255, 255, 255, 0.88);
 }
 
-.hero__nav a:hover {
+.hero__nav a:hover,
+.hero__nav a[aria-current] {
   color: #fff;
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+.subhead {
+  background: var(--navy);
+  color: #fff;
+}
+
+.hero__home img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 .lang {

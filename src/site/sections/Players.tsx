@@ -1,14 +1,12 @@
 import { COACHES, PLAYERS, asset } from '../data.js'
 import type { Copy } from '../i18n.js'
-import { SectionHead } from './SectionHead.js'
 
 const CARD_BGS = ['#14162a', '#2b4fd6', '#0a2266', '#2a2d45']
 
 export function Players({ copy }: { copy: Copy }) {
   return (
     <section id="players" className="section">
-      <SectionHead no="05" />
-      <h2 className="h2">{copy.roster1} {copy.roster2}<span className="dot">.</span></h2>
+      <h1 className="h2">{copy.roster1} {copy.roster2}<span className="dot">.</span></h1>
       <div className="roster">
         {PLAYERS.map(([name, num], index) => {
           const [first, ...rest] = name.split(' ')

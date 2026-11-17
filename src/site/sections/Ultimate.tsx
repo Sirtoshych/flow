@@ -4,7 +4,7 @@ import { SectionHead } from './SectionHead.js'
 export function Ultimate({ copy }: { copy: Copy }) {
   return (
     <section id="ultimate" className="section">
-      <SectionHead no="06" />
+      <SectionHead no="03" />
       <div className="title-row">
         <h2 className="h2">{copy.uf1}<br /><span className="dot">{copy.uf2}</span></h2>
         <p className="uf__p">{copy.ufP}</p>

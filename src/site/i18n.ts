@@ -1,7 +1,7 @@
 export type Lang = 'pl' | 'en'
 
 const pl = {
-  nav: ['Treningi', 'Historia', 'Osiągnięcia', 'Zawodnicy', 'Media', 'Kalendarz', 'Partnerzy'],
+  nav: ['Osiągnięcia', 'Partnerzy', 'Treningi', 'Historia', 'Zawodnicy', 'Media', 'Kalendarz'],
   stats: 'Statystyki',
   menu: 'Menu',
   close: 'Zamknij menu',
@@ -12,7 +12,7 @@ const pl = {
   nextT: 'Najbliższy turniej',
   units: ['Dni', 'Godz', 'Min'],
   seeTrainings: 'Zobacz treningi',
-  marquee: ['Darmowe otwarte treningi', 'Każdy mile widziany', 'Doświadczenie niepotrzebne', 'Wystarczą korki', 'Więcej w sekcji Treningi ↓'],
+  marquee: ['Darmowe otwarte treningi', 'Każdy mile widziany', 'Doświadczenie niepotrzebne', 'Wystarczą korki', 'Więcej o treningach →'],
   about1: 'Wrocławska drużyna',
   about2: 'ultimate mixed',
   aboutP1: 'Flow to wrocławska drużyna ultimate frisbee w formule mixed. Trenujemy cały rok — latem na trawie, zimą na hali — i jeździmy na turnieje w Polsce i Europie.',
@@ -94,7 +94,7 @@ const pl = {
 export type Copy = typeof pl
 
 const en: Copy = {
-  nav: ['Trainings', 'History', 'Achievements', 'Players', 'Media', 'Calendar', 'Partners'],
+  nav: ['Achievements', 'Partners', 'Trainings', 'History', 'Players', 'Media', 'Calendar'],
   stats: 'Stats',
   menu: 'Menu',
   close: 'Close menu',
@@ -105,7 +105,7 @@ const en: Copy = {
   nextT: 'Next tournament',
   units: ['Days', 'Hrs', 'Min'],
   seeTrainings: 'See trainings',
-  marquee: ['Free open trainings', 'Everyone welcome', 'No experience needed', 'Just bring cleats', 'More info in Trainings ↓'],
+  marquee: ['Free open trainings', 'Everyone welcome', 'No experience needed', 'Just bring cleats', 'More about trainings →'],
   about1: "Wrocław's mixed",
   about2: 'ultimate team',
   aboutP1: 'Flow is a mixed ultimate frisbee team from Wrocław. We train all year round — on grass in summer, indoors in winter — and travel to tournaments across Poland and Europe.',

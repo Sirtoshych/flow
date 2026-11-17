@@ -12,7 +12,7 @@ export function Achievements({ copy }: { copy: Copy }) {
 
   return (
     <section id="achievements" className="section">
-      <SectionHead no="03" />
+      <SectionHead no="02" />
       <div className="ach">
         <img src={asset('photo-trophy.webp')} alt="" className="cover ach__bg" loading="lazy" />
         <div className="title-row rel">

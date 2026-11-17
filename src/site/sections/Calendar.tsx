@@ -1,6 +1,5 @@
 import type { Copy, Lang } from '../i18n.js'
 import { LOCALE, type SiteEvent } from '../time.js'
-import { SectionHead } from './SectionHead.js'
 
 type Props = { copy: Copy; lang: Lang; events: SiteEvent[]; next: SiteEvent | undefined }
 
@@ -13,8 +12,7 @@ export function Calendar({ copy, lang, events, next }: Props) {
 
   return (
     <section id="calendar" className="section">
-      <SectionHead no="08" />
-      <h2 className="h2">{copy.calendar} {year}<span className="dot">.</span></h2>
+      <h1 className="h2">{copy.calendar} {year}<span className="dot">.</span></h1>
       <div className="months">
         {months.map(({ name, items }, monthIndex) => (
           <div key={name} className={`month${next !== undefined && items.includes(next) ? ' month--next' : ''}`}>
